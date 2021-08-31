@@ -10,15 +10,19 @@ import matplotlib.font_manager as fm
 def set_config():
     # 폰트, 그래프 색상 설정
     font_list = fm.findSystemFonts(fontpaths=None, fontext="ttf")
-    if any(["notosanscjk" in font.lower() for font in font_list]):
-        plt.rcParams["font.family"] = "Noto Sans CJK JP"
+    # if any(["notosanscjk" in font.lower() for font in font_list]):
+    if any(["sfprorounded" in font.lower() for font in font_list]):
+        plt.rcParams["font.family"] = "SF Pro Rounded"
+        # plt.rcParams["font.family"] = "Noto Sans CJK JP"
+
     else:
-        if not any(["malgun" in font.lower() for font in font_list]):
+        if not any(["applegothic" in font.lower() for font in font_list]):
             raise Exception(
                 "Font missing, please install Noto Sans CJK or Malgun Gothic. If you're using ubuntu, try `sudo apt install fonts-noto-cjk`"
             )
 
-        plt.rcParams["font.family"] = "Malgun Gothic"
+        plt.rcParams["font.family"] = "AppleGothic"
+        # plt.rcParams["font.family"] = "Malgun Gothic"
 
     sns.set_palette(sns.color_palette("Spectral"))
     plt.rc("xtick", labelsize=6)

@@ -28,6 +28,12 @@ review_columns = (
     "reg_time",  # 리뷰 등록 시간
 )
 
+user_columns = (
+    "id",  # 유저 고유번호
+    "gender",  # 유저 성별
+    "born_year",  # 유저 출신연도
+    "review_id"  # 리뷰 고유번호
+)
 
 def import_data(data_path=DATA_FILE):
     """
@@ -43,6 +49,7 @@ def import_data(data_path=DATA_FILE):
 
     stores = []  # 음식점 테이블
     reviews = []  # 리뷰 테이블
+    users = []   # 유저 테이블
 
     for d in data:
 
@@ -68,11 +75,16 @@ def import_data(data_path=DATA_FILE):
             reviews.append(
                 [r["id"], d["id"], u["id"], r["score"], r["content"], r["reg_time"]]
             )
+            # 유저 append
+            users.append(
+                [u["id"], u["gender"], u["born_year"], r["id"]]
+            )
 
     store_frame = pd.DataFrame(data=stores, columns=store_columns)
     review_frame = pd.DataFrame(data=reviews, columns=review_columns)
+    user_frame = pd.DataFrame(data=users, columns=user_columns)
 
-    return {"stores": store_frame, "reviews": review_frame}
+    return {"stores": store_frame, "reviews": review_frame, "users": user_frame}
 
 
 def dump_dataframes(dataframes):
@@ -106,6 +118,11 @@ def main():
     print("[리뷰]")
     print(f"{separater}\n")
     print(data["reviews"].head())
+    print(f"\n{separater}\n\n")
+
+    print("[사용자]")
+    print(f"{separater}\n")
+    print(data["users"].head())
     print(f"\n{separater}\n\n")
 
 
