@@ -1,4 +1,4 @@
-# SSAFY Bigdata project
+# SSAFY Bigdata project Sub I
 
 ## How to Run
 
