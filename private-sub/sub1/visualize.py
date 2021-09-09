@@ -64,29 +64,18 @@ def show_store_review_distribution_graph(dataframes, n=1000):
     """
 
     stores = dataframes["stores"].head(n)
-
-    # store_name = stores.store_name.apply(lambda c: c.split("|"))
-    # store_name = itertools.chain.from_iterable(store_name)
-    #
-    # store_name = filter(lambda c: c != "", store_name)
-    # store_name_count = Counter(list(store_name))
-    # hun_store_name = store_name_count.most_common(n=n)
-    #
-    # df = pd.DataFrame(hun_store_name, columns=["store_name", "review_cnt"])
-
     chart = sns.relplot(x="store_name", y="review_cnt", data=stores, hue="review_cnt")
-    # chart.set_xticklabels(chart.get_xticklabels(), rotation=45)
     plt.title("음식점 리뷰개수 분포")
     plt.show()
 
 
-def show_store_average_ratings_graph(dataframes):
+def show_store_average_ratings_graph(dataframes, n=1000):
     """
     Req. 1-3-2 각 음식점의 평균 평점을 그래프로 나타냅니다.
     """
     stores_reviews = pd.merge(
         dataframes["stores"], dataframes["reviews"], left_on="id", right_on="store"
-    )
+    ).head(n)
     scores_group = stores_reviews.groupby(["store", "store_name"])
     scores = scores_group.mean()
 
@@ -106,8 +95,8 @@ def show_user_review_distribution_graph(dataframes):
     scores = scores_group.mean()
     test = scores_group.count()["content"]
     result = pd.merge(left=test, right=scores, how="inner", on=["store", "store_name"])
-
-    chart = sns.relplot(x="id_x", y="review_cnt", data=result, hue="review_cnt")
+    result.rename(columns={'id_x': 'store_id'}, inplace=True)
+    chart = sns.relplot(x="store_id", y="review_cnt", data=result, hue="review_cnt")
     plt.title("유저 리뷰 개수")
     plt.show()
 
@@ -149,9 +138,9 @@ def main():
     # show_store_categories_graph(data)
     # show_store_review_distribution_graph(data)
     # show_store_average_ratings_graph(data)
-    show_user_review_distribution_graph(data)
+    # show_user_review_distribution_graph(data)
     # show_user_age_gender_distribution_graph(data)
-    # show_stores_distribution_graph(data)
+    show_stores_distribution_graph(data)
 
 
 if __name__ == "__main__":
