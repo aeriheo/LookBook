@@ -8,7 +8,7 @@ import org.springframework.web.client.RestTemplate;
 
 
 @RestController
-@RequestMapping("api/v1/test")
+@RequestMapping("v1/test")
 public class TestController {
 	
 	@GetMapping("/hello")
