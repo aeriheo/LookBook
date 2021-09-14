@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-=!eqy0-cs9k+6q(4%yxutz7ot7sr(8*hd15=!x&-5fxi$-(_h7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -37,6 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    # for test
+    'testAPI',
 ]
 
 MIDDLEWARE = [
@@ -75,8 +78,12 @@ WSGI_APPLICATION = 'BackDjango.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'django_testDB',
+        'USER': 'lookbook',
+        'PASSWORD': '1234',
+        'HOST': '13.124.75.162',
+        'PORT': '3306'
     }
 }
 
