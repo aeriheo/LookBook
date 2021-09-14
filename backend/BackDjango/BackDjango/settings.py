@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'rest_framework',
     # for test
     'testAPI',
+    # for SSL Server
+    'sslserver',
 ]
 
 MIDDLEWARE = [
