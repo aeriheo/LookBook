@@ -1,5 +1,6 @@
-### Sub II 구현 (UserBasedCF, ItemBasedCF)
+# Sub II 구현 (UserBasedCF, ItemBasedCF)
 - 유저 기반 , 아이템 기반 추천 구현
+- private-subII / sub1 안에 있습니다.
 
 # Sub I 기능 명세 구현
 
