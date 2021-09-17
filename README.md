@@ -1,8 +1,5 @@
-### 개인 branch 
-* 서민영 : MY
-* 서요셉 : YS
-* 이가빈 : GV
-* 허애리 : AR
+### Sub II 구현 (UserBasedCF, ItemBasedCF)
+- 유저 기반 , 아이템 기반 추천 구현
 
 # Sub I 기능 명세 구현
 
