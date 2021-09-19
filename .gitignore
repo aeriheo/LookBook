@@ -1,3 +1,9 @@
+# package-lock.json
+package-lock.json
+
+# Django Secret
+secret.py
+
 # .idea
 .idea/
 
