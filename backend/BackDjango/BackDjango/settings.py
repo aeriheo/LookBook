@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     # for test
     'testAPI',
     # for SSL Server
-    'sslserver',
+    # 'sslserver',
 ]
 
 MIDDLEWARE = [
