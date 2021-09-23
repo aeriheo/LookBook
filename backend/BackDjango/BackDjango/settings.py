@@ -43,8 +43,8 @@ INSTALLED_APPS = [
     'testAPI',
     # for Book Data - Read Data from LB Database
     'book',
-    # for SSL Server
-    # 'sslserver',
+    # for User Data - Read Data from LB Database
+    'user',
 ]
 
 MIDDLEWARE = [
