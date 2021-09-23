@@ -41,8 +41,10 @@ INSTALLED_APPS = [
     'rest_framework',
     # for test
     'testAPI',
-    # for SSL Server
-    # 'sslserver',
+    # for Book Data - Read Data from LB Database
+    'book',
+    # for User Data - Read Data from LB Database
+    'user',
 ]
 
 MIDDLEWARE = [
