@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.pjt2.lb.common.util.JwtTokenUtil;
 import com.pjt2.lb.entity.User;
+import com.pjt2.lb.repository.UserRepository;
 import com.pjt2.lb.request.UserLoginPostReq;
 import com.pjt2.lb.response.UserLoginPostRes;
 import com.pjt2.lb.service.UserService;
@@ -25,6 +26,9 @@ public class AuthController {
 	
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	UserRepository userRepository;
 	
 	@Autowired
 	PasswordEncoder passwordEncoder;
@@ -43,16 +47,18 @@ public class AuthController {
 		try {
 			
 			User user = userService.getUserByUserEmail(userEmail);
+			
 			String accessToken = JwtTokenUtil.getToken(userEmail);
 			String refreshToken = JwtTokenUtil.getRefreshToken(userEmail);
-			System.out.println("accessToken : " + JwtTokenUtil.getToken(userEmail));
-			System.out.println("refreshToken : " + JwtTokenUtil.getRefreshToken(userEmail));
+//			System.out.println("accessToken : " + JwtTokenUtil.getToken(userEmail));
+//			System.out.println("refreshToken : " + JwtTokenUtil.getRefreshToken(userEmail));
+//			JwtTokenUtil.handleError(accessToken);
 			
-			JwtTokenUtil.handleError(accessToken);
-			
-			if (userPassword.equals(user.getUserPassword())) {
+			if (passwordEncoder.matches(userPassword, user.getUserPassword())) {
+				user.setRefreshToken(refreshToken);
+				userRepository.save(user);
 				return ResponseEntity.status(200).
-						body(new UserLoginPostRes(200, "로그인에 성공하였습니다.", JwtTokenUtil.getToken(userEmail), JwtTokenUtil.getRefreshToken(userEmail)));
+						body(new UserLoginPostRes(200, "로그인에 성공하였습니다.", accessToken, refreshToken));
 			}
 			else {
 				return ResponseEntity.status(401).body(new UserLoginPostRes(401,"잘못된 비밀번호 입니다.", null, null));
