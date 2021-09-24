@@ -9,7 +9,6 @@ import org.springframework.web.client.RestTemplate;
 
 import com.pjt2.lb.service.TestService;
 
-
 @RestController
 @RequestMapping("v1/test")
 public class TestController {
@@ -46,7 +45,7 @@ public class TestController {
 		// System.out.println(response.getClass().getName());
 		return response;
 	}
-
+	
 //	@GetMapping("/user")
 //	public ResponseEntity<BaseResponseBody> getUserInfo() {
 //		String url = "http://localhost:8000/test/user";

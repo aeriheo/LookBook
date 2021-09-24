@@ -157,3 +157,5 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
+# application-oauth
+application-oauth.properties
