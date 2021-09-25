@@ -21,8 +21,8 @@ public class LBUserDetailsService implements UserDetailsService {
 	public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
 		User user = userService.getUserByUserEmail(userEmail);
 		if(user != null) {
-			LBUserDetails pitDetails = new LBUserDetails(user);
-			return pitDetails;
+			LBUserDetails lbDetails = new LBUserDetails(user);
+			return lbDetails;
 		}
 		
 		return null;

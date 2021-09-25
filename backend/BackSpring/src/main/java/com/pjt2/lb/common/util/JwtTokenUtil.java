@@ -1,10 +1,8 @@
 package com.pjt2.lb.common.util;
 
-import java.io.UnsupportedEncodingException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -61,16 +59,15 @@ public class JwtTokenUtil {
                 .withIssuedAt(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()))
                 .sign(Algorithm.HMAC512(secretKey.getBytes()));
     }
-
-    public static String getRefreshToken(String userEmail) {
+    
+    public static String getRefreshToken() {
     	// refresh_Token 유효시간 : 14일 (2주)
     	Date expires = JwtTokenUtil.getTokenExpiration(expirationTime * 24 * 14);
-        return JWT.create()
-                .withSubject(userEmail)
-                .withExpiresAt(expires)
-                .withIssuer(ISSUER)
-                .withIssuedAt(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()))
-                .sign(Algorithm.HMAC512(secretKey.getBytes()));
+    	return JWT.create()
+    			.withExpiresAt(expires)
+    			.withIssuer(ISSUER)
+    			.withIssuedAt(Date.from(LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant()))
+    			.sign(Algorithm.HMAC512(secretKey.getBytes()));    	
     }
     
     public static Date getTokenExpiration(int expirationTime) {
@@ -78,13 +75,7 @@ public class JwtTokenUtil {
     		return new Date(now.getTime() + expirationTime);
     }
     
-//    public static boolean isValidToken(String jwtToken) throws UnsupportedEncodingException {
-//    	Map<String, Object> claimMap = null;
-//    	try {
-//    		
-//    	} catch (ExpiredJwtException e)
-//    }
-
+    
     public static void handleError(String token) {
         JWTVerifier verifier = JWT
                 .require(Algorithm.HMAC512(secretKey.getBytes()))
@@ -93,7 +84,6 @@ public class JwtTokenUtil {
 
         try {
             verifier.verify(token.replace(TOKEN_PREFIX, ""));
-            System.out.println("유효한 토큰입니다.");
         } catch (AlgorithmMismatchException ex) {
             throw ex;
         } catch (InvalidClaimException ex) {
@@ -113,6 +103,37 @@ public class JwtTokenUtil {
         } catch (Exception ex) {
             throw ex;
         }
+    }
+    
+    // 토큰 Validation Check
+    public static boolean validateToken(String token) {
+    	JWTVerifier verifier = JWT
+    			.require(Algorithm.HMAC512(secretKey.getBytes()))
+    			.withIssuer(ISSUER)
+    			.build();
+    	
+    	try {
+    		verifier.verify(token.replace(TOKEN_PREFIX, ""));
+    		return true;
+    	} catch (AlgorithmMismatchException ex) {
+    		return false;
+    	} catch (InvalidClaimException ex) {
+    		return false;
+    	} catch (SignatureGenerationException ex) {
+    		return false;
+    	} catch (SignatureVerificationException ex) {
+    		return false;
+    	} catch (TokenExpiredException ex) {
+    		return false;
+    	} catch (JWTCreationException ex) {
+    		return false;
+    	} catch (JWTDecodeException ex) {
+    		return false;
+    	} catch (JWTVerificationException ex) {
+    		return false;
+    	} catch (Exception ex) {
+    		throw ex;
+    	}
     }
 
     public static void handleError(JWTVerifier verifier, String token) {

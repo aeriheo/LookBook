@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserLoginPostRes {
+public class TokenPostRes {
 	
 	int statusCode;
 	String message;
