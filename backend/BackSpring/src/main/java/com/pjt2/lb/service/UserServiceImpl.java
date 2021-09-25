@@ -2,9 +2,11 @@ package com.pjt2.lb.service;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.pjt2.lb.common.response.BaseResponseBody;
 import com.pjt2.lb.entity.User;
 import com.pjt2.lb.repository.UserRepository;
 import com.pjt2.lb.request.UserRegisterPostReq;
@@ -39,7 +41,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User getUserByuserNickname(String userNickname) {
+	public User getUserByUserNickname(String userNickname) {
 		User user = userRepository.findUserByUserNickname(userNickname);
 		return user;
 	}
@@ -51,5 +53,10 @@ public class UserServiceImpl implements UserService {
 		return userInfo;
 	}
 
+	@Override
+	public User getUserByRefreshToken(String refreshToken) {
+		User user = userRepository.findUserByRefreshToken(refreshToken);
+		return user;
+	}
 
 }

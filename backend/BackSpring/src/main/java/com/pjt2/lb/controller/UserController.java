@@ -27,10 +27,11 @@ public class UserController {
 	@Autowired
 	PasswordEncoder passwordEncoder;
 	
+	// 회원가입
 	@PostMapping()
-	public ResponseEntity<? extends BaseResponseBody> register(@RequestBody UserRegisterPostReq registerInfo){
+	public ResponseEntity<BaseResponseBody> register(@RequestBody UserRegisterPostReq registerInfo){
 		User userGetByEmail = userService.getUserByUserEmail(registerInfo.getUserEmail());
-		User userGetByNickname = userService.getUserByuserNickname(registerInfo.getUserNickname());
+		User userGetByNickname = userService.getUserByUserNickname(registerInfo.getUserNickname());
 		if (userGetByEmail != null && userGetByNickname != null) {
 			return ResponseEntity.status(411).body(BaseResponseBody.of(411, "Email과 닉네임 모두 사용중입니다."));
 		}
@@ -43,19 +44,20 @@ public class UserController {
 		else {
 			User user = userService.registerUser(registerInfo);
 			return ResponseEntity.status(200).body(BaseResponseBody.of(200, "환영합니다. 회원가입에 성공하셨습니다."));
-		}
-		
+		}	
 	}
 	
+	// 내 정보 조회
 	@GetMapping("/me")
 	public ResponseEntity<UserInfoGetRes> getUserInfo(Authentication authentication){
-		LBUserDetails userDetails = (LBUserDetails) authentication.getDetails();
-		User user = userDetails.getUser();
-		UserInfoGetRes userInfo = userService.getUserInfo(user);
 		try {
+			LBUserDetails userDetails = (LBUserDetails) authentication.getDetails();
+			User user = userDetails.getUser();
+			UserInfoGetRes userInfo = userService.getUserInfo(user);
 			return ResponseEntity.status(200).body(userInfo);
-		} catch(Exception e) {
-			return ResponseEntity.status(404).body(null);
+		} catch (NullPointerException e) {
+			// 만료된 토큰일 경우 NullPointerException 발생
+			return ResponseEntity.status(400).body(new UserInfoGetRes(400, "만료된 토큰입니다."));
 		}
 		
 	}

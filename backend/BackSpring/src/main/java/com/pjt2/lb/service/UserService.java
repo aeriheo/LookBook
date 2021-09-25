@@ -7,6 +7,8 @@ import com.pjt2.lb.response.UserInfoGetRes;
 public interface UserService {
 	User registerUser(UserRegisterPostReq userRegisterInfo);
 	User getUserByUserEmail(String userEmail);
-	User getUserByuserNickname(String userNickname);
+	User getUserByUserNickname(String userNickname);
+	User getUserByRefreshToken(String refreshToken);
 	UserInfoGetRes getUserInfo(User user);
+	
 }
