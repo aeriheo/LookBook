@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.pjt2.lb.common.util.JwtTokenUtil;
 import com.pjt2.lb.entity.User;
-import com.pjt2.lb.response.GoogleRes;
+import com.pjt2.lb.request.GoogleLoginPostReq;
 import com.pjt2.lb.response.UserLoginPostRes;
 import com.pjt2.lb.service.UserService;
 
@@ -22,33 +22,30 @@ import com.pjt2.lb.service.UserService;
         methods = {RequestMethod.GET,RequestMethod.POST,RequestMethod.DELETE,RequestMethod.PUT,RequestMethod.OPTIONS}
 ) 
 @RestController
-@RequestMapping("v1/test/google")
-public class googleController {
+@RequestMapping("v1/google")
+public class GoogleController {
 	
 	@Autowired
 	UserService userService;
 	
-	@PostMapping("/email")
-	public ResponseEntity<?> login(@RequestBody String email) {
-		System.out.println(email);
+	@PostMapping("/login")
+	public ResponseEntity<?> login(@RequestBody GoogleLoginPostReq info) {
+		System.out.println("구글에서 로그인에 성공한 이메일: " + info.getEmail());
+		
 		
 		try {
 			// 유정 정보가 있으면 로그인 성공
-			User user = userService.getUserByUserEmail(email);
+			User user = userService.getUserByUserEmail(info.getEmail());
+			String userEmail = user.getUserEmail();
+			System.out.println(userEmail);
 			
-			// 로그인 여부를 토큰으로 판단한다.
-			String accessToken = JwtTokenUtil.getToken(email);
-			// 리프레시 토큰은 인자 필요없다.
-//			String refreshToken = JwtTokenUtil.getRefreshToken();
+			String accessToken = JwtTokenUtil.getToken(userEmail);	// 로그인 여부를 토큰으로 판단한다.
+			String refreshToken = JwtTokenUtil.getRefreshToken();	// 리프레시 토큰은 인자 필요없다.
 			
+			return ResponseEntity.status(200).body(new UserLoginPostRes(200, "로그인에 성공하였습니다.", accessToken, refreshToken));
 			
-			// return 토큰 정보 프론트로 보내주기;
-			
-		} catch (NullPointerException e) {
-			// 로그인 실패
-//			return ResponseEntity.status(404).body(new Object(0));
+		} catch (NullPointerException e) {	// 로그인 실패
+			return ResponseEntity.status(404).body(new UserLoginPostRes(404, "존재하지 않는 계정입니다.", null, null));
 		}
-		
-		return null;
 	}
 }
