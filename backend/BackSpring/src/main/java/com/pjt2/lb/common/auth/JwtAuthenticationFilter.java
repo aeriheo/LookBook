@@ -78,9 +78,9 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
 				User user = userService.getUserByUserEmail(userEmail);
 				if(user != null) {
 					// 식별된 정상 유저인 경우, 요청 context 내에서 참조가능한 인증정보(jwtAuthentication) 생성
-					LBUserDetails pitUserDetails = new LBUserDetails(user);
-					UsernamePasswordAuthenticationToken jwtAuthentication = new UsernamePasswordAuthenticationToken(userEmail, null, pitUserDetails.getAuthorities());
-					jwtAuthentication.setDetails(pitUserDetails);
+					LBUserDetails lbUserDetails = new LBUserDetails(user);
+					UsernamePasswordAuthenticationToken jwtAuthentication = new UsernamePasswordAuthenticationToken(userEmail, null, lbUserDetails.getAuthorities());
+					jwtAuthentication.setDetails(lbUserDetails);
 					return jwtAuthentication;
 				}		
 			}
@@ -88,4 +88,5 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
 		}
 		return null;
 	}
+	
 }
