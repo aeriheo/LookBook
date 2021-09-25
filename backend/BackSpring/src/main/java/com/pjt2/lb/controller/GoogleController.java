@@ -22,25 +22,22 @@ import com.pjt2.lb.service.UserService;
         methods = {RequestMethod.GET,RequestMethod.POST,RequestMethod.DELETE,RequestMethod.PUT,RequestMethod.OPTIONS}
 ) 
 @RestController
-@RequestMapping("v1/google")
 public class GoogleController {
 	
 	@Autowired
 	UserService userService;
 	
-	@PostMapping("/login")
+	@PostMapping("/login/google")
 	public ResponseEntity<?> login(@RequestBody GoogleLoginPostReq info) {
 		System.out.println("구글에서 로그인에 성공한 이메일: " + info.getEmail());
 		
-		
 		try {
-			// 유정 정보가 있으면 로그인 성공
 			User user = userService.getUserByUserEmail(info.getEmail());
 			String userEmail = user.getUserEmail();
 			System.out.println(userEmail);
 			
-			String accessToken = JwtTokenUtil.getToken(userEmail);	// 로그인 여부를 토큰으로 판단한다.
-			String refreshToken = JwtTokenUtil.getRefreshToken();	// 리프레시 토큰은 인자 필요없다.
+			String accessToken = JwtTokenUtil.getToken(userEmail);
+			String refreshToken = JwtTokenUtil.getRefreshToken();
 			
 			return ResponseEntity.status(200).body(new UserLoginPostRes(200, "로그인에 성공하였습니다.", accessToken, refreshToken));
 			
