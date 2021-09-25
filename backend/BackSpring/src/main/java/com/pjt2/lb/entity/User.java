@@ -46,8 +46,8 @@ public class User {
 	@Column(name="user_join_type")
 	int userJoinType;
 	
-	@Column(name="access_token")
-	String accessToken;
+	@Column(name="refresh_token")
+	String refreshToken;
 	
 
 	// user-review
