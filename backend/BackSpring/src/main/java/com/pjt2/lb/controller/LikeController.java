@@ -1,6 +1,8 @@
 package com.pjt2.lb.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +19,7 @@ import com.pjt2.lb.common.auth.LBUserDetails;
 import com.pjt2.lb.common.response.BaseResponseBody;
 import com.pjt2.lb.entity.Book;
 import com.pjt2.lb.entity.User;
-import com.pjt2.lb.response.LikeBookListGetRes;
+import com.pjt2.lb.response.BookListInfoRes;
 import com.pjt2.lb.response.UserInfoGetRes;
 import com.pjt2.lb.service.LikeService;
 
@@ -138,8 +140,11 @@ public class LikeController {
 //			// 사용자가 좋아요한 도서 리스트 가져오기
 //			List<LikeBookListGetRes> likeBookList = likeService.getLikeBookList(user);
 //
-//			// 이거 리스트 반환으로 변경하자.
-//			return ResponseEntity.status(200).body(BaseResponseBody.of(200, "좋아요 리스트 성공."));
+//			Map<String, List> map = new HashMap<String, List>();
+//			map.put("likeBookList", likeBookList);
+//			
+//			return ResponseEntity.status(200).body(map);
+//			return ResponseEntity.status(200).body(BaseResponseBody.of(200, "좋아요 리스트 조회 성공."));
 //		} catch(Exception e) {
 //			return ResponseEntity.status(500).body(BaseResponseBody.of(500, "Internal Server Error"));
 //		}
@@ -152,10 +157,12 @@ public class LikeController {
 			String userEmail = "tjalsdud9@gmail.com";
 			
 			// 사용자가 좋아요한 도서 리스트 가져오기
-			List<LikeBookListGetRes> likeBookList = likeService.getLikeBookList(userEmail);
-
-			// 이거 리스트 반환으로 변경하자.
-			return ResponseEntity.status(200).body(BaseResponseBody.of(200, "좋아요 리스트 성공."));
+			List<BookListInfoRes> likeBookList = likeService.getLikeBookList(userEmail);
+			
+			Map<String, List> map = new HashMap<String, List>();
+			map.put("likeBookList", likeBookList);
+			
+			return ResponseEntity.status(200).body(map);
 		} catch(Exception e) {
 			return ResponseEntity.status(500).body(BaseResponseBody.of(500, "Internal Server Error"));
 		}

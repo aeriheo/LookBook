@@ -12,7 +12,7 @@ import com.pjt2.lb.repository.BookRepository;
 import com.pjt2.lb.repository.LikeRepository;
 import com.pjt2.lb.repository.LikeRepositorySupport;
 import com.pjt2.lb.repository.UserRepository;
-import com.pjt2.lb.response.LikeBookListGetRes;
+import com.pjt2.lb.response.BookListInfoRes;
 
 @Service("LikeService")
 //@Service
@@ -97,7 +97,7 @@ public class LikeServiceImpl implements LikeService{
 //	}
 
 	@Override
-	public List<LikeBookListGetRes> getLikeBookList(String userEmail) {
+	public List<BookListInfoRes> getLikeBookList(String userEmail) {
 		// 이메일에 해당하는 모든 책 정보 가져오기
 		return likeRepositorySupport.getLikeBookList(userEmail);
 	}

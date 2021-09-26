@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class LikeBookListGetRes {
+public class BookListInfoRes {
 	String BookIsbn;
 	String BookTitle;
 	String BookImgUrl;
