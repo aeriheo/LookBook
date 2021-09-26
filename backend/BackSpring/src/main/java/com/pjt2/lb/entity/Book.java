@@ -80,7 +80,7 @@ public class Book {
 	// book-like
 	@JsonManagedReference
 	@OneToMany(mappedBy="book")
-	List<Like> like = new ArrayList<Like>();
+	List<BookLike> like = new ArrayList<BookLike>();
 
 	// book-searchLog
 	@JsonManagedReference

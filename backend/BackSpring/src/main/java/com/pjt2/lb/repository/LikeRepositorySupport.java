@@ -4,19 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.pjt2.lb.entity.Book;
 import com.pjt2.lb.entity.QBook;
-import com.pjt2.lb.entity.QLike;
+import com.pjt2.lb.entity.QBookLike;
 import com.pjt2.lb.response.LikeBookListGetRes;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
+@Repository
 public class LikeRepositorySupport {
 	
 	@Autowired
 	private JPAQueryFactory query;
 
-	QLike qLike = QLike.like;
+	QBookLike qLike = QBookLike.like;
 	QBook qBook = QBook.book;
 	
 	public List<LikeBookListGetRes> getLikeBookList(String userEmail) {

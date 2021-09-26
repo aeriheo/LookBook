@@ -32,6 +32,7 @@ public class LikeController {
 	
 	// 좋아요 추가
 	// Authentication 매개변수로 토큰정보 가져오기
+	/*
 	@PostMapping("/{bookIsbn}")
 	public ResponseEntity<?> addLike(Authentication authentication, @PathVariable String bookIsbn){
 		
@@ -55,28 +56,63 @@ public class LikeController {
 		} catch(Exception e) {	// IllegalArgumentException
 			return ResponseEntity.status(500).body(BaseResponseBody.of(500, "Internal Server Error"));
 		}
+	}
+	*/
+	
+	// 좋아요 추가 테스트
+	@PostMapping("/{bookIsbn}")
+	public ResponseEntity<?> addLike(@PathVariable String bookIsbn){
 		
+		System.out.println("bookIsbn: " + bookIsbn);
+
+		String userEmail = "tjalsdud9@gmail.com";
+		
+		try {
+			// 좋아요 추가
+			likeService.addLike(userEmail, bookIsbn);
+			return ResponseEntity.status(200).body(BaseResponseBody.of(200, "좋아요 추가 성공."));
+		} catch(Exception e) {	// IllegalArgumentException
+			return ResponseEntity.status(500).body(BaseResponseBody.of(500, "Internal Server Error"));
+		}
 	}
 	
 	// 좋아요 삭제
+//	@DeleteMapping("/{bookIsbn}")
+//	public ResponseEntity<?> deleteLike(Authentication authentication, @PathVariable String bookIsbn){
+//		
+//		System.out.println("bookIsbn: " + bookIsbn);
+//		
+//		try {
+//			User user;	// 매개변수로 전달할 사용자 객체 선언
+//			
+//			// 사용자 정보 조회
+//			try { // Authentication에서 받아온 토큰 값이 유효할 때
+//				LBUserDetails userDetails = (LBUserDetails) authentication.getDetails(); 
+//				user = userDetails.getUser(); // 사용자 정보 가져오기 성공
+//			} catch (NullPointerException e) { // Authentication에서 받아온 토큰 값이 유효하지 않을 때
+//				return ResponseEntity.status(400).body(new UserInfoGetRes(400, "만료된 토큰입니다."));
+//			}
+//	
+//			// 좋아요 삭제
+//			likeService.deleteLike(user, bookIsbn);
+//			
+//			return ResponseEntity.status(200).body(BaseResponseBody.of(200, "좋아요 삭제 성공."));
+//		} catch(Exception e) {
+//			return ResponseEntity.status(500).body(BaseResponseBody.of(500, "Internal Server Error"));
+//		}
+//	}
+	
+	// 좋아요 삭제 테스트
 	@DeleteMapping("/{bookIsbn}")
-	public ResponseEntity<?> deleteLike(Authentication authentication, @PathVariable String bookIsbn){
+	public ResponseEntity<?> deleteLike(@PathVariable String bookIsbn){
 		
 		System.out.println("bookIsbn: " + bookIsbn);
 		
 		try {
-			User user;	// 매개변수로 전달할 사용자 객체 선언
+			String userEmail = "tjalsdud9@gmail.com";
 			
-			// 사용자 정보 조회
-			try { // Authentication에서 받아온 토큰 값이 유효할 때
-				LBUserDetails userDetails = (LBUserDetails) authentication.getDetails(); 
-				user = userDetails.getUser(); // 사용자 정보 가져오기 성공
-			} catch (NullPointerException e) { // Authentication에서 받아온 토큰 값이 유효하지 않을 때
-				return ResponseEntity.status(400).body(new UserInfoGetRes(400, "만료된 토큰입니다."));
-			}
-	
 			// 좋아요 삭제
-			likeService.addLike(user, bookIsbn);
+			likeService.deleteLike(userEmail, bookIsbn);
 			
 			return ResponseEntity.status(200).body(BaseResponseBody.of(200, "좋아요 삭제 성공."));
 		} catch(Exception e) {
@@ -84,22 +120,39 @@ public class LikeController {
 		}
 	}
 	
+	
 	// 좋아요 리스트
+//	@GetMapping()
+//	public ResponseEntity<?> getLikeList(Authentication authentication) {
+//		try {
+//			User user;	// 매개변수로 전달할 사용자 객체 선언
+//			
+//			// 사용자 정보 조회
+//			try { // Authentication에서 받아온 토큰 값이 유효할 때
+//				LBUserDetails userDetails = (LBUserDetails) authentication.getDetails(); 
+//				user = userDetails.getUser(); // 사용자 정보 가져오기 성공
+//			} catch (NullPointerException e) { // Authentication에서 받아온 토큰 값이 유효하지 않을 때
+//				return ResponseEntity.status(400).body(new UserInfoGetRes(400, "만료된 토큰입니다."));
+//			}
+//			
+//			// 사용자가 좋아요한 도서 리스트 가져오기
+//			List<LikeBookListGetRes> likeBookList = likeService.getLikeBookList(user);
+//
+//			// 이거 리스트 반환으로 변경하자.
+//			return ResponseEntity.status(200).body(BaseResponseBody.of(200, "좋아요 리스트 성공."));
+//		} catch(Exception e) {
+//			return ResponseEntity.status(500).body(BaseResponseBody.of(500, "Internal Server Error"));
+//		}
+//	}
+
+	// 좋아요 리스트 테스트
 	@GetMapping()
-	public ResponseEntity<?> getLikeList(Authentication authentication) {
+	public ResponseEntity<?> getLikeList() {
 		try {
-			User user;	// 매개변수로 전달할 사용자 객체 선언
-			
-			// 사용자 정보 조회
-			try { // Authentication에서 받아온 토큰 값이 유효할 때
-				LBUserDetails userDetails = (LBUserDetails) authentication.getDetails(); 
-				user = userDetails.getUser(); // 사용자 정보 가져오기 성공
-			} catch (NullPointerException e) { // Authentication에서 받아온 토큰 값이 유효하지 않을 때
-				return ResponseEntity.status(400).body(new UserInfoGetRes(400, "만료된 토큰입니다."));
-			}
+			String userEmail = "tjalsdud9@gmail.com";
 			
 			// 사용자가 좋아요한 도서 리스트 가져오기
-			List<LikeBookListGetRes> likeBookList = likeService.getLikeBookList(user);
+			List<LikeBookListGetRes> likeBookList = likeService.getLikeBookList(userEmail);
 
 			// 이거 리스트 반환으로 변경하자.
 			return ResponseEntity.status(200).body(BaseResponseBody.of(200, "좋아요 리스트 성공."));
@@ -107,9 +160,4 @@ public class LikeController {
 			return ResponseEntity.status(500).body(BaseResponseBody.of(500, "Internal Server Error"));
 		}
 	}
-	
-	
-	
-	
-	
 }

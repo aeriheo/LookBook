@@ -4,11 +4,14 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.pjt2.lb.entity.Like;
+import com.pjt2.lb.entity.BookLike;
 import com.pjt2.lb.entity.User;
+import com.pjt2.lb.repository.BookRepository;
 import com.pjt2.lb.repository.LikeRepository;
 import com.pjt2.lb.repository.LikeRepositorySupport;
+import com.pjt2.lb.repository.UserRepository;
 import com.pjt2.lb.response.LikeBookListGetRes;
 
 @Service("LikeService")
@@ -22,37 +25,87 @@ public class LikeServiceImpl implements LikeService{
 	BookRepository bookRepository;
 	
 	@Autowired
+	UserRepository userRepository;
+	
+	@Autowired
 	LikeRepositorySupport likeRepositorySupport;
 	
+//	@Override
+//	public Like addLike(User user, String bookIsbn) {
+//		Like like = new Like();
+//		
+//		// Book 조회해서 넣기
+//		like.setBook(bookRepository.findByBookIsbn(bookIsbn));
+//		// User 조회해서 넣기
+//		like.setUser(user);
+//		
+//		return likeRepository.save(like);
+//	}
+
 	@Override
-	public Like addLike(User user, String bookIsbn) {
-		// 이메일+isbn으로 추가
-		Like like = new Like();
+	public BookLike addLike(String userEmail, String bookIsbn) {
+		BookLike like = new BookLike();
 		
-		// Book 조회해서 넣기
-//		like.setBook();
-		// User 조회해서 넣기
-		like.setUser(user);
+		try{
+			// Book 조회해서 넣기
+			like.setBook(bookRepository.findByBookIsbn(bookIsbn));
+
+			// User 조회해서 넣기
+			User user = userRepository.findUserByUserEmail(userEmail);
+			like.setUser(user);
+			
+			System.out.println(like.getUser());
+			
+			// 오류발생지
+			likeRepository.save(like);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 		
-		return likeRepository.save(like);
+		return null;
 	}
+
+	
+//	@Override
+//	@Transactional 
+//	public int deleteLike(User user, String bookIsbn) {
+//		String userEmail = user.getUserEmail();
+//		int ans = likeRepository.deleteByBookBookIsbnAndUserUserEmail(bookIsbn, userEmail);
+//		return ans;
+//	}
 	
 	@Override
-	public int deleteLike(User user, String bookIsbn) {
-		String userEmail = user.getUserEmail();
-		int ans = likeRepository.deleteByBookBookIsbnAndUserUserEmail(bookIsbn, userEmail);
-		return ans;
+	@Transactional 
+	public int deleteLike(String userEmail, String bookIsbn) {
+		try {
+			int ans = likeRepository.deleteByBookBookIsbnAndUserUserEmail(bookIsbn, userEmail);
+			return ans;
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return 0;
 	}
 	
+//	@Override
+//	public List<LikeBookListGetRes> getLikeBookList(User user) {
+//		
+//		String userEmail = user.getUserEmail();
+//		
+//		// 이메일에 해당하는 모든 책 정보 가져오기
+//		return likeRepositorySupport.getLikeBookList(userEmail);
+//	}
+
 	@Override
-	public List<LikeBookListGetRes> getLikeBookList(User user) {
-		
-		String userEmail = user.getUserEmail();
-		
+	public List<LikeBookListGetRes> getLikeBookList(String userEmail) {
 		// 이메일에 해당하는 모든 책 정보 가져오기
 		return likeRepositorySupport.getLikeBookList(userEmail);
 	}
 	
-	// 가빈 ) 내 이메일과 책 정보로 좋아요를 했는지 확인이 필요하다.
+	@Override
+	public int getLikeState(String userEmail, String bookIsbn) {
+		int ans = likeRepository.findByBookBookIsbnAndUserUserEmail(userEmail, bookIsbn);
+		return ans;
+	}
 	
 }
