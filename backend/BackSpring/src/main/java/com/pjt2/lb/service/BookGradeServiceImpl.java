@@ -9,6 +9,7 @@ import com.pjt2.lb.entity.User;
 import com.pjt2.lb.repository.BookGradeRepository;
 import com.pjt2.lb.repository.BookRepository;
 import com.pjt2.lb.repository.UserRepository;
+import com.pjt2.lb.request.BookGradePostReq;
 
 
 @Service
@@ -28,7 +29,11 @@ public class BookGradeServiceImpl implements BookGradeService {
 
 
 	@Override
-	public int insertBookGrade(String userEmail, String bookIsbn, int grade) {
+	public int insertBookGrade(String userEmail, BookGradePostReq bookGradePostReq) {
+		
+		String bookIsbn = bookGradePostReq.getBookIsbn();
+		int grade = bookGradePostReq.getBookGrade();
+		
 		try {
 			BookGrade bookGrade = new BookGrade();
 			bookGrade.setBookGrade(grade);
@@ -47,7 +52,11 @@ public class BookGradeServiceImpl implements BookGradeService {
 
 
 	@Override
-	public int updateBookGrade(String userEmail, String bookIsbn, int grade) {
+	public int updateBookGrade(String userEmail, BookGradePostReq bookGradePostReq) {
+		
+		String bookIsbn = bookGradePostReq.getBookIsbn();
+		int grade = bookGradePostReq.getBookGrade();
+		
 		try {
 			BookGrade bookGrade = bookGradeRepository.findByBookBookIsbnAndUserUserEmail(bookIsbn, userEmail);
 			bookGrade.setBookGrade(grade);

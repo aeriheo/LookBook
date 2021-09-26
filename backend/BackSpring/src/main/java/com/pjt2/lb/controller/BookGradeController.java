@@ -27,10 +27,9 @@ public class BookGradeController {
 	public ResponseEntity<BaseResponseBody> insertBookGrade(@RequestBody BookGradePostReq bookGradePostReq){
 		
 		String userEmail = "test1@test.com";
-		String bookIsbn = bookGradePostReq.getBookIsbn();
-		int bookGrade = bookGradePostReq.getBookGrade();
+
 		int result = 0;
-		result = bookGradeService.insertBookGrade(userEmail, bookIsbn, bookGrade);
+		result = bookGradeService.insertBookGrade(userEmail, bookGradePostReq);
 		if(result == 1) {			
 			return ResponseEntity.status(200).body(BaseResponseBody.of(200, "평점 입력 성공"));
 		} else {
@@ -42,10 +41,9 @@ public class BookGradeController {
 	public ResponseEntity<BaseResponseBody> updateBookGrade(@RequestBody BookGradePostReq bookGradePostReq){
 		
 		String userEmail = "test1@test.com";
-		String bookIsbn = bookGradePostReq.getBookIsbn();
-		int bookGrade = bookGradePostReq.getBookGrade();
+
 		int result = 0;
-		result = bookGradeService.updateBookGrade(userEmail, bookIsbn, bookGrade);
+		result = bookGradeService.updateBookGrade(userEmail, bookGradePostReq);
 		if(result == 1) {			
 			return ResponseEntity.status(200).body(BaseResponseBody.of(200, "평점 수정 성공"));
 		} else {
