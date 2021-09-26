@@ -1,5 +1,7 @@
 package com.pjt2.lb.service;
 
+import java.util.List;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -7,8 +9,10 @@ import org.springframework.stereotype.Service;
 import com.pjt2.lb.entity.Book;
 import com.pjt2.lb.repository.BookGradeRepositorySupport;
 import com.pjt2.lb.repository.BookRepository;
+import com.pjt2.lb.repository.BookRepositorySupport;
 import com.pjt2.lb.repository.ReviewRepository;
 import com.pjt2.lb.response.BookInfoGetRes;
+import com.pjt2.lb.response.BookListInfoRes;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -21,6 +25,9 @@ public class BookServiceImpl implements BookService {
 	
 	@Autowired
 	BookGradeRepositorySupport bookGradeRepositorySupport;
+	
+	@Autowired
+	BookRepositorySupport bookRepositorySupport;
 	
 	@Override
 	public BookInfoGetRes getBookInfo(String bookIsbn, String userEmail) {
@@ -48,6 +55,11 @@ public class BookServiceImpl implements BookService {
 		
 		
 		return bookInfo;
+	}
+
+	@Override
+	public List<BookListInfoRes> getSearchBookInfo(String searchKey, String searchWord) {
+		return bookRepositorySupport.getSearchBookInfo(searchKey, searchWord);
 	}
 
 }
