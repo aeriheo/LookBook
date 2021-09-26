@@ -51,6 +51,6 @@ public class QLike extends EntityPathBase<Like> {
         this.book = inits.isInitialized("book") ? new QBook(forProperty("book")) : null;
         this.user = inits.isInitialized("user") ? new QUser(forProperty("user")) : null;
     }
-
+    
 }
 

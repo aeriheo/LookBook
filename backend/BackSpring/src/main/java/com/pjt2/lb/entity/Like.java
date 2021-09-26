@@ -42,7 +42,6 @@ public class Like {
 	@Column(name="like_date")
 	Date likeDate;
 	
-	
 	// search_log - user
 	@JsonManagedReference
 	@ManyToOne
