@@ -30,18 +30,20 @@ public class LikeServiceImpl implements LikeService{
 	@Autowired
 	LikeRepositorySupport likeRepositorySupport;
 	
-//	@Override
-//	public Like addLike(User user, String bookIsbn) {
-//		Like like = new Like();
-//		
-//		// Book 조회해서 넣기
-//		like.setBook(bookRepository.findByBookIsbn(bookIsbn));
-//		// User 조회해서 넣기
-//		like.setUser(user);
-//		
-//		return likeRepository.save(like);
-//	}
+	@Override
+	public BookLike addLike(User user, String bookIsbn) {
+		BookLike bookLike = new BookLike();
+		
+		// Book 조회해서 넣기
+		bookLike.setBook(bookRepository.findByBookIsbn(bookIsbn));
+		// User 조회해서 넣기
+		bookLike.setUser(user);
+		
+		return likeRepository.save(bookLike);
+	}
 
+	// addLike 테스트
+	/*
 	@Override
 	public BookLike addLike(String userEmail, String bookIsbn) {
 		BookLike like = new BookLike();
@@ -64,16 +66,19 @@ public class LikeServiceImpl implements LikeService{
 		
 		return null;
 	}
+	*/
 
 	
-//	@Override
-//	@Transactional 
-//	public int deleteLike(User user, String bookIsbn) {
-//		String userEmail = user.getUserEmail();
-//		int ans = likeRepository.deleteByBookBookIsbnAndUserUserEmail(bookIsbn, userEmail);
-//		return ans;
-//	}
+	@Override
+	@Transactional 
+	public int deleteLike(User user, String bookIsbn) {
+		String userEmail = user.getUserEmail();
+		int ans = likeRepository.deleteByBookBookIsbnAndUserUserEmail(bookIsbn, userEmail);
+		return ans;
+	}
 	
+	// deleteLike 테스트
+	/*
 	@Override
 	@Transactional 
 	public int deleteLike(String userEmail, String bookIsbn) {
@@ -86,21 +91,25 @@ public class LikeServiceImpl implements LikeService{
 		
 		return 0;
 	}
+	*/
 	
-//	@Override
-//	public List<LikeBookListGetRes> getLikeBookList(User user) {
-//		
-//		String userEmail = user.getUserEmail();
-//		
-//		// 이메일에 해당하는 모든 책 정보 가져오기
-//		return likeRepositorySupport.getLikeBookList(userEmail);
-//	}
+	@Override
+	public List<BookListInfoRes> getLikeBookList(User user) {
+		
+		String userEmail = user.getUserEmail();
+		
+		// 이메일에 해당하는 모든 책 정보 가져오기
+		return likeRepositorySupport.getLikeBookList(userEmail);
+	}
 
+	// getLikeBookList 테스트
+	/*
 	@Override
 	public List<BookListInfoRes> getLikeBookList(String userEmail) {
 		// 이메일에 해당하는 모든 책 정보 가져오기
 		return likeRepositorySupport.getLikeBookList(userEmail);
 	}
+	*/
 	
 	@Override
 	public int getLikeState(String userEmail, String bookIsbn) {
