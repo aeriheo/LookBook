@@ -49,3 +49,11 @@
   font-family: "NanumGothic";
   src: url("./fonts/NanumGothic.ttf");
 }
+@font-face {
+  font-family: "NotoSans";
+  src: url("./fonts/NotoSansCJKkr-Regular.ttf");
+}
+@font-face {
+  font-family: "SecularOne";
+  src: url("./fonts/SecularOne-Regular.ttf");
+}
