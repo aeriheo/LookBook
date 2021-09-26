@@ -23,8 +23,8 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name="Like")
-public class Like {
+@Table(name="Book_Like")
+public class BookLike {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,7 +41,6 @@ public class Like {
 	@CreationTimestamp
 	@Column(name="like_date")
 	Date likeDate;
-	
 	
 	// search_log - user
 	@JsonManagedReference

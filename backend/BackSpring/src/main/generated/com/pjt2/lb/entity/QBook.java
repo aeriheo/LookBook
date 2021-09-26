@@ -48,7 +48,7 @@ public class QBook extends EntityPathBase<Book> {
 
     public final ListPath<Library, QLibrary> library = this.<Library, QLibrary>createList("library", Library.class, QLibrary.class, PathInits.DIRECT2);
 
-    public final ListPath<Like, QLike> like = this.<Like, QLike>createList("like", Like.class, QLike.class, PathInits.DIRECT2);
+    public final ListPath<BookLike, QBookLike> like = this.<BookLike, QBookLike>createList("like", BookLike.class, QBookLike.class, PathInits.DIRECT2);
 
     public final ListPath<Review, QReview> review = this.<Review, QReview>createList("review", Review.class, QReview.class, PathInits.DIRECT2);
 

@@ -22,7 +22,7 @@ public class QUser extends EntityPathBase<User> {
 
     public final ListPath<BookGrade, QBookGrade> bookGrade = this.<BookGrade, QBookGrade>createList("bookGrade", BookGrade.class, QBookGrade.class, PathInits.DIRECT2);
 
-    public final ListPath<Like, QLike> like = this.<Like, QLike>createList("like", Like.class, QLike.class, PathInits.DIRECT2);
+    public final ListPath<BookLike, QBookLike> like = this.<BookLike, QBookLike>createList("like", BookLike.class, QBookLike.class, PathInits.DIRECT2);
 
     public final StringPath refreshToken = createString("refreshToken");
 
