@@ -35,7 +35,7 @@ public class KakaoLoginController {
 	@Autowired
 	AuthService authService;
 	
-	 @GetMapping("/login/kakao")
+	 @GetMapping("/kakao/login")
 	 public ResponseEntity<KakaoLoginRes> oauth2AuthorizationKakao(@RequestParam("code") String code) {
 		 
 		 KakaoLoginRes kakaoLoginRes = new KakaoLoginRes();
