@@ -22,12 +22,12 @@ import com.pjt2.lb.service.UserService;
         methods = {RequestMethod.GET,RequestMethod.POST,RequestMethod.DELETE,RequestMethod.PUT,RequestMethod.OPTIONS}
 ) 
 @RestController
-public class GoogleController {
+public class GoogleLoginController {
 	
 	@Autowired
 	UserService userService;
 	
-	@PostMapping("/login/google")
+	@PostMapping("/google/login")
 	public ResponseEntity<?> login(@RequestBody GoogleLoginPostReq info) {
 		System.out.println("구글에서 로그인에 성공한 이메일: " + info.getEmail());
 		
