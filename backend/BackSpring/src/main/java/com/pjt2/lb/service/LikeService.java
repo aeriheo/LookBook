@@ -7,14 +7,14 @@ import com.pjt2.lb.entity.User;
 import com.pjt2.lb.response.BookListInfoRes;
 
 public interface LikeService {
-//	Like addLike(User user, String bookIsbn);
-	BookLike addLike(String userEmail, String bookIsbn);
+	BookLike addLike(User user, String bookIsbn);
+//	BookLike addLike(String userEmail, String bookIsbn);
 
-//	int deleteLike(User user, String bookIsbn);
-	int deleteLike(String userEmail, String bookIsbn);
+	int deleteLike(User user, String bookIsbn);
+//	int deleteLike(String userEmail, String bookIsbn);
 	
-//	List<BookListInfoRes> getLikeBookList(User user);
-	List<BookListInfoRes> getLikeBookList(String userEmail);
+	List<BookListInfoRes> getLikeBookList(User user);
+//	List<BookListInfoRes> getLikeBookList(String userEmail);
 	
 	int getLikeState(String userEmail, String bookIsbn);
 }
