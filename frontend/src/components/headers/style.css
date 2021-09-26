@@ -1,0 +1,114 @@
+.divMobile {
+  font-family: "NanumGothic";
+}
+
+#headerMobile {
+  background-color: #ffffff;
+  color: black;
+  height: auto;
+}
+
+#logoMobile {
+  font-family: "Rozha One";
+  font-size: 40px;
+  margin-left: 20px;
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+.mobileIconColor {
+  color: black;
+}
+
+#userMobile {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-family: "Montserrat";
+  font-weight: bold;
+  margin: 15px;
+  font-size: 20px;
+}
+
+#listMobile {
+  width: 250px;
+}
+
+#listItemMobile {
+  font-family: "Montserrat";
+  font-weight: bold;
+  font-size: 18px;
+}
+
+#listItemTextMobile {
+  margin: 10px;
+  font-weight: bold;
+}
+
+#iconMediumMobile {
+  margin-right: 10px;
+  font-size: 30px;
+}
+
+#iconLargeMobile {
+  margin-right: 5px;
+  font-size: 35px;
+}
+
+#AppBarWeb {
+  background-color: #ffffff;
+  color: black;
+  height: auto;
+}
+
+#divWeb {
+  display: flex;
+}
+
+#logoWeb {
+  font-family: "Rozha One";
+  font-size: 64px;
+  margin-left: 20px;
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+#buttonWeb {
+  color: black;
+}
+
+#searchBtnWeb {
+  margin-left: 10px;
+  color: #999999;
+}
+
+#userDivWeb {
+  margin-right: 20px;
+  margin-left: 15px;
+}
+
+#menuUserWeb {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-family: "Montserrat";
+  font-weight: bold;
+  margin: 15px;
+  font-size: 20px;
+}
+
+#menuItemWeb {
+  font-family: "Montserrat";
+  font-weight: bold;
+  font-size: 18px;
+}
+
+#menuIconLargeWeb {
+  margin-right: 5px;
+  font-size: 35px;
+}
+
+#menuIconMediumWeb {
+  margin-right: 10px;
+  font-size: 30px;
+}

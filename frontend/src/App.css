@@ -36,3 +36,24 @@
     transform: rotate(360deg);
   }
 }
+
+@font-face {
+  font-family: "Rozha One";
+  src: url("./fonts/RozhaOne-Regular.ttf");
+}
+@font-face {
+  font-family: "Montserrat";
+  src: url("./fonts/Montserrat-Bold.ttf");
+}
+@font-face {
+  font-family: "NanumGothic";
+  src: url("./fonts/NanumGothic.ttf");
+}
+@font-face {
+  font-family: "NotoSans";
+  src: url("./fonts/NotoSansCJKkr-Regular.ttf");
+}
+@font-face {
+  font-family: "SecularOne";
+  src: url("./fonts/SecularOne-Regular.ttf");
+}
