@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pjt2.lb.entity.Book;
+import com.pjt2.lb.entity.User;
 import com.pjt2.lb.repository.BookGradeRepositorySupport;
 import com.pjt2.lb.repository.BookRepository;
 import com.pjt2.lb.repository.BookRepositorySupport;
@@ -30,7 +31,7 @@ public class BookServiceImpl implements BookService {
 	BookRepositorySupport bookRepositorySupport;
 	
 	@Override
-	public BookInfoGetRes getBookInfo(String bookIsbn, String userEmail) {
+	public BookInfoGetRes getBookInfo(String bookIsbn, User user) {
 		// 책 기본 정보 가져오기
 		BookInfoGetRes bookInfo = new BookInfoGetRes();
 		Book book = bookRepository.findByBookIsbn(bookIsbn);
@@ -45,7 +46,7 @@ public class BookServiceImpl implements BookService {
 		
 		// 내 평점 가져오기
 		try {
-			int myGrade = bookGradeRepositorySupport.getBookGrade(bookIsbn, userEmail);
+			int myGrade = bookGradeRepositorySupport.getBookGrade(bookIsbn, user.getUserEmail());
 			bookInfo.setMyGrade(myGrade);
 		} catch(NullPointerException e) {
 			bookInfo.setMyGrade(0);

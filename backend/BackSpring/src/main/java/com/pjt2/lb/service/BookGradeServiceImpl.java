@@ -29,7 +29,7 @@ public class BookGradeServiceImpl implements BookGradeService {
 
 
 	@Override
-	public int insertBookGrade(String userEmail, BookGradePostReq bookGradePostReq) {
+	public int insertBookGrade(User user, BookGradePostReq bookGradePostReq) {
 		
 		String bookIsbn = bookGradePostReq.getBookIsbn();
 		int grade = bookGradePostReq.getBookGrade();
@@ -37,7 +37,6 @@ public class BookGradeServiceImpl implements BookGradeService {
 		try {
 			BookGrade bookGrade = new BookGrade();
 			bookGrade.setBookGrade(grade);
-			User user = userRepository.findUserByUserEmail(userEmail);
 			bookGrade.setUser(user);
 			Book book = bookRepository.findByBookIsbn(bookIsbn);
 			bookGrade.setBook(book);
@@ -52,13 +51,13 @@ public class BookGradeServiceImpl implements BookGradeService {
 
 
 	@Override
-	public int updateBookGrade(String userEmail, BookGradePostReq bookGradePostReq) {
+	public int updateBookGrade(User user, BookGradePostReq bookGradePostReq) {
 		
 		String bookIsbn = bookGradePostReq.getBookIsbn();
 		int grade = bookGradePostReq.getBookGrade();
 		
 		try {
-			BookGrade bookGrade = bookGradeRepository.findByBookBookIsbnAndUserUserEmail(bookIsbn, userEmail);
+			BookGrade bookGrade = bookGradeRepository.findByBookBookIsbnAndUserUserEmail(bookIsbn, user.getUserEmail());
 			bookGrade.setBookGrade(grade);
 			bookGradeRepository.save(bookGrade);
 			return SUCCESS;
