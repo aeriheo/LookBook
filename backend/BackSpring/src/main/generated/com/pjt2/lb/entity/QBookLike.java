@@ -11,16 +11,16 @@ import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
- * QLike is a Querydsl query type for Like
+ * QBookLike is a Querydsl query type for BookLike
  */
 @Generated("com.querydsl.codegen.EntitySerializer")
 public class QBookLike extends EntityPathBase<BookLike> {
 
-    private static final long serialVersionUID = 1685739891L;
+    private static final long serialVersionUID = -1176494596L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
-    public static final QBookLike like = new QBookLike("like1");
+    public static final QBookLike bookLike = new QBookLike("bookLike");
 
     public final QBook book;
 
@@ -51,6 +51,6 @@ public class QBookLike extends EntityPathBase<BookLike> {
         this.book = inits.isInitialized("book") ? new QBook(forProperty("book")) : null;
         this.user = inits.isInitialized("user") ? new QUser(forProperty("user")) : null;
     }
-    
+
 }
 
