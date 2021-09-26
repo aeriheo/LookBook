@@ -14,13 +14,13 @@ import com.querydsl.core.types.dsl.PathInits;
  * QLike is a Querydsl query type for Like
  */
 @Generated("com.querydsl.codegen.EntitySerializer")
-public class QLike extends EntityPathBase<Like> {
+public class QBookLike extends EntityPathBase<BookLike> {
 
     private static final long serialVersionUID = 1685739891L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
-    public static final QLike like = new QLike("like1");
+    public static final QBookLike like = new QBookLike("like1");
 
     public final QBook book;
 
@@ -30,27 +30,27 @@ public class QLike extends EntityPathBase<Like> {
 
     public final QUser user;
 
-    public QLike(String variable) {
-        this(Like.class, forVariable(variable), INITS);
+    public QBookLike(String variable) {
+        this(BookLike.class, forVariable(variable), INITS);
     }
 
-    public QLike(Path<? extends Like> path) {
+    public QBookLike(Path<? extends BookLike> path) {
         this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
-    public QLike(PathMetadata metadata) {
+    public QBookLike(PathMetadata metadata) {
         this(metadata, PathInits.getFor(metadata, INITS));
     }
 
-    public QLike(PathMetadata metadata, PathInits inits) {
-        this(Like.class, metadata, inits);
+    public QBookLike(PathMetadata metadata, PathInits inits) {
+        this(BookLike.class, metadata, inits);
     }
 
-    public QLike(Class<? extends Like> type, PathMetadata metadata, PathInits inits) {
+    public QBookLike(Class<? extends BookLike> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.book = inits.isInitialized("book") ? new QBook(forProperty("book")) : null;
         this.user = inits.isInitialized("user") ? new QUser(forProperty("user")) : null;
     }
-
+    
 }
 

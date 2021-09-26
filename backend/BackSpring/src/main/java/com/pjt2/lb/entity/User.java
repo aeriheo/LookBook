@@ -68,7 +68,7 @@ public class User {
 	// user-like
 	@JsonManagedReference
 	@OneToMany(mappedBy="user")
-	List<Like> like = new ArrayList<Like>();
+	List<BookLike> like = new ArrayList<BookLike>();
 
 	// user-searchLog
 	@JsonManagedReference
