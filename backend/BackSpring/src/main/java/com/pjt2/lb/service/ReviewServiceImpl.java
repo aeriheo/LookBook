@@ -16,7 +16,7 @@ import com.pjt2.lb.repository.BookRepository;
 import com.pjt2.lb.repository.ReviewRepository;
 import com.pjt2.lb.repository.UserRepository;
 import com.pjt2.lb.response.UserReviewListInfoRes;
-import com.pjt2.lb.response.MainReviewListInfoRes;
+import com.pjt2.lb.response.BookReviewListInfoRes;
 
 @Service("ReviewService")
 public class ReviewServiceImpl implements ReviewService{
@@ -94,7 +94,7 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 	
 	@Override
-	public List<MainReviewListInfoRes> getMainReviewList(String bookIsbn) {
+	public List<BookReviewListInfoRes> getMainReviewList(String bookIsbn) {
 		return null;
 	}
 	

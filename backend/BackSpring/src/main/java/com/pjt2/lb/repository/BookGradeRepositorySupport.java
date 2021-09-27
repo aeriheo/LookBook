@@ -19,4 +19,11 @@ public class BookGradeRepositorySupport {
 				where(qBookGrade.book.bookIsbn.eq(bookIsbn), qBookGrade.user.userEmail.eq(userEmail)).fetchOne();
 		return bookGrade;
 	}
+	
+	public double getBookGradeAvg(String bookIsbn) {
+		Double bookGradeAvg = query.select(qBookGrade.bookGrade.avg()).from(qBookGrade).
+				where(qBookGrade.book.bookIsbn.eq(bookIsbn)).fetchOne();
+		if(bookGradeAvg == null) return 0;
+		return bookGradeAvg;
+	}
 }

@@ -111,10 +111,4 @@ public class BookLikeServiceImpl implements BookLikeService{
 	}
 	*/
 	
-	@Override
-	public int getLikeState(String userEmail, String bookIsbn) {
-		int ans = bookLikeRepository.findByBookBookIsbnAndUserUserEmail(userEmail, bookIsbn);
-		return ans;
-	}
-	
 }

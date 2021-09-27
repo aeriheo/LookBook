@@ -25,7 +25,7 @@ import com.pjt2.lb.common.response.BaseResponseBody;
 import com.pjt2.lb.entity.User;
 import com.pjt2.lb.request.ReviewInfoReq;
 import com.pjt2.lb.response.BookListInfoRes;
-import com.pjt2.lb.response.MainReviewListInfoRes;
+import com.pjt2.lb.response.BookReviewListInfoRes;
 import com.pjt2.lb.response.UserInfoGetRes;
 import com.pjt2.lb.response.UserReviewListInfoRes;
 import com.pjt2.lb.service.ReviewService;
@@ -161,7 +161,7 @@ public class ReviewController {
 			LBUserDetails userDetails = (LBUserDetails) authentication.getDetails();
 			User user = userDetails.getUser();
 			
-			List<MainReviewListInfoRes> reviewList = reviewService.getMainReviewList(bookIsbn);
+			List<BookReviewListInfoRes> reviewList = reviewService.getMainReviewList(bookIsbn);
 			Map<String, List> map = new HashMap<String, List>();
 			map.put("reviewList", reviewList);
 			

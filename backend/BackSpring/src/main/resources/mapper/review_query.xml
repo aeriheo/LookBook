@@ -3,5 +3,11 @@
 
 <mapper namespace="com.pjt2.lb.dao.ReviewDao">
 
+	<select id="getBookReviewList" parameterType="map" resultType="com.pjt2.lb.response.BookReviewListInfoRes">
+		SELECT r.review_id, r.review_content, r.review_date, r.review_like_cnt, u.user_nickName, CASE WHEN rl.review_id IS NULL THEN false ELSE true END as "isLiked" 
+		FROM Review as r LEFT JOIN Review_Like as rl ON r.review_id=rl.review_Id AND rl.user_email = #{userEmail}, User as u
+		WHERE book_isbn = #{bookIsbn}
+		and r.user_email = u.user_email;
+	</select>
 	
 </mapper> 

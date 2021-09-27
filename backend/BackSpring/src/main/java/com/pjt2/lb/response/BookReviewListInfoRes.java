@@ -6,11 +6,12 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class MainReviewListInfoRes {
+public class BookReviewListInfoRes {
 	private int review_id;
 	private String review_content;
 	private String review_date;
 	private int review_like_cnt;
 	private String user_nickname;
+	private int isLiked;
 	
 }
