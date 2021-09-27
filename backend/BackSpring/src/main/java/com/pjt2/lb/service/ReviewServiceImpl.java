@@ -9,11 +9,11 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.pjt2.lb.entity.Book;
 import com.pjt2.lb.entity.Review;
 import com.pjt2.lb.repository.BookGradeRepositorySupport;
 import com.pjt2.lb.repository.BookRepository;
 import com.pjt2.lb.repository.ReviewRepository;
-import com.pjt2.lb.repository.ReviewRepositorySupport;
 import com.pjt2.lb.repository.UserRepository;
 import com.pjt2.lb.response.UserReviewListInfoRes;
 import com.pjt2.lb.response.MainReviewListInfoRes;
@@ -33,18 +33,21 @@ public class ReviewServiceImpl implements ReviewService{
 	@Autowired
 	BookGradeRepositorySupport bookGradeRepositorySupport;
 	
-	// 리뷰 카운트 증가 구현하기
-	@Autowired
-	ReviewRepositorySupport reviewRepositorySupport;
-	
 	@Override
 	public int insertReview(String userEmail, String bookIsbn, String reviewContent) {
 		try {
+			// 리뷰 추가
 			Review review = new Review();
 			review.setBook(bookRepository.findByBookIsbn(bookIsbn));
 			review.setUser(userRepository.findUserByUserEmail(userEmail));
 			review.setReviewContent(reviewContent);
 			reviewRepository.save(review);
+			
+			// 리뷰 카운트 증가
+			Book book = bookRepository.findByBookIsbn(bookIsbn);
+			book.setBookLikeCnt(book.getBookLikeCnt()+1);
+			bookRepository.save(book);
+			
 			return 1;
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -52,11 +55,18 @@ public class ReviewServiceImpl implements ReviewService{
 		}
 	}
 	
-	// 리뷰 카운트 감소 구현하기
 	@Override
 	public int deleteReview(int reviewId) {
 		try {
+			// 리뷰 카운트 감소
+			Review review = reviewRepository.findById(reviewId);
+			Book book = bookRepository.findByBookIsbn(review.getBook().getBookIsbn());
+			book.setBookLikeCnt(book.getBookLikeCnt()-1);
+			bookRepository.save(book);
+			
+			// 리뷰 삭제
 			reviewRepository.deleteById(reviewId);
+			
 			return 1;
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -79,33 +89,13 @@ public class ReviewServiceImpl implements ReviewService{
 
 	@Override
 	public List<UserReviewListInfoRes> getUserReviewList(String userEmail) {
-		
-		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-		
-		// 리뷰에서 내가 작성한 리뷰 리스트 받아오기(이때, bookIsbn, reviewId, reviewDate, reviewContent)
-		// List<Review> reviewList = reviewRepositorySupport.getUserReviewList(userEmail);
-		
-		// 반환할 UserReviewListInfoRes 리스트
-//		List<UserReviewListInfoRes> userReviewList = new ArrayList<>();
-		List<UserReviewListInfoRes> userReviewList = getUserReviewList(userEmail);
-		
-		// userEmail, bookIsbn 사용하여 내가 부여한 평점 받아오기
-		return userReviewList.stream()
-				.map(r -> new UserReviewListInfoRes(
-						r.getReviewId(), 
-						r.getReviewContent(), 
-						dateFormat.format(r.getReviewDate()), 
-						r.getReviewLikeCount(), 
-						bookGradeRepositorySupport.getBookGrade(r.getBookIsbn(), userEmail),
-						r.getBookIsbn(),
-						r.getBookTitle(),
-						r.getBookImgUrl()))
-				.collect(Collectors.toList());
+		return null;
+
 	}
 	
 	@Override
 	public List<MainReviewListInfoRes> getMainReviewList(String bookIsbn) {
-		return reviewRepositorySupport.getMainReviewList(bookIsbn);
+		return null;
 	}
 	
 	

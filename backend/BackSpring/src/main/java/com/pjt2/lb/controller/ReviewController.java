@@ -141,6 +141,7 @@ public class ReviewController {
 			
 			return ResponseEntity.status(200).body(map);
 		} catch(Exception e) {	// IllegalArgumentException
+			e.printStackTrace();
 			return ResponseEntity.status(500).body(BaseResponseBody.of(500, "Internal Server Error"));
 		}
 	}
