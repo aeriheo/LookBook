@@ -5,11 +5,11 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.pjt2.lb.entity.Book;
-import com.pjt2.lb.entity.BookGrade;
+import com.pjt2.lb.entity.Review;
 import com.pjt2.lb.entity.ReviewLike;
 import com.pjt2.lb.entity.User;
 import com.pjt2.lb.repository.ReviewLikeRepository;
+import com.pjt2.lb.repository.ReviewRepository;
 
 @Service
 public class ReviewLikeServiceImpl implements ReviewLikeService {
@@ -19,6 +19,9 @@ public class ReviewLikeServiceImpl implements ReviewLikeService {
     
     @Autowired
     ReviewLikeRepository reviewLikeRepository;
+    
+    @Autowired
+    ReviewRepository reviewRepository;
 
 	@Override
 	public int insertReviewLike(User user, int reviewId) {
@@ -26,7 +29,8 @@ public class ReviewLikeServiceImpl implements ReviewLikeService {
 		try {
 			ReviewLike reviewLike = new ReviewLike();
 			reviewLike.setUser(user);
-			
+			Review review = reviewRepository.findById(reviewId);
+			reviewLike.setReview(review);
 			reviewLikeRepository.save(reviewLike);
 			return SUCCESS;
 			

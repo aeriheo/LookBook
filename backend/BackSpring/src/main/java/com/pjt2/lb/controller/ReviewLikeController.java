@@ -46,7 +46,7 @@ public class ReviewLikeController {
 		try {
 			LBUserDetails userDetails = (LBUserDetails) authentication.getDetails();
 			User user = userDetails.getUser();
-			System.out.println("ddd");
+
 			int result = 0;
 			result = reviewLikeService.deleteReviewLike(user, reviewId);
 			if(result == 1) {			
