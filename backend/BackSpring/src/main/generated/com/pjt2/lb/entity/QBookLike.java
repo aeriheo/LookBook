@@ -24,9 +24,9 @@ public class QBookLike extends EntityPathBase<BookLike> {
 
     public final QBook book;
 
-    public final DateTimePath<java.util.Date> likeDate = createDateTime("likeDate", java.util.Date.class);
+    public final DateTimePath<java.util.Date> bookLikeDate = createDateTime("bookLikeDate", java.util.Date.class);
 
-    public final NumberPath<Integer> likeId = createNumber("likeId", Integer.class);
+    public final NumberPath<Integer> bookLikeId = createNumber("bookLikeId", Integer.class);
 
     public final QUser user;
 

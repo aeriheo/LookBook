@@ -13,7 +13,7 @@ import com.pjt2.lb.response.BookListInfoRes;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 @Repository
-public class LikeRepositorySupport {
+public class BookLikeRepositorySupport {
 	
 	@Autowired
 	private JPAQueryFactory query;

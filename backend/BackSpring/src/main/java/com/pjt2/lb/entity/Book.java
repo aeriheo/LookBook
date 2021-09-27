@@ -51,6 +51,9 @@ public class Book {
 	@Column(name="book_category_code")
 	String bookCategoryCode;
 	
+	@Column(name="book_like_cnt")
+	String bookLikeCnt;
+	
 	@Column(name="book_keyword1")
 	String bookKeyword1;
 	

@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.pjt2.lb.entity.BookLike;
 
 @Repository
-public interface LikeRepository extends JpaRepository<BookLike, Integer>{
+public interface BookLikeRepository extends JpaRepository<BookLike, Integer>{
 	int deleteByBookBookIsbnAndUserUserEmail(String bookIsbn, String userEmail);
 	int findByBookBookIsbnAndUserUserEmail(String bookIsbn, String userEmail);
 }

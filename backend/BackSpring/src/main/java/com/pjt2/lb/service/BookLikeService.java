@@ -6,7 +6,7 @@ import com.pjt2.lb.entity.BookLike;
 import com.pjt2.lb.entity.User;
 import com.pjt2.lb.response.BookListInfoRes;
 
-public interface LikeService {
+public interface BookLikeService {
 	BookLike addLike(User user, String bookIsbn);
 //	BookLike addLike(String userEmail, String bookIsbn);
 

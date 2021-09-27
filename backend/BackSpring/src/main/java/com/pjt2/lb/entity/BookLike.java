@@ -28,8 +28,8 @@ public class BookLike {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="like_id")
-	int likeId;
+	@Column(name="book_like_id")
+	int bookLikeId;
 	
 //	@Column(name="book_isbn")
 //	String bookIsbn;
@@ -39,8 +39,8 @@ public class BookLike {
 	
 	@Temporal(value = TemporalType.TIMESTAMP)
 	@CreationTimestamp
-	@Column(name="like_date")
-	Date likeDate;
+	@Column(name="book_like_date")
+	Date bookLikeDate;
 	
 	// search_log - user
 	@JsonManagedReference

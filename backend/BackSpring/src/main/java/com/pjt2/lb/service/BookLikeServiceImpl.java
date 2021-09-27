@@ -9,17 +9,17 @@ import org.springframework.transaction.annotation.Transactional;
 import com.pjt2.lb.entity.BookLike;
 import com.pjt2.lb.entity.User;
 import com.pjt2.lb.repository.BookRepository;
-import com.pjt2.lb.repository.LikeRepository;
-import com.pjt2.lb.repository.LikeRepositorySupport;
+import com.pjt2.lb.repository.BookLikeRepository;
+import com.pjt2.lb.repository.BookLikeRepositorySupport;
 import com.pjt2.lb.repository.UserRepository;
 import com.pjt2.lb.response.BookListInfoRes;
 
-@Service("LikeService")
+@Service("BookLikeService")
 //@Service
-public class LikeServiceImpl implements LikeService{
+public class BookLikeServiceImpl implements BookLikeService{
 	
 	@Autowired
-	LikeRepository likeRepository;
+	BookLikeRepository bookLikeRepository;
 	
 	@Autowired
 	BookRepository bookRepository;
@@ -28,7 +28,7 @@ public class LikeServiceImpl implements LikeService{
 	UserRepository userRepository;
 	
 	@Autowired
-	LikeRepositorySupport likeRepositorySupport;
+	BookLikeRepositorySupport bookLikeRepositorySupport;
 	
 	@Override
 	public BookLike addLike(User user, String bookIsbn) {
@@ -39,7 +39,7 @@ public class LikeServiceImpl implements LikeService{
 		// User 조회해서 넣기
 		bookLike.setUser(user);
 		
-		return likeRepository.save(bookLike);
+		return bookLikeRepository.save(bookLike);
 	}
 
 	// addLike 테스트
@@ -73,7 +73,7 @@ public class LikeServiceImpl implements LikeService{
 	@Transactional 
 	public int deleteLike(User user, String bookIsbn) {
 		String userEmail = user.getUserEmail();
-		int ans = likeRepository.deleteByBookBookIsbnAndUserUserEmail(bookIsbn, userEmail);
+		int ans = bookLikeRepository.deleteByBookBookIsbnAndUserUserEmail(bookIsbn, userEmail);
 		return ans;
 	}
 	
@@ -99,7 +99,7 @@ public class LikeServiceImpl implements LikeService{
 		String userEmail = user.getUserEmail();
 		
 		// 이메일에 해당하는 모든 책 정보 가져오기
-		return likeRepositorySupport.getLikeBookList(userEmail);
+		return bookLikeRepositorySupport.getLikeBookList(userEmail);
 	}
 
 	// getLikeBookList 테스트
@@ -113,7 +113,7 @@ public class LikeServiceImpl implements LikeService{
 	
 	@Override
 	public int getLikeState(String userEmail, String bookIsbn) {
-		int ans = likeRepository.findByBookBookIsbnAndUserUserEmail(userEmail, bookIsbn);
+		int ans = bookLikeRepository.findByBookBookIsbnAndUserUserEmail(userEmail, bookIsbn);
 		return ans;
 	}
 	

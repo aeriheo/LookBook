@@ -21,15 +21,15 @@ import com.pjt2.lb.entity.Book;
 import com.pjt2.lb.entity.User;
 import com.pjt2.lb.response.BookListInfoRes;
 import com.pjt2.lb.response.UserInfoGetRes;
-import com.pjt2.lb.service.LikeService;
+import com.pjt2.lb.service.BookLikeService;
 
 
 @RequestMapping("/likes")
 @RestController
-public class LikeController {
+public class BookLikeController {
 
 	@Autowired
-	LikeService likeService;
+	BookLikeService bookLikeService;
 	
 	
 	// 좋아요 추가
@@ -51,7 +51,7 @@ public class LikeController {
 			}
 	
 			// 좋아요 추가
-			likeService.addLike(user, bookIsbn);
+			bookLikeService.addLike(user, bookIsbn);
 			
 			return ResponseEntity.status(200).body(BaseResponseBody.of(200, "좋아요 추가 성공"));
 		} catch(Exception e) {	// IllegalArgumentException
@@ -96,7 +96,7 @@ public class LikeController {
 			}
 	
 			// 좋아요 삭제
-			likeService.deleteLike(user, bookIsbn);
+			bookLikeService.deleteLike(user, bookIsbn);
 			
 			return ResponseEntity.status(200).body(BaseResponseBody.of(200, "좋아요 삭제 성공"));
 		} catch(Exception e) {
@@ -140,7 +140,7 @@ public class LikeController {
 			}
 			
 			// 사용자가 좋아요한 도서 리스트 가져오기
-			List<BookListInfoRes> likeBookList = likeService.getLikeBookList(user);
+			List<BookListInfoRes> likeBookList = bookLikeService.getLikeBookList(user);
 
 			Map<String, List> map = new HashMap<String, List>();
 			map.put("likeBookList", likeBookList);
