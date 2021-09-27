@@ -9,6 +9,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pjt2.lb.common.auth.LBUserDetails;
@@ -28,6 +30,12 @@ import com.pjt2.lb.response.UserInfoGetRes;
 import com.pjt2.lb.response.UserReviewListInfoRes;
 import com.pjt2.lb.service.ReviewService;
 
+@CrossOrigin(
+        origins = {"http://localhost:3000"},
+        allowCredentials = "true", 
+        allowedHeaders = "*", 
+        methods = {RequestMethod.GET,RequestMethod.POST,RequestMethod.DELETE,RequestMethod.PUT,RequestMethod.OPTIONS}
+)
 @RequestMapping("/reviews")
 @RestController
 public class ReviewController {

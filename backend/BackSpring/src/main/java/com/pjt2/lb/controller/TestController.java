@@ -2,13 +2,21 @@ package com.pjt2.lb.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.pjt2.lb.service.TestService;
 
+@CrossOrigin(
+        origins = {"http://localhost:3000"},
+        allowCredentials = "true", 
+        allowedHeaders = "*", 
+        methods = {RequestMethod.GET,RequestMethod.POST,RequestMethod.DELETE,RequestMethod.PUT,RequestMethod.OPTIONS}
+)
 @RestController
 @RequestMapping("v1/test")
 public class TestController {
