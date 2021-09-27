@@ -27,9 +27,10 @@ public class ReviewLikeServiceImpl implements ReviewLikeService {
 	public int insertReviewLike(User user, int reviewId) {
 
 		try {
+			Review review = reviewRepository.findById(reviewId);
+			review.setReviewLikeCnt(review.getReviewLikeCnt()+1);
 			ReviewLike reviewLike = new ReviewLike();
 			reviewLike.setUser(user);
-			Review review = reviewRepository.findById(reviewId);
 			reviewLike.setReview(review);
 			reviewLikeRepository.save(reviewLike);
 			return SUCCESS;
@@ -43,6 +44,8 @@ public class ReviewLikeServiceImpl implements ReviewLikeService {
 	@Override
 	public int deleteReviewLike(User user, int reviewId) {
 		try {
+			Review review = reviewRepository.findById(reviewId);
+			review.setReviewLikeCnt(review.getReviewLikeCnt()-1);
 			reviewLikeRepository.deleteByReviewReviewIdAndUserUserEmail(reviewId, user.getUserEmail());
 			return SUCCESS;
 		} catch (Exception e) {
