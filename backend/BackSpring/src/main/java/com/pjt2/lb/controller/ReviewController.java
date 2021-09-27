@@ -46,25 +46,21 @@ public class ReviewController {
 	
 	@PostMapping()
 	public ResponseEntity<?> insertReview(Authentication authentication, @RequestBody ReviewInfoReq reviewInfo) {
-		// RequestBody 정보 확인
 		String bookIsbn = reviewInfo.getBookIsbn();
 		String reviewContent = reviewInfo.getReviewContent();
-		System.out.println("bookIsbn: " + bookIsbn + "\nreviewContent" + reviewContent);
 
 		try {
-			User user;	// 매개변수로 전달할 사용자 객체 선언
+			User user;
 			
-			// 사용자 정보 조회
-			try { // Authentication에서 받아온 토큰 값이 유효할 때
+			try {
 				LBUserDetails userDetails = (LBUserDetails) authentication.getDetails(); 
-				user = userDetails.getUser(); // 사용자 정보 가져오기 성공
-			} catch (NullPointerException e) { // Authentication에서 받아온 토큰 값이 유효하지 않을 때
+				user = userDetails.getUser();
+			} catch (NullPointerException e) {
 				return ResponseEntity.status(400).body(new UserInfoGetRes(400, "만료된 토큰입니다."));
 			}
 	
 			String userEmail = user.getUserEmail();
 			
-			// 리뷰 추가
 			reviewService.insertReview(userEmail, bookIsbn, reviewContent);
 			
 			return ResponseEntity.status(200).body(BaseResponseBody.of(200, "리뷰 작성 성공"));
@@ -75,21 +71,16 @@ public class ReviewController {
 	
 	@DeleteMapping("/{reviewId}")
 	public ResponseEntity<?> deleteReview(Authentication authentication, @PathVariable int reviewId) {
-		// PathVariable 정보 확인
-		System.out.println("reviewId: " + reviewId);
-
 		try {
-			User user;	// 매개변수로 전달할 사용자 객체 선언
+			User user;
 			
-			// 사용자 정보 조회
-			try { // Authentication에서 받아온 토큰 값이 유효할 때
+			try {
 				LBUserDetails userDetails = (LBUserDetails) authentication.getDetails(); 
-				user = userDetails.getUser(); // 사용자 정보 가져오기 성공
-			} catch (NullPointerException e) { // Authentication에서 받아온 토큰 값이 유효하지 않을 때
+				user = userDetails.getUser();
+			} catch (NullPointerException e) {
 				return ResponseEntity.status(400).body(new UserInfoGetRes(400, "만료된 토큰입니다."));
 			}
 			
-			// 리뷰 삭제
 			reviewService.deleteReview(reviewId);
 			
 			return ResponseEntity.status(200).body(BaseResponseBody.of(200, "리뷰 삭제 성공"));
@@ -100,24 +91,20 @@ public class ReviewController {
 	
 	@PutMapping()
 	public ResponseEntity<?> updateReview(Authentication authentication, @RequestBody ReviewInfoReq reviewInfo) {
-		// RequestBody 정보 확인
 		int reviewId = reviewInfo.getReviewId();
 		String bookIsbn = reviewInfo.getBookIsbn();
 		String reviewContent = reviewInfo.getReviewContent();
-		System.out.println("reviewId: " + reviewId + "\nbookIsbn: " + bookIsbn + "\nreviewContent" + reviewContent);
 
 		try {
-			User user;	// 매개변수로 전달할 사용자 객체 선언
+			User user;
 			
-			// 사용자 정보 조회
-			try { // Authentication에서 받아온 토큰 값이 유효할 때
+			try {
 				LBUserDetails userDetails = (LBUserDetails) authentication.getDetails(); 
-				user = userDetails.getUser(); // 사용자 정보 가져오기 성공
-			} catch (NullPointerException e) { // Authentication에서 받아온 토큰 값이 유효하지 않을 때
+				user = userDetails.getUser();
+			} catch (NullPointerException e) {
 				return ResponseEntity.status(400).body(new UserInfoGetRes(400, "만료된 토큰입니다."));
 			}
 			
-			// 리뷰 삭제
 			reviewService.updateReview(reviewId, bookIsbn, reviewContent);
 			
 			return ResponseEntity.status(200).body(BaseResponseBody.of(200, "리뷰 수정 성공"));
@@ -129,26 +116,23 @@ public class ReviewController {
 	@GetMapping()
 	public ResponseEntity<?> getUserReviewList(Authentication authentication) {
 		try {
-			User user;	// 매개변수로 전달할 사용자 객체 선언
+			User user;
 			
-			// 사용자 정보 조회
-			try { // Authentication에서 받아온 토큰 값이 유효할 때
+			try {
 				LBUserDetails userDetails = (LBUserDetails) authentication.getDetails(); 
-				user = userDetails.getUser(); // 사용자 정보 가져오기 성공
-			} catch (NullPointerException e) { // Authentication에서 받아온 토큰 값이 유효하지 않을 때
+				user = userDetails.getUser();
+			} catch (NullPointerException e) {
 				return ResponseEntity.status(400).body(new UserInfoGetRes(400, "만료된 토큰입니다."));
 			}
 			
 			String userEmail = user.getUserEmail();
-			
-			// 사용자 리뷰 리스트 조회
 			List<UserReviewListInfoRes> userReviewList = reviewService.getUserReviewList(userEmail);
 
 			Map<String, List> map = new HashMap<String, List>();
 			map.put("UserReviewList", userReviewList);
 			
 			return ResponseEntity.status(200).body(map);
-		} catch(Exception e) {	// IllegalArgumentException
+		} catch(Exception e) {
 			e.printStackTrace();
 			return ResponseEntity.status(500).body(BaseResponseBody.of(500, "Internal Server Error"));
 		}
