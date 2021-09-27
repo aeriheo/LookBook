@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 import com.pjt2.lb.entity.Review;
 import com.pjt2.lb.repository.BookRepository;
 import com.pjt2.lb.repository.ReviewRepository;
+import com.pjt2.lb.repository.ReviewRepositorySupport;
 import com.pjt2.lb.repository.UserRepository;
 import com.pjt2.lb.response.UserReviewListInfoRes;
+import com.pjt2.lb.response.MainReviewListInfoRes;
 
 @Service("ReviewService")
 public class ReviewServiceImpl implements ReviewService{
@@ -24,6 +26,9 @@ public class ReviewServiceImpl implements ReviewService{
 	ReviewRepository reviewRepository;
 	
 	// 리뷰 카운트 증가 구현하기
+	@Autowired
+	ReviewRepositorySupport reviewRepositorySupport;
+	
 	@Override
 	public int insertReview(String userEmail, String bookIsbn, String reviewContent) {
 		try {
@@ -62,6 +67,11 @@ public class ReviewServiceImpl implements ReviewService{
 			e.printStackTrace();
 			return -1;
 		}
+	}
+
+	@Override
+	public List<MainReviewListInfoRes> getMainReviewList(String bookIsbn) {
+		return reviewRepositorySupport.getMainReviewList(bookIsbn);
 	}
 	
 	@Override

@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +23,7 @@ import com.pjt2.lb.common.response.BaseResponseBody;
 import com.pjt2.lb.entity.User;
 import com.pjt2.lb.request.ReviewInfoReq;
 import com.pjt2.lb.response.BookListInfoRes;
+import com.pjt2.lb.response.MainReviewListInfoRes;
 import com.pjt2.lb.response.UserInfoGetRes;
 import com.pjt2.lb.response.UserReviewListInfoRes;
 import com.pjt2.lb.service.ReviewService;
@@ -140,6 +142,23 @@ public class ReviewController {
 			return ResponseEntity.status(200).body(map);
 		} catch(Exception e) {	// IllegalArgumentException
 			return ResponseEntity.status(500).body(BaseResponseBody.of(500, "Internal Server Error"));
+		}
+	}
+	
+	@GetMapping("/{bookIsbn}")
+	public ResponseEntity<?> getMainReviewList(Authentication authentication, @PathVariable String bookIsbn) {
+
+		try {
+			LBUserDetails userDetails = (LBUserDetails) authentication.getDetails();
+			User user = userDetails.getUser();
+			
+			List<MainReviewListInfoRes> reviewList = reviewService.getMainReviewList(bookIsbn);
+			Map<String, List> map = new HashMap<String, List>();
+			map.put("reviewList", reviewList);
+			
+			return ResponseEntity.status(200).body(map);
+		} catch (NullPointerException e) {
+			return ResponseEntity.status(400).body(new UserInfoGetRes(400, "만료된 토큰입니다."));
 		}
 	}
 }

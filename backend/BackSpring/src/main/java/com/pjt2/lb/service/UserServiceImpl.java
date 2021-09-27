@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.pjt2.lb.common.response.BaseResponseBody;
 import com.pjt2.lb.entity.User;
 import com.pjt2.lb.repository.UserRepository;
+import com.pjt2.lb.request.UserInfoPutReq;
 import com.pjt2.lb.request.UserRegisterPostReq;
 import com.pjt2.lb.response.UserInfoGetRes;
 
@@ -57,6 +58,45 @@ public class UserServiceImpl implements UserService {
 	public User getUserByRefreshToken(String refreshToken) {
 		User user = userRepository.findUserByRefreshToken(refreshToken);
 		return user;
+	}
+
+	@Override
+	public int deleteUser(String userEmail) {
+		return userRepository.deleteUserByUserEmail(userEmail);
+	}
+
+	@Override
+	public int update(User user, UserInfoPutReq userUpdateInfo) {
+		try {
+			String userNickname = userUpdateInfo.getUserNickname();
+			String userPassword = userUpdateInfo.getUserPassword();
+			if(userRepository.findUserByUserNickname(userNickname) != null &&
+					!user.getUserNickname().equals(userNickname)){
+						return 2;
+					}
+			
+			userUpdateInfo.setUserPassword(passwordEncoder.encode(userPassword));
+			BeanUtils.copyProperties(userUpdateInfo, user);
+			userRepository.save(user);
+			return 1;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
+		
+	}
+
+	@Override
+	public int updateProfile(User user, String userProfileUrl) {
+		try {
+			user.setUserProfileUrl(userProfileUrl);
+			userRepository.save(user);
+			return 1;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return 0;
+		}
 	}
 
 }

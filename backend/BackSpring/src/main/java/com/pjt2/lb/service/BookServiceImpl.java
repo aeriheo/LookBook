@@ -1,14 +1,19 @@
 package com.pjt2.lb.service;
 
+import java.util.List;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pjt2.lb.entity.Book;
+import com.pjt2.lb.entity.User;
 import com.pjt2.lb.repository.BookGradeRepositorySupport;
 import com.pjt2.lb.repository.BookRepository;
+import com.pjt2.lb.repository.BookRepositorySupport;
 import com.pjt2.lb.repository.ReviewRepository;
 import com.pjt2.lb.response.BookInfoGetRes;
+import com.pjt2.lb.response.BookListInfoRes;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -22,8 +27,11 @@ public class BookServiceImpl implements BookService {
 	@Autowired
 	BookGradeRepositorySupport bookGradeRepositorySupport;
 	
+	@Autowired
+	BookRepositorySupport bookRepositorySupport;
+	
 	@Override
-	public BookInfoGetRes getBookInfo(String bookIsbn, String userEmail) {
+	public BookInfoGetRes getBookInfo(String bookIsbn, User user) {
 		// 책 기본 정보 가져오기
 		BookInfoGetRes bookInfo = new BookInfoGetRes();
 		Book book = bookRepository.findByBookIsbn(bookIsbn);
@@ -38,7 +46,7 @@ public class BookServiceImpl implements BookService {
 		
 		// 내 평점 가져오기
 		try {
-			int myGrade = bookGradeRepositorySupport.getBookGrade(bookIsbn, userEmail);
+			int myGrade = bookGradeRepositorySupport.getBookGrade(bookIsbn, user.getUserEmail());
 			bookInfo.setMyGrade(myGrade);
 		} catch(NullPointerException e) {
 			bookInfo.setMyGrade(0);
@@ -48,6 +56,11 @@ public class BookServiceImpl implements BookService {
 		
 		
 		return bookInfo;
+	}
+
+	@Override
+	public List<BookListInfoRes> getSearchBookInfo(String searchKey, String searchWord) {
+		return bookRepositorySupport.getSearchBookInfo(searchKey, searchWord);
 	}
 
 }

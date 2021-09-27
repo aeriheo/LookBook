@@ -1,0 +1,302 @@
+.center .slick-prev:before,
+.center .slick-next:before {
+  color: #797b7c;
+  top: 50% !important;
+}
+
+.center .slick-prev:before {
+  left: 10% !important;
+}
+.center .slick-next:before {
+  right: 10% !important;
+}
+.center .center div {
+  transition: all 0.3s ease;
+}
+
+.center .slick-slide {
+  /* margin-left: 5px !important;
+  margin-right: 5px !important; */
+  opacity: 0.6;
+  /* width: 100; */
+}
+
+.center .slick-slide #textcss {
+  opacity: 0;
+}
+
+.center .slick-center #textcss {
+  opacity: 1;
+}
+
+.center .slick-slide :focus {
+  outline: none;
+}
+
+.center .slick-center {
+  opacity: 1;
+}
+
+.mobileWidth {
+  min-width: 500px;
+}
+
+#bestMobile {
+  padding-left: 20px;
+  padding-bottom: 20px;
+  display: flex;
+  align-items: center;
+}
+
+#bestLBMobile {
+  font-family: "Rozha One";
+  font-size: 5vw;
+  margin-top: 0.2vw;
+}
+
+#bestTenMobile {
+  font-family: "NotoSans";
+  font-size: 4vw;
+  margin-left: 10px;
+}
+
+#bestSliderMobile {
+  width: 90%;
+  margin-left: 20px;
+}
+
+#cardSizeMobile {
+  width: 110px;
+  height: 220px;
+}
+
+#cardImgMobile {
+  box-shadow: 1px 1px 5px #999999;
+  object-fit: contain;
+}
+
+#cardTitleMobile {
+  text-align: center;
+  font-family: "NotoSans";
+  margin-top: 15px;
+  font-size: 2vw;
+}
+
+#bestWeb {
+  padding: 20px;
+  margin-left: 2vw;
+  display: flex;
+  align-items: center;
+}
+
+#bestLBWeb {
+  font-family: "Rozha One";
+  font-size: 6vw;
+  margin-top: 0.2vw;
+}
+
+#bestTenWeb {
+  font-family: "NotoSans";
+  font-size: 5vw;
+  margin-left: 10px;
+}
+
+#cardSizeWeb {
+  padding: 25px;
+}
+
+#boxImgWeb {
+  width: 15vw;
+  box-shadow: 1px 1px 5px #999999;
+  object-fit: contain;
+}
+
+#textcss {
+  text-align: center;
+  font-family: "NotoSans";
+  margin-top: 15px;
+  width: 15vw;
+  font-size: 1.5vw;
+}
+
+#reviewMobile {
+  background-color: rgba(216, 194, 170, 0.29);
+  min-width: 500px;
+}
+
+#reviewDivMobile {
+  margin-left: 2vw;
+  font-family: "NotoSans";
+  font-weight: 500;
+  font-size: 3.5vw;
+}
+
+#reviewNameMobile {
+  padding-top: 2vw;
+}
+
+#reviewContentMobile {
+  display: flex;
+  justify-content: space-between;
+  margin: 2vw;
+}
+
+#reviewTitleMobile {
+  margin-left: 0.5vw;
+  font-family: "NotoSans";
+  font-weight: 500;
+  font-size: 2.4vw;
+}
+
+#reviewGoMobile {
+  margin-right: 0.5vw;
+  color: #909090;
+  margin-left: 0.5vw;
+  font-family: "NotoSans";
+  font-weight: 500;
+  font-size: 2.2vw;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+#reviewTextMobile {
+  margin: 2vw;
+}
+
+#reviewUserMobile {
+  padding-bottom: 2vw;
+  display: flex;
+  justify-content: flex-end;
+}
+
+#reviewWeb {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  background-color: rgba(216, 194, 170, 0.29);
+}
+
+#reviewWeb2 {
+  width: 70%;
+  margin: 1vw;
+}
+
+#reviewContentWeb {
+  justify-content: space-between;
+  display: flex;
+  align-items: center;
+  margin: 1vw;
+}
+
+#reviewNameWeb {
+  font-family: "NotoSans";
+  font-weight: 500;
+  font-size: 3.3vw;
+}
+
+#reviewGoWeb {
+  font-family: "NotoSans";
+  font-weight: 500;
+  font-size: 1.3vw;
+  cursor: pointer;
+}
+
+#reviewTitleWeb {
+  font-family: "NotoSans";
+  font-weight: 500;
+  font-size: 2vw;
+  margin: 1vw;
+  margin-top: 2vw;
+}
+
+#reviewTextFormWeb {
+  margin: 1vw;
+  width: 100%;
+  margin-top: 2vw;
+}
+
+#reviewTextWeb {
+  font-family: "NotoSans";
+  font-weight: 500;
+  font-size: 1.3vw;
+  margin-top: 1.5vw;
+}
+
+#reviewUserWeb {
+  font-size: 1.3vw;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1.2vw;
+}
+
+#reviewBookWeb {
+  padding: 25px;
+}
+
+#reviewBookImg {
+  height: 23vw;
+  box-shadow: 1px 1px 10px #999999;
+}
+
+#recommDiv {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 2vw;
+}
+
+#recommTitleMobile {
+  font-family: "NotoSans";
+  font-weight: 600;
+  font-size: 3vw;
+  margin: 1vw;
+  margin-top: 2vw;
+}
+
+#recommTitleWeb {
+  font-family: "NotoSans";
+  font-weight: 600;
+  font-size: 2vw;
+  margin: 1vw;
+  margin-top: 2vw;
+}
+
+#recommGoMobile {
+  font-family: "NotoSans";
+  font-size: 2vw;
+  margin: 1vw;
+  margin-top: 2vw;
+  cursor: pointer;
+  text-decoration: underline;
+  color: #909090;
+}
+
+#recommGoWeb {
+  font-family: "NotoSans";
+  font-size: 1.5vw;
+  margin: 1vw;
+  margin-top: 2vw;
+  cursor: pointer;
+}
+
+#recommBookMobile {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 1vw;
+  margin: 2vw;
+}
+
+#recommBookWeb {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 1vw;
+}
+
+#recommBookTitleWeb {
+  text-align: center;
+  font-family: "NotoSans";
+  margin-top: 15px;
+  font-size: 1vw;
+}

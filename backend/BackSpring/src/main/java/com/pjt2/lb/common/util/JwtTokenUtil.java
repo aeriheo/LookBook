@@ -50,7 +50,7 @@ public class JwtTokenUtil {
     }
     
     public static String getToken(String userEmail) {
-    	// access_Token 유효시간 : 1시간
+    	// access_Token 유효시간 : 30분
     	Date expires = JwtTokenUtil.getTokenExpiration(expirationTime);
         return JWT.create()
                 .withSubject(userEmail)
@@ -62,7 +62,7 @@ public class JwtTokenUtil {
     
     public static String getRefreshToken() {
     	// refresh_Token 유효시간 : 14일 (2주)
-    	Date expires = JwtTokenUtil.getTokenExpiration(expirationTime * 24 * 14);
+    	Date expires = JwtTokenUtil.getTokenExpiration(expirationTime * 2 * 24 * 14);
     	return JWT.create()
     			.withExpiresAt(expires)
     			.withIssuer(ISSUER)
