@@ -105,10 +105,9 @@ public class ReviewRepositorySupport {
 				.join(qReview.user, qUser)
 				.where(qReview.book.bookIsbn.eq(bookIsbn))
 				.fetch();
-//		return reviewList.stream()
-//				.map(r -> new MainReviewListInfoRes(r.getReviewId(), r.getReviewContent(), dateFormat.format(r.getReviewDate()), r.getReviewLikeCount(), r.getUser().getUserNickname()))
-//				.collect(Collectors.toList());
-		return null;
+		return reviewList.stream()
+				.map(r -> new MainReviewListInfoRes(r.getReviewId(), r.getReviewContent(), dateFormat.format(r.getReviewDate()), r.getReviewLikeCnt(), r.getUser().getUserNickname()))
+				.collect(Collectors.toList());
 	}
 
 }
