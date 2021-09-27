@@ -10,7 +10,7 @@ public class MainReviewListInfoRes {
 	private int review_id;
 	private String review_content;
 	private String review_date;
-	private String review_like_count;
+	private int review_like_cnt;
 	private String user_nickname;
 	
 }

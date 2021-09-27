@@ -1,11 +1,16 @@
 package com.pjt2.lb.service;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pjt2.lb.entity.Review;
+import com.pjt2.lb.repository.BookGradeRepositorySupport;
 import com.pjt2.lb.repository.BookRepository;
 import com.pjt2.lb.repository.ReviewRepository;
 import com.pjt2.lb.repository.ReviewRepositorySupport;
@@ -24,6 +29,9 @@ public class ReviewServiceImpl implements ReviewService{
 	
 	@Autowired
 	ReviewRepository reviewRepository;
+	
+	@Autowired
+	BookGradeRepositorySupport bookGradeRepositorySupport;
 	
 	// 리뷰 카운트 증가 구현하기
 	@Autowired
@@ -71,24 +79,28 @@ public class ReviewServiceImpl implements ReviewService{
 
 	@Override
 	public List<UserReviewListInfoRes> getUserReviewList(String userEmail) {
-		// 이메일 사용해서 닉네임 받아오기(userNickname)
-		String userNickname = userRepository.findUserByUserEmail(userEmail).getUserEmail();
+		
+		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		
 		// 리뷰에서 내가 작성한 리뷰 리스트 받아오기(이때, bookIsbn, reviewId, reviewDate, reviewContent)
-		List<Review> reviewList = reviewRepositorySupport.getUserReviewList(userEmail);
+		// List<Review> reviewList = reviewRepositorySupport.getUserReviewList(userEmail);
 		
 		// 반환할 UserReviewListInfoRes 리스트
-		for(Review review : reviewList) {
-			
-		}
-		
-		// 리뷰 리스트를 사용하여 bookIsbn으로 도서 리스트 받아오기(bookTitle, bookImgUrl)
-		
+//		List<UserReviewListInfoRes> userReviewList = new ArrayList<>();
+		List<UserReviewListInfoRes> userReviewList = getUserReviewList(userEmail);
 		
 		// userEmail, bookIsbn 사용하여 내가 부여한 평점 받아오기
-		
-		// 위에 구현해서 리스트 반환으로 변경하기
-		return null;
+		return userReviewList.stream()
+				.map(r -> new UserReviewListInfoRes(
+						r.getReviewId(), 
+						r.getReviewContent(), 
+						dateFormat.format(r.getReviewDate()), 
+						r.getReviewLikeCount(), 
+						bookGradeRepositorySupport.getBookGrade(r.getBookIsbn(), userEmail),
+						r.getBookIsbn(),
+						r.getBookTitle(),
+						r.getBookImgUrl()))
+				.collect(Collectors.toList());
 	}
 	
 	@Override
