@@ -22,12 +22,9 @@ public class BookLikeRepositorySupport {
 	QBook qBook = QBook.book;
 	
 	public List<BookListInfoRes> getLikeBookList(String userEmail) {
-		// 사용자가 좋아하는 도서의 bookIsbn list
 		List<String> likeBookIsbnList = query.select(qBook.bookIsbn).from(qBookLike).where(qBookLike.user.userEmail.eq(userEmail)).fetch();
 		System.out.println(likeBookIsbnList);
 		
-		// 사용자가 좋아하는 도서 list
-		// LikeBookList: bookIsbn, bookTitle, bookImgUrl 정보만 가진다.
 		List<BookListInfoRes> LikeBookList = new ArrayList<>();
 		for(String bookIsbn : likeBookIsbnList) {
 			Book book = query.selectFrom(qBook).where(qBook.bookIsbn.eq(bookIsbn)).fetchOne();
