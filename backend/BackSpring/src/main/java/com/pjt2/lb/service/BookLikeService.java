@@ -15,6 +15,4 @@ public interface BookLikeService {
 	
 	List<BookListInfoRes> getLikeBookList(User user);
 //	List<BookListInfoRes> getLikeBookList(String userEmail);
-	
-	int getLikeState(String userEmail, String bookIsbn);
 }

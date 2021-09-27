@@ -154,20 +154,4 @@ public class ReviewController {
 		}
 	}
 	
-	@GetMapping("/{bookIsbn}")
-	public ResponseEntity<?> getMainReviewList(Authentication authentication, @PathVariable String bookIsbn) {
-
-		try {
-			LBUserDetails userDetails = (LBUserDetails) authentication.getDetails();
-			User user = userDetails.getUser();
-			
-			List<MainReviewListInfoRes> reviewList = reviewService.getMainReviewList(bookIsbn);
-			Map<String, List> map = new HashMap<String, List>();
-			map.put("reviewList", reviewList);
-			
-			return ResponseEntity.status(200).body(map);
-		} catch (NullPointerException e) {
-			return ResponseEntity.status(400).body(new UserInfoGetRes(400, "만료된 토큰입니다."));
-		}
-	}
 }
