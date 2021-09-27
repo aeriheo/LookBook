@@ -60,7 +60,7 @@ public class ReviewRepositorySupport {
 					qReview.reviewId, 
 					qReview.reviewContent,
 					qReview.reviewDate,
-					qReview.reviewLikeCount,
+					qReview.reviewLikeCnt,
 					qBookGrade.bookGrade,
 					qBook.bookIsbn,
 					qBook.bookTitle,
