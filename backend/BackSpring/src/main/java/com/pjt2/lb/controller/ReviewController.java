@@ -1,6 +1,11 @@
 package com.pjt2.lb.controller;
 
 import org.springframework.security.core.Authentication;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,7 +21,9 @@ import com.pjt2.lb.common.auth.LBUserDetails;
 import com.pjt2.lb.common.response.BaseResponseBody;
 import com.pjt2.lb.entity.User;
 import com.pjt2.lb.request.ReviewInfoReq;
+import com.pjt2.lb.response.BookListInfoRes;
 import com.pjt2.lb.response.UserInfoGetRes;
+import com.pjt2.lb.response.UserReviewListInfoRes;
 import com.pjt2.lb.service.ReviewService;
 
 @RequestMapping("/reviews")
@@ -82,7 +89,7 @@ public class ReviewController {
 	}
 	
 	@PutMapping()
-	public ResponseEntity<?> getReviewList(Authentication authentication, @RequestBody ReviewInfoReq reviewInfo) {
+	public ResponseEntity<?> updateReview(Authentication authentication, @RequestBody ReviewInfoReq reviewInfo) {
 		// RequestBody 정보 확인
 		int reviewId = reviewInfo.getReviewId();
 		String bookIsbn = reviewInfo.getBookIsbn();
@@ -104,6 +111,33 @@ public class ReviewController {
 			reviewService.updateReview(reviewId, bookIsbn, reviewContent);
 			
 			return ResponseEntity.status(200).body(BaseResponseBody.of(200, "리뷰 수정 성공"));
+		} catch(Exception e) {	// IllegalArgumentException
+			return ResponseEntity.status(500).body(BaseResponseBody.of(500, "Internal Server Error"));
+		}
+	}
+	
+	@GetMapping()
+	public ResponseEntity<?> getUserReviewList(Authentication authentication) {
+		try {
+			User user;	// 매개변수로 전달할 사용자 객체 선언
+			
+			// 사용자 정보 조회
+			try { // Authentication에서 받아온 토큰 값이 유효할 때
+				LBUserDetails userDetails = (LBUserDetails) authentication.getDetails(); 
+				user = userDetails.getUser(); // 사용자 정보 가져오기 성공
+			} catch (NullPointerException e) { // Authentication에서 받아온 토큰 값이 유효하지 않을 때
+				return ResponseEntity.status(400).body(new UserInfoGetRes(400, "만료된 토큰입니다."));
+			}
+			
+			String userEmail = user.getUserEmail();
+			
+			// 사용자 리뷰 리스트 조회
+			List<UserReviewListInfoRes> userReviewList = reviewService.getUserReviewList(userEmail);
+
+			Map<String, List> map = new HashMap<String, List>();
+			map.put("UserReviewList", userReviewList);
+			
+			return ResponseEntity.status(200).body(map);
 		} catch(Exception e) {	// IllegalArgumentException
 			return ResponseEntity.status(500).body(BaseResponseBody.of(500, "Internal Server Error"));
 		}
