@@ -70,23 +70,31 @@ public class ReviewServiceImpl implements ReviewService{
 	}
 
 	@Override
-	public List<MainReviewListInfoRes> getMainReviewList(String bookIsbn) {
-		return reviewRepositorySupport.getMainReviewList(bookIsbn);
-	}
-	
-	@Override
 	public List<UserReviewListInfoRes> getUserReviewList(String userEmail) {
 		// 이메일 사용해서 닉네임 받아오기(userNickname)
 		String userNickname = userRepository.findUserByUserEmail(userEmail).getUserEmail();
 		
 		// 리뷰에서 내가 작성한 리뷰 리스트 받아오기(이때, bookIsbn, reviewId, reviewDate, reviewContent)
+		List<Review> reviewList = reviewRepositorySupport.getUserReviewList(userEmail);
+		
+		// 반환할 UserReviewListInfoRes 리스트
+		for(Review review : reviewList) {
+			
+		}
 		
 		// 리뷰 리스트를 사용하여 bookIsbn으로 도서 리스트 받아오기(bookTitle, bookImgUrl)
+		
 		
 		// userEmail, bookIsbn 사용하여 내가 부여한 평점 받아오기
 		
 		// 위에 구현해서 리스트 반환으로 변경하기
 		return null;
 	}
+	
+	@Override
+	public List<MainReviewListInfoRes> getMainReviewList(String bookIsbn) {
+		return reviewRepositorySupport.getMainReviewList(bookIsbn);
+	}
+	
 	
 }

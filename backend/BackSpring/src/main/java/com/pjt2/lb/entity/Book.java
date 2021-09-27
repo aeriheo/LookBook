@@ -52,7 +52,7 @@ public class Book {
 	String bookCategoryCode;
 	
 	@Column(name="book_like_cnt")
-	String bookLikeCnt;
+	int bookLikeCnt;
 	
 	@Column(name="book_keyword1")
 	String bookKeyword1;

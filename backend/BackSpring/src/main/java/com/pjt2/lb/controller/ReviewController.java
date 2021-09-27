@@ -60,7 +60,7 @@ public class ReviewController {
 			reviewService.insertReview(userEmail, bookIsbn, reviewContent);
 			
 			return ResponseEntity.status(200).body(BaseResponseBody.of(200, "리뷰 작성 성공"));
-		} catch(Exception e) {	// IllegalArgumentException
+		} catch(Exception e) {
 			return ResponseEntity.status(500).body(BaseResponseBody.of(500, "Internal Server Error"));
 		}
 	}
@@ -85,7 +85,7 @@ public class ReviewController {
 			reviewService.deleteReview(reviewId);
 			
 			return ResponseEntity.status(200).body(BaseResponseBody.of(200, "리뷰 삭제 성공"));
-		} catch(Exception e) {	// IllegalArgumentException
+		} catch(Exception e) {
 			return ResponseEntity.status(500).body(BaseResponseBody.of(500, "Internal Server Error"));
 		}
 	}
@@ -113,7 +113,7 @@ public class ReviewController {
 			reviewService.updateReview(reviewId, bookIsbn, reviewContent);
 			
 			return ResponseEntity.status(200).body(BaseResponseBody.of(200, "리뷰 수정 성공"));
-		} catch(Exception e) {	// IllegalArgumentException
+		} catch(Exception e) {
 			return ResponseEntity.status(500).body(BaseResponseBody.of(500, "Internal Server Error"));
 		}
 	}
