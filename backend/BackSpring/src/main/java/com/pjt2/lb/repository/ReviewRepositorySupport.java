@@ -66,9 +66,8 @@ public class ReviewRepositorySupport {
 					qBook.bookTitle,
 					qBook.bookImgUrl))
 				.from(qReview)
-				.leftJoin(qBook)
-				.where(qReview.user.userEmail.eq(userEmail))
-//				.join(qBook.)
+				.leftJoin(qReview.book, qBook).on(qReview.user.userEmail.eq(userEmail))
+				.leftJoin(qBookGrade).on(qBook.bookIsbn.eq(qBookGrade.book.bookIsbn))
 				.fetch();
 		return userReviewList;
 	}
