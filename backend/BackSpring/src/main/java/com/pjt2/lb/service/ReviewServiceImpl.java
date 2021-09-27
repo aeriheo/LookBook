@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.pjt2.lb.dao.ReviewDao;
 import com.pjt2.lb.entity.Book;
 import com.pjt2.lb.entity.Review;
 import com.pjt2.lb.repository.BookGradeRepositorySupport;
@@ -32,6 +33,9 @@ public class ReviewServiceImpl implements ReviewService{
 	
 	@Autowired
 	BookGradeRepositorySupport bookGradeRepositorySupport;
+	
+	@Autowired
+	ReviewDao reviewDao;
 	
 	@Override
 	public int insertReview(String userEmail, String bookIsbn, String reviewContent) {
@@ -89,14 +93,7 @@ public class ReviewServiceImpl implements ReviewService{
 
 	@Override
 	public List<UserReviewListInfoRes> getUserReviewList(String userEmail) {
-		return null;
+		return reviewDao.getUserReviewList(userEmail);
+	}
 
-	}
-	
-	@Override
-	public List<BookReviewListInfoRes> getMainReviewList(String bookIsbn) {
-		return null;
-	}
-	
-	
 }

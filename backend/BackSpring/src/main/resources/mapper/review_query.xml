@@ -9,5 +9,22 @@
 		WHERE book_isbn = #{bookIsbn}
 		and r.user_email = u.user_email;
 	</select>
-	
+
+    <select id="getUserReviewList" parameterType="String" resultType="com.pjt2.lb.response.UserReviewListInfoRes">
+        SELECT R.*, B.book_title, B.book_img_url, BG.book_grade, 
+		   CASE 
+		      WHEN Review_Like.review_id IS NULL 
+		      THEN false 
+		      ELSE true 
+		      END as "isLiked"
+		FROM Review R
+		JOIN LookBookDB.Book AS B
+		ON R.book_isbn = B.book_isbn
+		AND R.user_email = #{userEmail}
+		LEFT JOIN LookBookDB.Book_Grade AS BG
+		ON B.book_isbn = BG.book_isbn
+		LEFT JOIN Review_Like 
+		ON R.review_id=Review_Like.review_Id;
+    </select>
+
 </mapper> 

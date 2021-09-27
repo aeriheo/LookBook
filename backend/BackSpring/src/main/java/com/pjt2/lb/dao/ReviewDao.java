@@ -7,9 +7,10 @@ import org.apache.ibatis.annotations.Param;
 
 import com.pjt2.lb.response.BookReviewListInfoRes;
 
+import com.pjt2.lb.response.UserReviewListInfoRes;
+
 @Mapper
 public interface ReviewDao {
-
 	public List<BookReviewListInfoRes> getBookReviewList(@Param("bookIsbn") String bookIsbn, @Param("userEmail") String userEmail);
-
+	public List<UserReviewListInfoRes> getUserReviewList(String userEmail);
 }

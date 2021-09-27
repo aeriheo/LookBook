@@ -11,5 +11,4 @@ public interface ReviewService {
 	int deleteReview(int reviewId);
 	int updateReview(int reviewId, String bookIsbn, String reviewContent);
 	List<UserReviewListInfoRes> getUserReviewList(String userEmail);
-	List<BookReviewListInfoRes> getMainReviewList(String bookIsbn);
 }
