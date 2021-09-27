@@ -43,13 +43,21 @@ public class BookController {
 	}
 	
 	@GetMapping()
-	public ResponseEntity<?> getSearchBookInfo(@RequestParam String searchKey, @RequestParam String searchWord){
+	public ResponseEntity<?> getSearchBookInfo(Authentication authentication, @RequestParam String searchKey, @RequestParam String searchWord){
 
-		List<BookListInfoRes> searchBookList = bookService.getSearchBookInfo(searchKey, searchWord);
-		Map<String, List> map = new HashMap<String, List>();
-		map.put("searchBookList", searchBookList);
-		
-		return ResponseEntity.status(200).body(map);
+		try {
+			LBUserDetails userDetails = (LBUserDetails) authentication.getDetails();
+			User user = userDetails.getUser();
+			
+			List<BookListInfoRes> searchBookList = bookService.getSearchBookInfo(searchKey, searchWord);
+			Map<String, List> map = new HashMap<String, List>();
+			map.put("searchBookList", searchBookList);
+			
+			return ResponseEntity.status(200).body(map);
+		} catch (NullPointerException e) {
+			
+			return ResponseEntity.status(400).body(new UserInfoGetRes(400, "만료된 토큰입니다."));
+		}
 	}
 	
 }
