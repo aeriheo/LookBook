@@ -32,6 +32,8 @@ public class QReview extends EntityPathBase<Review> {
 
     public final ListPath<ReviewLike, QReviewLike> reviewLike = this.<ReviewLike, QReviewLike>createList("reviewLike", ReviewLike.class, QReviewLike.class, PathInits.DIRECT2);
 
+    public final StringPath reviewLikeCount = createString("reviewLikeCount");
+
     public final QUser user;
 
     public QReview(String variable) {

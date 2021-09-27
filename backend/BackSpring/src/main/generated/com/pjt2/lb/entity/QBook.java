@@ -38,6 +38,8 @@ public class QBook extends EntityPathBase<Book> {
 
     public final StringPath bookKeyword3 = createString("bookKeyword3");
 
+    public final StringPath bookLikeCnt = createString("bookLikeCnt");
+
     public final NumberPath<Integer> bookPrice = createNumber("bookPrice", Integer.class);
 
     public final StringPath bookPub = createString("bookPub");

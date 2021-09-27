@@ -35,8 +35,8 @@ public class ReviewLike {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="user_like_id")
-	int userLikeId;
+	@Column(name="review_like_id")
+	int reviewLikeId;
 	
 //	@Column(name="review_id")
 //	int reviewId;

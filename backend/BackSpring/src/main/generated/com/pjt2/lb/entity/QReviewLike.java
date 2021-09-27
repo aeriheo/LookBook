@@ -26,9 +26,9 @@ public class QReviewLike extends EntityPathBase<ReviewLike> {
 
     public final DateTimePath<java.util.Date> reviewLikeDate = createDateTime("reviewLikeDate", java.util.Date.class);
 
-    public final QUser user;
+    public final NumberPath<Integer> reviewLikeId = createNumber("reviewLikeId", Integer.class);
 
-    public final NumberPath<Integer> userLikeId = createNumber("userLikeId", Integer.class);
+    public final QUser user;
 
     public QReviewLike(String variable) {
         this(ReviewLike.class, forVariable(variable), INITS);

@@ -51,6 +51,8 @@ public class Review {
 	@Column(name="review_date")
 	Date reviewDate;
 	
+	@Column(name="review_like_count")
+	String reviewLikeCount;
 	
 	// review-reviewLike
 	@JsonManagedReference

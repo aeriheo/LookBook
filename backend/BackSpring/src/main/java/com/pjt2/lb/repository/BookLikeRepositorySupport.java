@@ -13,17 +13,17 @@ import com.pjt2.lb.response.BookListInfoRes;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 @Repository
-public class LikeRepositorySupport {
+public class BookLikeRepositorySupport {
 	
 	@Autowired
 	private JPAQueryFactory query;
 
-	QBookLike qLike = QBookLike.like;
+	QBookLike qBookLike = QBookLike.bookLike;
 	QBook qBook = QBook.book;
 	
 	public List<BookListInfoRes> getLikeBookList(String userEmail) {
 		// 사용자가 좋아하는 도서의 bookIsbn list
-		List<String> likeBookIsbnList = query.select(qBook.bookIsbn).from(qLike).where(qLike.user.userEmail.eq(userEmail)).fetch();
+		List<String> likeBookIsbnList = query.select(qBook.bookIsbn).from(qBookLike).where(qBookLike.user.userEmail.eq(userEmail)).fetch();
 		System.out.println(likeBookIsbnList);
 		
 		// 사용자가 좋아하는 도서 list
