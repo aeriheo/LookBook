@@ -1,0 +1,68 @@
+.bookImgDiv {
+  width: 18%;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.bookImgDivMobile {
+  width: 18%;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+#bookImg {
+  object-fit: contain;
+  width: 100%;
+  pointer-events: none;
+  opacity: 0.3;
+  box-shadow: 1px 1px 3px #999999;
+}
+.introDivMobile {
+  width: 100%;
+  min-width: 500px;
+  position: relative;
+}
+.introDivWeb {
+  width: 100%;
+  position: relative;
+}
+#bookDiv {
+  margin-top: 2vh;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+#bookDivMobile {
+  margin-top: 1vh;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+#textLine {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 10vw;
+  font-family: "Rozha One";
+  justify-content: center;
+  text-shadow: -1px -1px 0 #ffffff, 1px -1px 0 #ffffff, -1px 1px 0 #ffffff,
+    1px 1px 0 #ffffff;
+}
+#text {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  justify-content: center;
+  font-size: 2vw;
+  font-family: "SecularOne";
+  font-weight: bold;
+}
+#textShadow {
+  position: absolute;
+  top: 65%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  justify-content: center;
+  font-size: 3vw;
+  font-family: "NotoSans";
+  text-shadow: 1px 1px 3px #999999;
+}
