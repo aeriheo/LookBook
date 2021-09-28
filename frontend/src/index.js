@@ -7,8 +7,9 @@ import reportWebVitals from './reportWebVitals';
 // store 넣고 reducer 반영
 // import {createStore} from 'redux';
 // import {Provider} from 'react-redux';
+// import reducers from './redux/reducers';
 
-// const store = createStore(reducer);
+// let store = createStore(reducers);
 
 ReactDOM.render(
   <React.StrictMode>

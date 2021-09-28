@@ -1,0 +1,222 @@
+.Mobile {
+  min-width: 500px;
+}
+.another {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.5vh;
+}
+
+#wayMobile {
+  color: #6f6f6f;
+  font-size: 2vw;
+}
+
+#kakaoWay {
+  margin-top: 0.8vh;
+  cursor: pointer;
+}
+
+#wayWeb {
+  color: #6f6f6f;
+  font-size: 1vw;
+}
+
+.Web {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#joinDiv {
+  display: flex;
+  flex-direction: column;
+  min-height: 80vh;
+  justify-content: center;
+  align-items: center;
+}
+
+#joinDivMobile {
+  display: flex;
+  flex-direction: column;
+  min-height: 80vh;
+  justify-content: center;
+  align-items: center;
+}
+
+#logoDiv {
+  display: flex;
+  flex-direction: column;
+  min-height: 80vh;
+  justify-content: center;
+}
+
+#joinDivWeb {
+  width: 40vw;
+  align-items: center;
+}
+
+#joinDivMob {
+  width: 60vw;
+  align-items: center;
+}
+
+#joinHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#joinWeb {
+  font-family: "NotoSans";
+  font-size: 1.8vw;
+  font-weight: bold;
+}
+
+#joinMobile {
+  font-family: "NotoSans";
+  font-size: 2.7vw;
+  font-weight: bold;
+}
+
+.textFieldWeb {
+  width: 100%;
+  background-color: #f9f9f9;
+  border-radius: 10;
+  margin-top: 1vh;
+}
+
+.textFieldwithBtnWeb {
+  width: 80%;
+  background-color: #f9f9f9;
+  border-radius: 10;
+  margin-top: 1vh;
+}
+
+.textFieldwithBtnMobile {
+  width: 80%;
+  background-color: #f9f9f9;
+  border-radius: 10;
+  margin-top: 1vh;
+}
+
+#equalpwMobile {
+  margin: 1vh;
+  text-align: center;
+  width: 18%;
+  font-size: 2vw;
+  margin-bottom: -0.3vh;
+}
+
+#equalpwWeb {
+  margin: 1vh;
+  text-align: center;
+  width: 18%;
+  font-size: 1vw;
+  margin-bottom: -0.3vh;
+}
+
+#btnWeb {
+  color: white;
+  background-color: #b28963;
+  width: 100%;
+  font-size: 1vw;
+  font-family: "NotoSans";
+  font-weight: bold;
+  margin-bottom: 1.5vh;
+  height: 53px;
+}
+
+#btnMobile {
+  color: white;
+  background-color: #b28963;
+  width: 100%;
+  font-size: 2.5vw;
+  font-family: "NotoSans";
+  font-weight: bold;
+  margin-bottom: 1.5vh;
+  height: 40px;
+}
+
+#logoDivcss {
+  width: 20vw;
+  font-size: 10vw;
+  font-family: "Rozha One";
+}
+
+#lookDiv {
+  margin-left: -5vw;
+  margin-bottom: -10vh;
+  color: rgba(216, 194, 170, 0.29);
+}
+
+#bookDiv {
+  margin-left: 5vw;
+  color: rgba(216, 194, 170, 0.69);
+}
+
+#socialWeb {
+  display: flex;
+}
+
+#kakaoDiv {
+  margin-left: 1vw;
+}
+
+#duplicateBtn {
+  width: 18%;
+  margin: 1%;
+  background-color: rgba(178, 137, 99, 0.65);
+  color: white;
+  margin-top: 25px;
+  height: 53px;
+  font-size: 1vw;
+  font-family: "NotoSans";
+  font-weight: bold;
+}
+
+#duplicateBtnMobile {
+  width: 18%;
+  margin: 1%;
+  background-color: rgba(178, 137, 99, 0.65);
+  color: white;
+  margin-top: 20px;
+  height: 53px;
+  font-size: 1.7vw;
+  font-family: "NotoSans";
+  font-weight: bold;
+}
+
+#duplicateDiv {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#dupBtn {
+  color: white;
+  height: 53px;
+  font-size: 1vw;
+  font-family: "NotoSans";
+  font-weight: bold;
+  width: 18%;
+  margin: 1%;
+  margin-top: 25px;
+  background-color: rgba(178, 137, 99, 0.65);
+}
+
+#dupBtnMobile {
+  color: white;
+  height: 53px;
+  font-size: 1.8vw;
+  font-family: "NotoSans";
+  font-weight: bold;
+  width: 18%;
+  margin: 1%;
+  margin-top: 20px;
+  background-color: rgba(178, 137, 99, 0.65);
+}

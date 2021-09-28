@@ -1,0 +1,167 @@
+#mobileDiv {
+  display: flex;
+  flex-direction: column;
+  min-height: 70vh;
+  justify-content: center;
+  align-items: center;
+}
+
+#loginDivMobile {
+  width: 60vw;
+  align-items: center;
+}
+
+#loginHeaderMobile {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#loginMobile {
+  font-family: "NotoSans";
+  font-size: 4.5vw;
+  font-weight: bold;
+}
+
+#forgotMobile {
+  font-family: "NotoSans";
+  font-size: 2vw;
+  color: #6f6f6f;
+  cursor: pointer;
+}
+
+.idMobile {
+  width: 100%;
+  background-color: #f9f9f9;
+  border-radius: 10;
+  margin-top: 1vh;
+}
+
+.pwMobile {
+  width: 100%;
+  background-color: #f9f9f9;
+  border-radius: 10;
+  margin-top: 1vh;
+}
+
+#btnMobile {
+  background-color: #b28963;
+  margin-top: 1.5vh;
+  width: 100%;
+  font-size: 2.8vw;
+  font-family: "NotoSans";
+  font-weight: bold;
+}
+
+#goSignInMobile {
+  color: #6f6f6f;
+  text-align: center;
+  margin-top: 2.5vh;
+  margin-bottom: 2.5vh;
+  text-decoration: underline;
+  font-size: 2.5vw;
+  cursor: pointer;
+}
+
+.another {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.5vh;
+}
+
+#wayMobile {
+  color: #6f6f6f;
+  font-size: 2vw;
+}
+
+#kakaoWay {
+  margin-top: 0.8vh;
+  cursor: pointer;
+}
+
+#wayWeb {
+  color: #6f6f6f;
+  font-size: 0.8vw;
+}
+
+#goSignInWeb {
+  color: #6f6f6f;
+  text-align: center;
+  margin-top: 2.5vh;
+  margin-bottom: 2vh;
+  text-decoration: underline;
+  font-size: 1vw;
+  cursor: pointer;
+}
+
+#Web {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+#loginDiv {
+  display: flex;
+  flex-direction: column;
+  min-height: 80vh;
+  justify-content: center;
+  align-items: center;
+}
+
+#loginDivWeb {
+  width: 28vw;
+  align-items: center;
+}
+
+#loginHeaderWeb {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#loginWeb {
+  font-family: "NotoSans";
+  font-size: 1.5vw;
+  font-weight: bold;
+}
+
+#forgotWeb {
+  font-family: "NotoSans";
+  font-size: 1vw;
+  color: #6f6f6f;
+  cursor: pointer;
+}
+
+.idWeb {
+  width: 100%;
+  background-color: #f9f9f9;
+  border-radius: 10;
+  margin-top: 1vh;
+}
+
+.pwWeb {
+  width: 100%;
+  background-color: #f9f9f9;
+  border-radius: 10;
+  margin-top: 1vh;
+}
+
+#btnWeb {
+  background-color: #b28963;
+  margin-top: 1.5vh;
+  width: 100%;
+  font-size: 1vw;
+  font-family: "NotoSans";
+  font-weight: bold;
+}
+
+#footer {
+  min-height: 10vh;
+  font-family: "Rozha One";
+  text-align: center;
+  justify-content: flex-end;
+  font-size: 10vw;
+  color: rgba(216, 194, 170, 0.29);
+}
