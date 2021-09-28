@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="com.pjt2.lb.dao.LibraryDao">
+
+	<select id="getLibraryList" parameterType="map" resultType="com.pjt2.lb.response.LibraryGetRes">
+		SELECT l.lib_name, l.lib_addr, l.lib_lat, l.lib_long, l.lib_sido, l.lib_gugun, l.lib_tel, l.lib_url
+		  FROM Library as l
+		 WHERE l.lib_gugun like CONCAT('%',#{libGugun},'%') AND l.lib_code in (
+		 	SELECT lb.lib_code
+		 	  FROM Library_Book as lb
+		 	 WHERE lb.book_isbn = #{bookIsbn}
+		 );
+	</select>
+
+</mapper> 

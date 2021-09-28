@@ -28,9 +28,9 @@ public class QLibrary extends EntityPathBase<Library> {
 
     public final StringPath libGugun = createString("libGugun");
 
-    public final StringPath libLang = createString("libLang");
-
     public final StringPath libLat = createString("libLat");
+
+    public final StringPath libLong = createString("libLong");
 
     public final StringPath libName = createString("libName");
 
