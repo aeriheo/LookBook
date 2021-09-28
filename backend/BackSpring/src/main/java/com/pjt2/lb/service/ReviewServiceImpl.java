@@ -47,7 +47,8 @@ public class ReviewServiceImpl implements ReviewService{
 			
 			return 1;
 		} catch(Exception e) {
-			e.printStackTrace();
+			// e.printStackTrace();
+			System.out.println("작성되지 않은 리뷰 혹은 bookIsbn 입니다.");
 			return -1;
 		}
 	}
@@ -64,7 +65,8 @@ public class ReviewServiceImpl implements ReviewService{
 			
 			return 1;
 		} catch(Exception e) {
-			e.printStackTrace();
+			// e.printStackTrace();
+			System.out.println("존재하지 않는 reviewId 입니다.");
 			return -1;
 		}
 	}
@@ -75,15 +77,18 @@ public class ReviewServiceImpl implements ReviewService{
 			Review review = reviewRepository.findById(reviewId);
 			review.setReviewContent(reviewContent);
 			reviewRepository.save(review);
+			
 			return 1;
 		} catch(Exception e) {
-			e.printStackTrace();
+			// e.printStackTrace();
+			System.out.println("존재하지 않는 reviewId 입니다.");
 			return -1;
 		}
 	}
 
 	@Override
 	public List<UserReviewListInfoRes> getUserReviewList(String userEmail) {
+		// 사용자가 작성한 리뷰가 없으면 빈 리스트 반환 
 		return reviewDao.getUserReviewList(userEmail);
 	}
 

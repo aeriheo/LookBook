@@ -29,8 +29,6 @@ public class GoogleLoginController {
 	
 	@PostMapping("/google/login")
 	public ResponseEntity<?> login(@RequestBody GoogleLoginPostReq info) {
-		System.out.println("구글에서 로그인에 성공한 이메일: " + info.getEmail());
-		
 		try {
 			User user = userService.getUserByUserEmail(info.getEmail());
 			String userEmail = user.getUserEmail();
@@ -41,7 +39,7 @@ public class GoogleLoginController {
 			
 			return ResponseEntity.status(200).body(new UserLoginPostRes(200, "로그인에 성공하였습니다.", accessToken, refreshToken));
 			
-		} catch (NullPointerException e) {	// 로그인 실패
+		} catch (NullPointerException e) {
 			return ResponseEntity.status(404).body(new UserLoginPostRes(404, "존재하지 않는 계정입니다.", null, null));
 		}
 	}

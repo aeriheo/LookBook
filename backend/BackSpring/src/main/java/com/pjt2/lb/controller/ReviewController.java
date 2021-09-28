@@ -60,7 +60,6 @@ public class ReviewController {
 			}
 	
 			String userEmail = user.getUserEmail();
-			
 			reviewService.insertReview(userEmail, bookIsbn, reviewContent);
 			
 			return ResponseEntity.status(200).body(BaseResponseBody.of(200, "리뷰 작성 성공"));

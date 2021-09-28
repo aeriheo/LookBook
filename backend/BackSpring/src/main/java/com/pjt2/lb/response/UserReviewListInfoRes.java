@@ -18,5 +18,5 @@ public class UserReviewListInfoRes {
 	String bookIsbn;			// Book - 도서 ISBN
 	String bookTitle;			// Book - 도서 제목
 	String bookImgUrl;			// Book - 도서 이미지
-	int isLiked;			// 리뷰 좋아요 여부
+	int isLiked;				// 리뷰 좋아요 여부
 }
