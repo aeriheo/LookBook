@@ -19,12 +19,13 @@ import com.pjt2.lb.common.auth.LBUserDetails;
 import com.pjt2.lb.common.response.BaseResponseBody;
 import com.pjt2.lb.entity.User;
 import com.pjt2.lb.request.UserInfoPutReq;
+import com.pjt2.lb.request.UserProfilePostReq;
 import com.pjt2.lb.request.UserRegisterPostReq;
 import com.pjt2.lb.response.UserInfoGetRes;
 import com.pjt2.lb.service.UserService;
 
 @CrossOrigin(
-        origins = {"http://localhost:3000"},
+        origins = {"http://localhost:3000", "https://j5a502.p.ssafy.io/"},
         allowCredentials = "true", 
         allowedHeaders = "*", 
         methods = {RequestMethod.GET,RequestMethod.POST,RequestMethod.DELETE,RequestMethod.PUT,RequestMethod.OPTIONS}
@@ -149,12 +150,12 @@ public class UserController {
 	
 	// 내 프로필 사진 수정
 	@PutMapping("/profile")
-	public ResponseEntity<BaseResponseBody> updateUserProfile (Authentication authentication, @RequestBody String userProfileUrl){
+	public ResponseEntity<BaseResponseBody> updateUserProfile (Authentication authentication, @RequestBody UserProfilePostReq userProfileInfo){
 		LBUserDetails userDetails = (LBUserDetails) authentication.getDetails();
 		User user = userDetails.getUser();
 		
-		if (userService.updateProfile(user, userProfileUrl) == 1) {
-			return ResponseEntity.status(200).body(BaseResponseBody.of(200, "프로필 사진이 수정되었습니다."));						
+		if (userService.updateProfile(user, userProfileInfo) == 1) {
+			return ResponseEntity.status(200).body(BaseResponseBody.of(200, "프로필 사진이 수정되었습니다."));
 		}
 		else {
 			return ResponseEntity.status(400).body(BaseResponseBody.of(400, "프로필 사진 업데이트 과정에서 문제가 발생했습니다."));				
