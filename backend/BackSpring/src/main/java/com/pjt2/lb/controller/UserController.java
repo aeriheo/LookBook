@@ -24,7 +24,7 @@ import com.pjt2.lb.response.UserInfoGetRes;
 import com.pjt2.lb.service.UserService;
 
 @CrossOrigin(
-        origins = {"http://localhost:3000", "https://j5a502.p.ssafy.io/api"},
+        origins = {"http://localhost:3000", "https://j5a502.p.ssafy.io/api", "https://j5a502.p.ssafy.io/"},
         allowCredentials = "true", 
         allowedHeaders = "*", 
         methods = {RequestMethod.GET,RequestMethod.POST,RequestMethod.DELETE,RequestMethod.PUT,RequestMethod.OPTIONS}
