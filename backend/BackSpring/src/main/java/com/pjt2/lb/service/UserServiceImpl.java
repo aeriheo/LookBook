@@ -10,6 +10,7 @@ import com.pjt2.lb.common.response.BaseResponseBody;
 import com.pjt2.lb.entity.User;
 import com.pjt2.lb.repository.UserRepository;
 import com.pjt2.lb.request.UserInfoPutReq;
+import com.pjt2.lb.request.UserProfilePostReq;
 import com.pjt2.lb.request.UserRegisterPostReq;
 import com.pjt2.lb.response.UserInfoGetRes;
 
@@ -88,8 +89,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public int updateProfile(User user, String userProfileUrl) {
+	public int updateProfile(User user, UserProfilePostReq userProfileInfo) {
 		try {
+			String userProfileUrl = userProfileInfo.getUserProfileUrl();
 			user.setUserProfileUrl(userProfileUrl);
 			userRepository.save(user);
 			return 1;
