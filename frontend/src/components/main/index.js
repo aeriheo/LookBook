@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {useMediaQuery} from 'react-responsive';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
@@ -6,8 +6,27 @@ import "slick-carousel/slick/slick-theme.css";
 import './style.css';
 import {Box, Card, CardContent} from '@mui/material';
 import Logo from '../logo';
+import {userAPI} from '../../utils/axios';
 
 const MainSession = () =>{
+    const [q, setQ] = useState('react');
+    const [data, setData] = useState({});
+
+    useEffect(()=>{
+        let completed = false;
+
+        async function loadUser(){
+            const result = await userAPI.userinfo();
+            setData(result.data);
+        }
+
+        loadUser();
+
+        return()=>{
+            completed=true;
+        };
+    },[q]);
+
     const isMobile = useMediaQuery({
         query: "(max-width : 768px)"
     });
@@ -148,7 +167,7 @@ const MainSession = () =>{
             {isMobile?(
                 <div id='mobileWidth'>
                     <div id='recommDiv'>
-                        <div id='recommTitleMobile'>'Nickname'님을 위한 추천 도서</div>
+                        <div id='recommTitleMobile'>'{data.userNickname}'님을 위한 추천 도서</div>
                         <div id='recommGoMobile'>추천도서 보러가기</div>
                     </div>
                     <div id='recommBookMobile'>
@@ -169,7 +188,7 @@ const MainSession = () =>{
             ):(
                 <div>
                     <div id='recommDiv'>
-                        <div id='recommTitleWeb'>'Nickname'님을 위한 추천 도서</div>
+                        <div id='recommTitleWeb'>'{data.userNickname}'님을 위한 추천 도서</div>
                         <div id='recommGoWeb'>추천도서 보러가기</div>
                     </div>
                     <div id='recommBookWeb'>
