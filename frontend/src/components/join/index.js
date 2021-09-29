@@ -6,6 +6,7 @@ import kakaobtn from '../../images/kakao_login.png';
 import Logo from '../logo';
 import './style.css';
 import {userAPI} from '../../utils/axios';
+import {KAKAO_AUTH_URL} from '../../oauth';
 
 
 const Join = (props) =>{
@@ -72,10 +73,21 @@ const Join = (props) =>{
         }
     }
 
+    const responseGoogle = async(guser)=>{
+        const result = await userAPI.loginGoogle(guser.profileObj.email);
+        if (result===false){
+            window.location.href='/joinSocial';
+        }else{
+            window.location.href='/lookbook';
+        }
+    }
+
     const signin = async()=>{
+        if(pw==='') alert('비밀번호를 입력해주세요!');
+        if(pw!==pwCheck) alert('비밀번호를 확인해주세요!');
         if(emailChk===false) alert('이메일 중복 확인을 해주세요');
         if(nickChk===false) alert('닉네임 중복확인을 해주세요');
-        if(emailChk & nickChk){
+        if(emailChk & nickChk & pw===pwCheck & pw.length !== 0){
             await userAPI.join(id, pw, name, nickname);
             alert('회원가입에 성공했습니다! 로그인해주세요.');
             window.location.href='/';
@@ -115,8 +127,8 @@ const Join = (props) =>{
                         <div  className='another'>
                             <div id='wayMobile'>다른 방법으로 회원가입하기</div>
                             <div id='socialWeb'>
-                                <GoogleLogin clientId={clientId} buttonText='Login'/>
-                                <div id='kakaoDiv'>
+                                <GoogleLogin clientId={clientId} buttonText='Login' onSuccess={responseGoogle}/>
+                                <div id='kakaoDiv' onClick={()=>{window.location.href = KAKAO_AUTH_URL}}>
                                     <img src={kakaobtn} id='kakaoWay'/>
                                 </div>
                             </div>
@@ -162,8 +174,8 @@ const Join = (props) =>{
                         <div  className='another'>
                             <div id='wayWeb'>다른 방법으로 회원가입하기</div>
                             <div id='socialWeb'>
-                                <GoogleLogin clientId={clientId} buttonText='Login'/>
-                                <div id='kakaoDiv'>
+                                <GoogleLogin clientId={clientId} buttonText='Login' onSuccess={responseGoogle}/>
+                                <div id='kakaoDiv' onClick={()=>{window.location.href = KAKAO_AUTH_URL}}>
                                     <img src={kakaobtn} id='kakaoWay'/>
                                 </div>
                             </div>
