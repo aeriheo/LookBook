@@ -40,7 +40,7 @@ public class KakaoLoginServiceImpl implements KakaoLoginService {
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 		params.add("grant_type", "authorization_code");
 		params.add("client_id", kakaoOauth2ClinetId);
-		params.add("redirect_uri", frontendRedirectUrl + "/callback/kakao");
+		params.add("redirect_uri", frontendRedirectUrl + "/joinsocial");
 		params.add("code", code);
 
 		HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest = new HttpEntity<>(params, headers);
