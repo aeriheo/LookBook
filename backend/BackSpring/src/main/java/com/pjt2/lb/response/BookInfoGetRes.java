@@ -8,6 +8,7 @@ import lombok.Data;
 public class BookInfoGetRes {
 	private String bookIsbn;
 	private String bookTitle;
+	private String bookAuthor;
 	private String bookPub;
 	private String bookPubDate;
 	private String bookImgUrl;
