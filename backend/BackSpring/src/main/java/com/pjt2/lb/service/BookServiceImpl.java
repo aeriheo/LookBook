@@ -50,9 +50,12 @@ public class BookServiceImpl implements BookService {
 		Book book = bookRepository.findByBookIsbn(bookIsbn);
 		BeanUtils.copyProperties(book, bookInfo);
 		
-		// 책 리뷰 리스트
-		List<BookReviewListInfoRes> reviewList = reviewDao.getBookReviewList(bookIsbn, userEmail);
-		bookInfo.setReviewList(reviewList);
+		// 최신 순 책 리뷰 리스트
+		List<BookReviewListInfoRes> reviewRecentList = reviewDao.getBookRecentReviewList(bookIsbn, userEmail);
+		bookInfo.setRecentReviewList(reviewRecentList);
+		
+		List<BookReviewListInfoRes> reviewRecommList = reviewDao.getBookRecommReviewList(bookIsbn, userEmail);
+		bookInfo.setRecommReviewList(reviewRecommList);
 		
 		// 책 평균 평점
 		Double avgGrade = bookGradeRepositorySupport.getBookGradeAvg(bookIsbn);
