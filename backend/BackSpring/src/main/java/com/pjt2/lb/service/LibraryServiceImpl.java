@@ -17,10 +17,7 @@ public class LibraryServiceImpl implements LibraryService {
 	LibraryDao libraryDao;
 
 	@Override
-	public List<LibraryGetRes> getLibraryList(LibraryGetReq libraryInfo) {
-		
-		String bookIsbn = libraryInfo.getBookIsbn();
-		String libGugun = libraryInfo.getLibGugun();
+	public List<LibraryGetRes> getLibraryList(String bookIsbn, String libGugun) {
 		
 		List<LibraryGetRes> libraryListGetRes = new ArrayList<LibraryGetRes>();
 		
