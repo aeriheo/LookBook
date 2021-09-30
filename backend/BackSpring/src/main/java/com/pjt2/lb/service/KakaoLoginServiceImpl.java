@@ -26,7 +26,7 @@ public class KakaoLoginServiceImpl implements KakaoLoginService {
 	private ObjectMapper objectMapper;
 
 	private final String kakaoOauth2ClinetId = "a765ac439be73b3505f709a713a0dcd0";
-	private final String frontendRedirectUrl = "http://localhost:3000";
+	private final String frontendRedirectUrl = "https://j5A502.p.ssafy.io";
 
 	@Override
 	public KakaoOAuthToken getKakaoTokenApi(String code) {
