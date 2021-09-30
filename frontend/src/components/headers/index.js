@@ -55,8 +55,8 @@ const Header = props=>{
     },[query]);
 
     const logout = ()=>{
-        window.sessionStorage.setItem('refreshToken', '');
-        window.sessionStorage.setItem('token', '');
+        window.sessionStorage.removeItem('refreshToken');
+        window.sessionStorage.removeItem('token');
         window.location.replace (`/`);
     }
 

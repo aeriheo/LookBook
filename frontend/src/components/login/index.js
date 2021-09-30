@@ -6,6 +6,7 @@ import kakaobtn from '../../images/kakao_login.png';
 import Logo from '../logo';
 import './style.css';
 import {userAPI} from '../../utils/axios';
+import {KAKAO_AUTH_URL} from '../../oauth';
 
 const Login = () =>{
     const isMobile = useMediaQuery({
@@ -42,6 +43,17 @@ const Login = () =>{
         }
     }
 
+    const responseGoogle = async(guser)=>{
+        const result = await userAPI.loginGoogle(guser.profileObj.email);
+        if (result===false){
+            alert(`회원이 아닙니다.
+            회원가입 페이지로 이동합니다.`);
+            window.location.href='/joinSocial';
+        }else{
+            window.location.href='/lookbook';
+        }
+    }
+
     return(
         <div>
         {isMobile?(
@@ -68,8 +80,8 @@ const Login = () =>{
                         <Divider/>
                         <div className='another'>
                             <div id='wayMobile'>다른 방법으로 로그인하기</div>
-                            <GoogleLogin clientId={clientId} buttonText='Login'/>
-                            <div>
+                            <GoogleLogin clientId={clientId} buttonText='Login' onSuccess={responseGoogle}/>
+                            <div  onClick={()=>{window.location.href = KAKAO_AUTH_URL}}>
                                 <img src={kakaobtn} id='kakaoWay'/>
                             </div>
                         </div>
@@ -100,8 +112,8 @@ const Login = () =>{
                         <div  className='another'>
                             <div id='wayWeb'>다른 방법으로 로그인하기</div>
                             <div style={{display: 'flex'}}> 
-                                <GoogleLogin clientId={clientId} buttonText='Login'/>
-                                <div style={{marginLeft: '1vw'}}>
+                                <GoogleLogin clientId={clientId} buttonText='Login' onSuccess={responseGoogle}/>
+                                <div style={{marginLeft: '1vw'}} onClick={()=>{window.location.href = KAKAO_AUTH_URL}}>
                                     <img src={kakaobtn} id='kakaoWay'/>
                                 </div>
                             </div>
