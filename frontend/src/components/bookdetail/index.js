@@ -66,7 +66,7 @@ const BookDetail= () =>{
     const loadBook = async()=>{
         const result = await bookAPI.detail(bookisbn);
         setData(result);
-        console.log(result);
+        // console.log(result);
         if(result.bookImgUrl.length>0) setImglink(result.bookImgUrl);
         setbookTitle(result.bookTitle);
         setBookPub(result.bookPub);

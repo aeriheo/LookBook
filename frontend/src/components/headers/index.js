@@ -39,20 +39,27 @@ const Header = props=>{
         query: "(max-width : 768px)"
     });
 
-    useEffect(()=>{
-        let completed = false;
-
-        async function loadUser(){
-            const result = await userAPI.userinfo();
+    const loadUser = async()=>{
+        let result = await userAPI.userinfo();
+        setData(result.data);
+        if(result.status===400){
+            let retry = await userAPI.reissue();
+            if(retry.statusCode!==200) {
+                alert('올바른 사용자가 아닙니다.');
+                logout();
+                
+            }
+            result = await userAPI.userinfo();
             setData(result.data);
         }
+    }
 
+    useEffect(()=>{
+        
         loadUser();
-
-        return()=>{
-            completed=true;
-        };
-    },[query]);
+        const interval = setInterval(()=>{loadUser()}, 60000*30)
+        return ()=> clearInterval(interval);
+    },[]);
 
     const logout = ()=>{
         window.sessionStorage.removeItem('refreshToken');
