@@ -6,6 +6,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.pjt2.lb.dao.BookDao;
 import com.pjt2.lb.dao.ReviewDao;
 import com.pjt2.lb.entity.Book;
 import com.pjt2.lb.entity.BookLike;
@@ -39,6 +40,9 @@ public class BookServiceImpl implements BookService {
 	
 	@Autowired
 	ReviewDao reviewDao;
+	
+	@Autowired
+	BookDao bookDao;
 	
 	@Override
 	public BookInfoGetRes getBookInfo(String bookIsbn, User user) {
@@ -80,6 +84,11 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public List<BookListInfoRes> getSearchBookInfo(String searchKey, String searchWord) {
 		return bookRepositorySupport.getSearchBookInfo(searchKey, searchWord);
+	}
+
+	@Override
+	public List<BookListInfoRes> getCategoryList(int categoryId, String userEmail) {
+		return bookDao.getCategoryList(categoryId, userEmail);
 	}
 
 }

@@ -1,7 +1,6 @@
 package com.pjt2.lb.controller;
 
 import java.util.HashMap;
-
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pjt2.lb.common.auth.LBUserDetails;
+import com.pjt2.lb.common.response.BaseResponseBody;
 import com.pjt2.lb.entity.User;
 import com.pjt2.lb.response.BookInfoGetRes;
 import com.pjt2.lb.response.BookListInfoRes;
@@ -24,49 +24,78 @@ import com.pjt2.lb.response.UserInfoGetRes;
 import com.pjt2.lb.service.BookService;
 
 @CrossOrigin(
-        origins = {"http://localhost:3000", "https://j5a502.p.ssafy.io/"},
-        allowCredentials = "true", 
-        allowedHeaders = "*", 
-        methods = {RequestMethod.GET,RequestMethod.POST,RequestMethod.DELETE,RequestMethod.PUT,RequestMethod.OPTIONS}
-)
+		origins = { "http://localhost:3000", "https://j5a502.p.ssafy.io/" },
+		allowCredentials = "true",
+		allowedHeaders = "*",
+		methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.PUT, RequestMethod.OPTIONS })
 @RequestMapping("/books")
 @RestController
 public class BookController {
 
 	@Autowired
 	BookService bookService;
-	
+
 	@GetMapping("/{bookIsbn}")
-	public ResponseEntity<?> getBookInfo(Authentication authentication, @PathVariable(required = true) String bookIsbn){
+	public ResponseEntity<?> getBookInfo(Authentication authentication,
+			@PathVariable(required = true) String bookIsbn) {
 		try {
 			LBUserDetails userDetails = (LBUserDetails) authentication.getDetails();
 			User user = userDetails.getUser();
-			
+
 			BookInfoGetRes bookInfo = bookService.getBookInfo(bookIsbn, user);
+
 			return ResponseEntity.status(200).body(bookInfo);
+
 		} catch (NullPointerException e) {
-			
 			return ResponseEntity.status(400).body(new UserInfoGetRes(400, "만료된 토큰입니다."));
+		} catch (IllegalArgumentException e) {
+			return ResponseEntity.status(404).body(BaseResponseBody.of(404, "도서 정보가 존재하지 않습니다."));
+		} catch (Exception e) {
+			return ResponseEntity.status(500).body(BaseResponseBody.of(500, "Internal Server Error"));
 		}
-		
+
 	}
-	
+
 	@GetMapping()
-	public ResponseEntity<?> getSearchBookInfo(Authentication authentication, @RequestParam String searchKey, @RequestParam String searchWord){
+	public ResponseEntity<?> getSearchBookInfo(Authentication authentication, @RequestParam String searchKey,
+			@RequestParam String searchWord) {
 
 		try {
 			LBUserDetails userDetails = (LBUserDetails) authentication.getDetails();
 			User user = userDetails.getUser();
-			
+
 			List<BookListInfoRes> searchBookList = bookService.getSearchBookInfo(searchKey, searchWord);
 			Map<String, List> map = new HashMap<String, List>();
 			map.put("searchBookList", searchBookList);
-			
+
 			return ResponseEntity.status(200).body(map);
+
 		} catch (NullPointerException e) {
-			
 			return ResponseEntity.status(400).body(new UserInfoGetRes(400, "만료된 토큰입니다."));
+		} catch (Exception e) {
+			return ResponseEntity.status(500).body(BaseResponseBody.of(500, "Internal Server Error"));
 		}
 	}
 	
+	@GetMapping("/category/{categoryId}")
+	public ResponseEntity<?> getCategoryList(Authentication authentication,
+			@PathVariable(required = true) int categoryId) {
+		try {
+			LBUserDetails userDetails = (LBUserDetails) authentication.getDetails();
+			User user = userDetails.getUser();
+			
+			List<BookListInfoRes> categoryList = bookService.getCategoryList(categoryId, user.getUserEmail());
+			Map<String, List> map = new HashMap<String, List>();
+			map.put("categoryList", categoryList);
+			return ResponseEntity.status(200).body(map);
+
+		} catch (NullPointerException e) {
+			return ResponseEntity.status(400).body(new UserInfoGetRes(400, "만료된 토큰입니다."));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(500).body(BaseResponseBody.of(500, "Internal Server Error"));
+		}
+
+	}
+
 }
