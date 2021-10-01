@@ -1,5 +1,6 @@
 package com.pjt2.lb.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
@@ -76,10 +77,21 @@ public class BookServiceImpl implements BookService {
 		
 		return bookInfo;
 	}
-
+	
 	@Override
 	public List<BookListInfoRes> getSearchBookInfo(String searchKey, String searchWord) {
 		return bookRepositorySupport.getSearchBookInfo(searchKey, searchWord);
 	}
 
+	@Override
+	public List<BookListInfoRes> getBestBookListInfo() {
+		
+		List<Book> bestBookList = bookRepository.findTop10ByOrderByBookLikeCntDesc();
+		List<BookListInfoRes> bestBookInfoList = new ArrayList<>();
+		for(Book bestBook : bestBookList) {
+			bestBookInfoList.add(new BookListInfoRes(bestBook.getBookIsbn(), bestBook.getBookTitle(), bestBook.getBookImgUrl()));
+		}
+		
+		return bestBookInfoList;
+	}
 }

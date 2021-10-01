@@ -12,6 +12,7 @@ import com.pjt2.lb.repository.BookGradeRepositorySupport;
 import com.pjt2.lb.repository.BookRepository;
 import com.pjt2.lb.repository.ReviewRepository;
 import com.pjt2.lb.repository.UserRepository;
+import com.pjt2.lb.response.BestReviewInfoRes;
 import com.pjt2.lb.response.UserReviewListInfoRes;
 
 @Service("ReviewService")
@@ -81,6 +82,15 @@ public class ReviewServiceImpl implements ReviewService{
 	public List<UserReviewListInfoRes> getUserReviewList(String userEmail) {
 		// 사용자가 작성한 리뷰가 없으면 빈 리스트 반환 
 		return reviewDao.getUserReviewList(userEmail);
+	}
+	
+	@Override
+	public BestReviewInfoRes getBestReviewInfo() {
+		Review review = reviewRepository.findFirstByOrderByReviewLikeCntDesc();
+		String userNickname = userRepository.findUserByUserEmail(review.getUser().getUserEmail()).getUserNickname();
+		Book book = bookRepository.findByBookIsbn(review.getBook().getBookIsbn());
+		BestReviewInfoRes bestReviewInfo = new BestReviewInfoRes(book.getBookIsbn(), book.getBookTitle(), book.getBookImgUrl(), review.getReviewContent(), userNickname);
+		return bestReviewInfo;
 	}
 
 }
