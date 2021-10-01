@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+
+<mapper namespace="com.pjt2.lb.dao.BookDao">
+
+	<select id="getCategoryList" parameterType="map" resultType="com.pjt2.lb.response.BookListInfoRes">
+		SELECT B.book_isbn, B.book_title, B.book_img_url, B.book_category_code
+		FROM Book B
+		WHERE
+		(#{categoryId} = 1 and book_category_code like '__8_3')
+		OR (#{categoryId} = 2 and (book_category_code like '__8_1' or book_category_code like '__8_4'))
+		OR (#{categoryId} = 3 and (book_category_code like '__1__' or book_category_code like '__2__' or book_category_code like '__3__' or book_category_code like '__6__'))
+		OR (#{categoryId} = 4 and book_category_code like '__9__')
+		OR (#{categoryId} = 5 and book_category_code like '__320')
+		OR (#{categoryId} = 6 and book_category_code like '7____')
+		OR (#{categoryId} = 7 and book_category_code like '4____')
+		OR (#{categoryId} = 8 and (book_category_code like '__7__' or book_category_code like '__030'))
+		OR (#{categoryId} = 9 and book_category_code like '__3__')
+		OR (#{categoryId} = 10 and book_category_code like '__4__')
+		OR (#{categoryId} = 11 and (book_category_code like '__003' or book_category_code like '__004' or book_category_code like '__005'))
+		OR (#{categoryId} = 12 and book_category_code like '__500')
+		OR (#{categoryId} = 13 and book_category_code like '__600')
+		OR (#{categoryId} = 14 and book_category_code like '__200')
+		OR (#{categoryId} = 15 and book_category_code like '__98_')
+		OR (#{categoryId} = 16 and book_category_code like '__594')
+		OR (#{categoryId} = 17 and (book_category_code like '__592' or book_category_code like '__593'))
+		OR (#{categoryId} = 18 and book_category_code like '__6__')
+		limit 500
+	</select>
+
+</mapper>

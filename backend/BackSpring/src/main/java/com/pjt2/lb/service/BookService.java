@@ -12,4 +12,6 @@ public interface BookService {
 
 	List<BookListInfoRes> getSearchBookInfo(String searchKey, String searchWord);
 
+	List<BookListInfoRes> getCategoryList(int categoryId, String userEmail);
+
 }

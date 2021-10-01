@@ -1,7 +1,6 @@
 package com.pjt2.lb.controller;
 
 import java.util.HashMap;
-
 import java.util.List;
 import java.util.Map;
 
@@ -76,6 +75,27 @@ public class BookController {
 		} catch (Exception e) {
 			return ResponseEntity.status(500).body(BaseResponseBody.of(500, "Internal Server Error"));
 		}
+	}
+	
+	@GetMapping("/category/{categoryId}")
+	public ResponseEntity<?> getCategoryList(Authentication authentication,
+			@PathVariable(required = true) int categoryId) {
+		try {
+			LBUserDetails userDetails = (LBUserDetails) authentication.getDetails();
+			User user = userDetails.getUser();
+			
+			List<BookListInfoRes> categoryList = bookService.getCategoryList(categoryId, user.getUserEmail());
+			Map<String, List> map = new HashMap<String, List>();
+			map.put("categoryList", categoryList);
+			return ResponseEntity.status(200).body(map);
+
+		} catch (NullPointerException e) {
+			return ResponseEntity.status(400).body(new UserInfoGetRes(400, "만료된 토큰입니다."));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(500).body(BaseResponseBody.of(500, "Internal Server Error"));
+		}
+
 	}
 
 }
