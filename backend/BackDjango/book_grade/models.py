@@ -12,6 +12,8 @@ class BookGrade(models.Model):
         managed = False
         db_table = 'Book_Grade'
 
+    def __str__(self):
+        return f"{self.book_grade_id}/{self.book_isbn}/{self.user_email}/{self.book_grade}"
 
 
 

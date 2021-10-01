@@ -46,7 +46,9 @@ INSTALLED_APPS = [
     # for User Data - Read Data from LB Database
     'user',
     # for BookGrade Data - Read Data from LB Database
-    'book_grade'
+    'book_grade',
+    # for Recommendation
+    'recommendation'
 ]
 
 MIDDLEWARE = [
