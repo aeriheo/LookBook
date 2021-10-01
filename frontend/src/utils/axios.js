@@ -24,7 +24,7 @@ export const userAPI = {
         }).then(function(response){
             return response;
         }).catch(function(e){
-            console.log(e);
+            return e.response;
         })
     },
     checkNickName:async (userNickname)=>{
@@ -73,6 +73,79 @@ export const userAPI = {
             // console.log(response);
         }).catch((error)=>{
             console.log(error);
+        })
+    },
+    reissue: async () => {
+        return await request.post('auth/reissue',{
+            refreshToken : window.sessionStorage.getItem('refreshToken')
+        }).then((response)=>{
+            window.sessionStorage.setItem('token', response.data.accessToken);
+            window.sessionStorage.setItem('refreshToken', response.data.refreshToken);
+            return response.data;
+        }).catch((error)=>{
+            return error.response;
+        })
+    }
+}
+
+export const bookAPI={
+    detail: async(bookIsbn)=>{
+        return await request.get(`/books/${bookIsbn}`,{
+            bookIsbn
+        }).then((response)=>{
+            // console.log(response);
+            return response.data;
+        }).catch((err)=>{
+            console.log(err);
+        })
+    },
+    addBookGrade: async (bookIsbn, bookGrade) => {
+        return await request.post('/bookgrade',{
+            bookIsbn, bookGrade
+        }).then((response) => {
+            // console.log(response);
+        })
+    },
+    modifyBookGrade: async (bookIsbn, bookGrade) => {
+        return await request.put('/bookgrade',{
+            bookIsbn, bookGrade
+        }).then((response) => {
+            // console.log(response);
+        })
+    }
+}
+
+export const reviewAPI = {
+    write: async (bookIsbn, reviewContent)=>{
+        return await request.post('/reviews',{
+            bookIsbn, reviewContent
+        }).then((response)=>{
+            return response.data.status;
+        })
+    },
+    like: async (reviewId) => {
+        return await request.post(`/reviewlikes/${reviewId}`,{
+
+        }).then((response) => {
+            // console.log(response);
+        })
+    },
+    likeremove : async (reviewId) => {
+        return await request.delete(`/reviewlikes/${reviewId}`,{
+
+        })
+    }
+}
+
+export const likeAPI={
+    addlike : async (bookIsbn) => {
+        return await request.post(`/likes/${bookIsbn}`,{
+
+        })
+    },
+    removelike : async (bookIsbn) => {
+        return await request.delete(`/likes/${bookIsbn}`,{
+
         })
     }
 }
