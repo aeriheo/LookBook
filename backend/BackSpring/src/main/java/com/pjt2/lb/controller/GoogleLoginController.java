@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.pjt2.lb.common.util.JwtTokenUtil;
 import com.pjt2.lb.entity.User;
+import com.pjt2.lb.repository.UserRepository;
 import com.pjt2.lb.request.GoogleLoginPostReq;
 import com.pjt2.lb.response.UserLoginPostRes;
 import com.pjt2.lb.service.UserService;
@@ -27,6 +28,9 @@ public class GoogleLoginController {
 	@Autowired
 	UserService userService;
 	
+	@Autowired
+	UserRepository userRepository;
+	
 	@PostMapping("/google/login")
 	public ResponseEntity<?> login(@RequestBody GoogleLoginPostReq info) {
 		try {
@@ -36,6 +40,9 @@ public class GoogleLoginController {
 			
 			String accessToken = JwtTokenUtil.getToken(userEmail);
 			String refreshToken = JwtTokenUtil.getRefreshToken();
+			
+			user.setRefreshToken(refreshToken);
+			userRepository.save(user);
 			
 			return ResponseEntity.status(200).body(new UserLoginPostRes(200, "로그인에 성공하였습니다.", accessToken, refreshToken));
 			
