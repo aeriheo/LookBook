@@ -8,4 +8,6 @@ import com.pjt2.lb.entity.Review;
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, Integer>{
 	Review findById(int reviewId);
+	
+	Review findFirstByOrderByReviewLikeCntDesc();
 }

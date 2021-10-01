@@ -1,11 +1,13 @@
 package com.pjt2.lb.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.pjt2.lb.dao.BookDao;
 import com.pjt2.lb.dao.ReviewDao;
 import com.pjt2.lb.entity.Book;
 import com.pjt2.lb.entity.BookLike;
@@ -39,6 +41,9 @@ public class BookServiceImpl implements BookService {
 	
 	@Autowired
 	ReviewDao reviewDao;
+	
+	@Autowired
+	BookDao bookDao;
 	
 	@Override
 	public BookInfoGetRes getBookInfo(String bookIsbn, User user) {
@@ -76,10 +81,26 @@ public class BookServiceImpl implements BookService {
 		
 		return bookInfo;
 	}
-
+	
 	@Override
 	public List<BookListInfoRes> getSearchBookInfo(String searchKey, String searchWord) {
 		return bookRepositorySupport.getSearchBookInfo(searchKey, searchWord);
 	}
 
+	@Override
+	public List<BookListInfoRes> getCategoryList(int categoryId, String userEmail) {
+		return bookDao.getCategoryList(categoryId, userEmail);
+	}
+
+	@Override
+	public List<BookListInfoRes> getBestBookListInfo() {
+		
+		List<Book> bestBookList = bookRepository.findTop10ByOrderByBookLikeCntDesc();
+		List<BookListInfoRes> bestBookInfoList = new ArrayList<>();
+		for(Book bestBook : bestBookList) {
+			bestBookInfoList.add(new BookListInfoRes(bestBook.getBookIsbn(), bestBook.getBookTitle(), bestBook.getBookImgUrl()));
+		}
+		
+		return bestBookInfoList;
+	}
 }
