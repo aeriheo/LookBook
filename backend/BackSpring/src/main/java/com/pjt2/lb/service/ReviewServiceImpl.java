@@ -40,11 +40,7 @@ public class ReviewServiceImpl implements ReviewService{
 			review.setUser(userRepository.findUserByUserEmail(userEmail));
 			review.setReviewContent(reviewContent);
 			reviewRepository.save(review);
-			
-			Book book = bookRepository.findByBookIsbn(bookIsbn);
-			book.setBookLikeCnt(book.getBookLikeCnt()+1);
-			bookRepository.save(book);
-			
+
 			return 1;
 		} catch(Exception e) {
 			// e.printStackTrace();
@@ -56,11 +52,6 @@ public class ReviewServiceImpl implements ReviewService{
 	@Override
 	public int deleteReview(int reviewId) {
 		try {
-			Review review = reviewRepository.findById(reviewId);
-			Book book = bookRepository.findByBookIsbn(review.getBook().getBookIsbn());
-			book.setBookLikeCnt(book.getBookLikeCnt()-1);
-			bookRepository.save(book);
-			
 			reviewRepository.deleteById(reviewId);
 			
 			return 1;
