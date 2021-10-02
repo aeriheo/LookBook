@@ -42,5 +42,4 @@ public class BookRepositorySupport {
 		.from(qBook).where(qBook.bookIsbn.eq(bookIsbn)).fetchOne();
 		return bookListInfoRes;
 	}
-
 }

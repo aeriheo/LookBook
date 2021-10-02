@@ -10,6 +10,8 @@ import com.pjt2.lb.entity.User;
 import com.pjt2.lb.repository.BookRepositorySupport;
 import com.pjt2.lb.repository.ItemBasedCFModelRepositorySupport;
 import com.pjt2.lb.repository.UserPredictedGradeModelRepositorySupport;
+import com.pjt2.lb.entity.Book;
+import com.pjt2.lb.repository.UserBasedCFModelRepositorySupport;
 import com.pjt2.lb.response.BookListInfoRes;
 
 @Service("RecommendBookService")
@@ -22,7 +24,12 @@ public class RecommendBookServiceImpl implements RecommendBookService{
 	UserPredictedGradeModelRepositorySupport userPredictedGradeModelRepositorySupport;
 	
 	@Autowired
+	UserBasedCFModelRepositorySupport userBasedCFModelRepositorySupport;
+	
+	@Autowired
 	BookRepositorySupport bookRepositorySupport;
+	
+	
 	
 	@Override
 	public List<BookListInfoRes> getItemBasedCFListInfo(int n) {
@@ -40,6 +47,16 @@ public class RecommendBookServiceImpl implements RecommendBookService{
 		for(String userPredictedRecommIsbn : userPredictedRecommIsbnList)
 			userPredictedGradeList.add(bookRepositorySupport.getListBookInfo(userPredictedRecommIsbn));
 		return userPredictedGradeList;
+	}
+
+	@Override
+	public List<BookListInfoRes> getUserBasedCFListInfo(String userEmail, int limitCnt) {
+		List<String> userBasedRecommIsbnList = userBasedCFModelRepositorySupport.getUserBasedRecommIsbnList(userEmail, limitCnt);
+		List<BookListInfoRes> userBasedRecommList = new ArrayList<>();
+		for(String isbn : userBasedRecommIsbnList) {
+			userBasedRecommList.add(bookRepositorySupport.getListBookInfo(isbn));
+		}
+		return userBasedRecommList;
 	}
 
 	
