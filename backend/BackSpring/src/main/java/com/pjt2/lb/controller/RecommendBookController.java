@@ -44,7 +44,7 @@ public class RecommendBookController {
 			List<BookListInfoRes> userBasedCFList = recommendBookService.getUserBasedCFListInfo(user.getUserEmail(), 20);
 
 			Map<String, List> map = new HashMap<String, List>();
-			map.put("UserBasedCFList", userBasedCFList);
+			map.put("userBasedCFList", userBasedCFList);
 			
 			return ResponseEntity.status(200).body(map);
 		} catch(NullPointerException e) {
