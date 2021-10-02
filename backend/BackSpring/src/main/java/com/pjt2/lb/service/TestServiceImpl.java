@@ -14,4 +14,12 @@ public class TestServiceImpl implements TestService {
 		return url;
 	}
 
+	@Override
+	public String getUsersUrl() {
+		String url = "http://localhost:8000/parse/user"; 
+		return url;
+	}
+	
+	
+
 }

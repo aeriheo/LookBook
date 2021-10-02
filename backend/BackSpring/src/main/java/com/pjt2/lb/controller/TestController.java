@@ -2,6 +2,7 @@ package com.pjt2.lb.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +19,7 @@ import com.pjt2.lb.service.TestService;
         methods = {RequestMethod.GET,RequestMethod.POST,RequestMethod.DELETE,RequestMethod.PUT,RequestMethod.OPTIONS}
 )
 @RestController
-@RequestMapping("v1/test")
+@RequestMapping("test")
 public class TestController {
 	
 	@Autowired
@@ -44,7 +45,7 @@ public class TestController {
 	
 	@GetMapping("/users")
 	public ResponseEntity<Object[]> getUserInfo() {
-		String url = testService.getDjangoUrl() + "user";
+		String url = testService.getUsersUrl();
 		RestTemplate restTemplate = new RestTemplate();
 		ResponseEntity<Object[]> response = restTemplate.getForEntity(url, Object[].class);
 		
@@ -54,15 +55,10 @@ public class TestController {
 		return response;
 	}
 	
-//	@GetMapping("/user")
-//	public ResponseEntity<BaseResponseBody> getUserInfo() {
-//		String url = "http://localhost:8000/test/user";
-//		RestTemplate restTemplate = new RestTemplate();
-//		ResponseEntity<Object[]> response = restTemplate.getForEntity(url, Object[].class);
-//		
-//		System.out.println("response : " + response);
-//		System.out.println("response.getBody() : " + response.getBody());
-//		return ResponseEntity.status(200).body(BaseResponseBody.of(200, "유저 목록 조회 성공"));
-//	}
+	@GetMapping("/recomm")
+	public ResponseEntity<Object[]> postUserBasedCF(Authentication authentication){
+		//
+		return null;
+	}
 	
 }
