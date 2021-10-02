@@ -17,13 +17,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.pjt2.lb.common.auth.LBUserDetails;
 import com.pjt2.lb.common.response.BaseResponseBody;
+import com.pjt2.lb.entity.ItemBasedCFModel;
 import com.pjt2.lb.entity.User;
+import com.pjt2.lb.entity.UserPredictedGradeModel;
 import com.pjt2.lb.response.BestReviewInfoRes;
 import com.pjt2.lb.response.BookInfoGetRes;
 import com.pjt2.lb.response.BookListInfoRes;
 import com.pjt2.lb.response.MainBookListInfoRes;
 import com.pjt2.lb.response.UserInfoGetRes;
 import com.pjt2.lb.service.BookService;
+import com.pjt2.lb.service.RecommendBookService;
 import com.pjt2.lb.service.ReviewService;
 
 @CrossOrigin(
@@ -40,6 +43,9 @@ public class BookController {
 	
 	@Autowired
 	ReviewService reviewService;
+	
+	@Autowired
+	RecommendBookService recommendBookService;
 	
 	@GetMapping("/{bookIsbn}")
 	public ResponseEntity<?> getBookInfo(Authentication authentication,
@@ -114,11 +120,9 @@ public class BookController {
 			BestReviewInfoRes bestReview = reviewService.getBestReviewInfo();			// (2) 베스트 리뷰
 			
 			// CF: 유저 기반 추천 - (3) 사용자 선호도
-			// List<UserPredictedGradeModel> userPredictedGradeLis;
-			// CF: 유저 기반 추천 - (4) 다른 사람들이 읽은 책
-			// List<UserBasedCFModel> userBasedCFList;
+			List<BookListInfoRes> userPredictedGradeLis = recommendBookService.getUserPredictedGradeListInfo(user, 10);
 			// CF: 아이템 기반 추천 - (5) Best 1도서와 비슷한 책 
-			// List<ItemBasedCFModel> itemBasedCFList;                        
+			List<BookListInfoRes> itemBasedCFList = recommendBookService.getItemBasedCFListInfo(10);                   
 			
 			
 			// MainBookListInfoRes mainBookListInfo = new MainBookListInfoRes(bestBookList, bestReview);

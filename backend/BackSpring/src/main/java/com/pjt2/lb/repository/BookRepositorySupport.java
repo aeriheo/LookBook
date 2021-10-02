@@ -36,4 +36,11 @@ public class BookRepositorySupport {
 			return bookList;
 		}
 	}
+	
+	public BookListInfoRes getListBookInfo(String bookIsbn) {
+		BookListInfoRes bookListInfoRes = query.select(Projections.bean(BookListInfoRes.class, qBook.bookIsbn, qBook.bookTitle, qBook.bookImgUrl))
+		.from(qBook).where(qBook.bookIsbn.eq(bookIsbn)).fetchOne();
+		return bookListInfoRes;
+	}
+
 }
