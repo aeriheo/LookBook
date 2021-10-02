@@ -5,20 +5,18 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    initial = True
-
     dependencies = [
+        ('recommendation', '0001_initial'),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='BookGrade',
+            name='BestBookTen',
             fields=[
-                ('book_grade_id', models.AutoField(primary_key=True, serialize=False)),
-                ('book_grade', models.IntegerField()),
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
             ],
             options={
-                'db_table': 'Book_Grade',
+                'db_table': 'BestBookTen',
                 'managed': False,
             },
         ),
