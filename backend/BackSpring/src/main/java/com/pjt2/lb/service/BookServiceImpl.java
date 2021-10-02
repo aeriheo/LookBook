@@ -9,9 +9,11 @@ import org.springframework.stereotype.Service;
 
 import com.pjt2.lb.dao.BookDao;
 import com.pjt2.lb.dao.ReviewDao;
+import com.pjt2.lb.entity.BestBookTen;
 import com.pjt2.lb.entity.Book;
 import com.pjt2.lb.entity.BookLike;
 import com.pjt2.lb.entity.User;
+import com.pjt2.lb.repository.BestBookTenRepository;
 import com.pjt2.lb.repository.BookGradeRepositorySupport;
 import com.pjt2.lb.repository.BookLikeRepository;
 import com.pjt2.lb.repository.BookRepository;
@@ -38,6 +40,9 @@ public class BookServiceImpl implements BookService {
 	
 	@Autowired
 	BookLikeRepository bookLikeRepository;
+	
+	@Autowired
+	BestBookTenRepository bestBookTenRepository;
 	
 	@Autowired
 	ReviewDao reviewDao;
@@ -95,10 +100,11 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public List<BookListInfoRes> getBestBookListInfo() {
 		
-		List<Book> bestBookList = bookRepository.findTop10ByOrderByBookLikeCntDesc();
+		List<BestBookTen> bestBookIsbnList = bestBookTenRepository.findTop10ByOrderByIdDesc();
 		List<BookListInfoRes> bestBookInfoList = new ArrayList<>();
-		for(Book bestBook : bestBookList) {
-			bestBookInfoList.add(new BookListInfoRes(bestBook.getBookIsbn(), bestBook.getBookTitle(), bestBook.getBookImgUrl()));
+		for(BestBookTen bestBook : bestBookIsbnList) {
+			Book book = bookRepository.findByBookIsbn(bestBook.getBook().getBookIsbn());
+			bestBookInfoList.add(new BookListInfoRes(book.getBookIsbn(), book.getBookTitle(), book.getBookImgUrl()));
 		}
 		
 		return bestBookInfoList;
