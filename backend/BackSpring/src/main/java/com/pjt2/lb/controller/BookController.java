@@ -117,20 +117,21 @@ public class BookController {
 			User user = userDetails.getUser();
 
 			MainBookListInfoRes mainBookListInfo = new MainBookListInfoRes();
-			List<BookListInfoRes> bestBookList = bookService.getBestBookListInfo();	// (1) 베스트 10, 
-			BestReviewInfoRes bestReview = reviewService.getBestReviewInfo();			// (2) 베스트 리뷰
 			
-			// CF: 유저 기반 추천 - (3) 사용자 선호도
-			List<BookListInfoRes> userPredictedGradeLis = recommendBookService.getUserPredictedGradeListInfo(user, 10);
-			// List<BookListInfoRes> userPredictedGradeLis;
-			// CF: 유저 기반 추천 - (4) 다른 사람들이 읽은 책
-			 List<BookListInfoRes> userBasedCFList = recommendBookService.getUserBasedCFListInfo(user.getUserEmail(), 10);
-			 mainBookListInfo.setUserBasedCFList(userBasedCFList);
-			// CF: 아이템 기반 추천 - (5) Best 1도서와 비슷한 책 
+			List<BookListInfoRes> bestBookList = bookService.getBestBookListInfo();
+			mainBookListInfo.setBestBookList(bestBookList);
+			
+			BestReviewInfoRes bestReview = reviewService.getBestReviewInfo();
+			mainBookListInfo.setBestReview(bestReview);
+			
+			List<BookListInfoRes> userPredictedGradeList = recommendBookService.getUserPredictedGradeListInfo(user.getUserEmail(), 10);
+			mainBookListInfo.setUserPredictedGradeList(userPredictedGradeList);
+			
+			List<BookListInfoRes> userBasedCFList = recommendBookService.getUserBasedCFListInfo(user.getUserEmail(), 10);
+			mainBookListInfo.setUserBasedCFList(userBasedCFList);
+			
 			List<BookListInfoRes> itemBasedCFList = recommendBookService.getItemBasedCFListInfo(10);                   
-			
-			
-			// MainBookListInfoRes mainBookListInfo = new MainBookListInfoRes(bestBookList, bestReview);
+			mainBookListInfo.setItemBasedCFList(itemBasedCFList);
 			
 			 return ResponseEntity.status(200).body(mainBookListInfo);
 		} catch(NullPointerException e) {

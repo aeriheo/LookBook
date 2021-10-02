@@ -7,6 +7,6 @@ import com.pjt2.lb.response.BookListInfoRes;
 
 public interface RecommendBookService {
 	List<BookListInfoRes> getItemBasedCFListInfo(int n);
-	List<BookListInfoRes> getUserPredictedGradeListInfo(User user, int n);
+	List<BookListInfoRes> getUserPredictedGradeListInfo(String userEmail, int limitCnt);
 	List<BookListInfoRes> getUserBasedCFListInfo(String userEmail, int limitCnt);
 }

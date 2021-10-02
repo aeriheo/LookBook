@@ -16,11 +16,7 @@ import lombok.NoArgsConstructor;
 public class MainBookListInfoRes {
 	List<BookListInfoRes> bestBookList;
 	BestReviewInfoRes bestReview;
-	
-	// CF: 유저 기반 추천 - (3) 사용자 선호도
 	List<BookListInfoRes> userPredictedGradeList;
-	// CF: 유저 기반 추천 - (4) 다른 사람들이 읽은 책
 	List<BookListInfoRes> userBasedCFList;
-	// CF: 아이템 기반 추천 - (5) Best 1도서와 비슷한 책 
 	List<BookListInfoRes> itemBasedCFList;
 }

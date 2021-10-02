@@ -41,8 +41,8 @@ public class RecommendBookServiceImpl implements RecommendBookService{
 	}
 
 	@Override
-	public List<BookListInfoRes> getUserPredictedGradeListInfo(User user, int n) {
-		List<String> userPredictedRecommIsbnList = userPredictedGradeModelRepositorySupport.getUserPredictedRecommIsbnList(user.getUserEmail(), n);
+	public List<BookListInfoRes> getUserPredictedGradeListInfo(String userEmail, int n) {
+		List<String> userPredictedRecommIsbnList = userPredictedGradeModelRepositorySupport.getUserPredictedRecommIsbnList(userEmail, n);
 		List<BookListInfoRes> userPredictedGradeList = new ArrayList<>();;
 		for(String userPredictedRecommIsbn : userPredictedRecommIsbnList)
 			userPredictedGradeList.add(bookRepositorySupport.getListBookInfo(userPredictedRecommIsbn));

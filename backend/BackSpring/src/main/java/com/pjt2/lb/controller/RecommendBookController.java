@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pjt2.lb.common.auth.LBUserDetails;
-import com.pjt2.lb.common.response.BaseResponseBody;
 import com.pjt2.lb.entity.User;
 import com.pjt2.lb.response.BookListInfoRes;
 import com.pjt2.lb.response.UserInfoGetRes;
@@ -60,7 +59,7 @@ public class RecommendBookController {
 			LBUserDetails userDetails = (LBUserDetails) authentication.getDetails(); 
 			User user = userDetails.getUser();
 
-			List<BookListInfoRes> userPredictedGradeList = recommendBookService.getUserPredictedGradeListInfo(user, 20);
+			List<BookListInfoRes> userPredictedGradeList = recommendBookService.getUserPredictedGradeListInfo(user.getUserEmail(), 20);
 
 			Map<String, List> map = new HashMap<String, List>();
 			map.put("userPredictedGradeList", userPredictedGradeList);
@@ -75,7 +74,7 @@ public class RecommendBookController {
 	}
 	
 	@GetMapping("/user")
-	public ResponseEntity<?> geuserBasedCFList(Authentication authentication) {
+	public ResponseEntity<?> getUserBasedCFList(Authentication authentication) {
 		try {
 			User user;
 			
