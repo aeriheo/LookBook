@@ -113,9 +113,18 @@ public class BookController {
 			List<BookListInfoRes> bestBookList = bookService.getBestBookListInfo();	// (1) 베스트 10, 
 			BestReviewInfoRes bestReview = reviewService.getBestReviewInfo();			// (2) 베스트 리뷰
 			
-			MainBookListInfoRes mainBookList = new MainBookListInfoRes(bestBookList, bestReview);
+			// CF: 유저 기반 추천 - (3) 사용자 선호도
+			// List<UserPredictedGradeModel> userPredictedGradeList 
+			// CF: 유저 기반 추천 - (4) 다른 사람들이 읽은 책
+			// List<UserBasedCFModel> userBasedCFList
+			// CF: 아이템 기반 추천 - (5) Best 1도서와 비슷한 책 
+			// List<ItemBasedCFModel> itemBasedCFList                         
 			
-			return ResponseEntity.status(200).body(mainBookList);
+			
+			// MainBookListInfoRes mainBookListInfo = new MainBookListInfoRes(bestBookList, bestReview);
+			
+			// return ResponseEntity.status(200).body(mainBookListInfo);
+			return ResponseEntity.status(200).body("mainBookListInfo");
 		} catch(NullPointerException e) {
 			e.printStackTrace();
 			return ResponseEntity.status(400).body(new UserInfoGetRes(400, "만료된 토큰입니다."));
