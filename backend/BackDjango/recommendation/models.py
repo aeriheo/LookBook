@@ -34,3 +34,11 @@ class UserPredictedGradeModel(models.Model):
     class Meta:
         managed = False
         db_table = 'UserPredictedGradeModel'
+
+
+class BestBookTenModel(models.Model):
+    book_isbn = models.ForeignKey(Book, related_name="BestBookTen", on_delete=models.CASCADE, db_column='book_isbn')
+
+    class Meta:
+        managed = False
+        db_table = 'BestBookTen'

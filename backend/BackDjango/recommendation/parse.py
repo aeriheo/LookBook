@@ -4,6 +4,7 @@ import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 import operator
 import warnings
+
 warnings.filterwarnings(action='ignore')
 
 import os
@@ -16,7 +17,7 @@ django.setup()
 
 from user.models import User
 from book.models import Book
-from recommendation.models import UserBasedCFModel, ItemBasedCFModel, UserPredictedGradeModel
+from recommendation.models import UserBasedCFModel, ItemBasedCFModel, UserPredictedGradeModel, BestBookTenModel
 
 
 class UserBasedCF:
@@ -117,7 +118,23 @@ class ItemBasedCF:
 
         return item_book_df
 
-    def save_list(self):
+    def best_book_ten_save_list(self):
+        # Create Best Top 10 Book list (혹시 몰라서 10개 가져왔어요!)
+        bk_like_df = self.df_book[['book_isbn', 'book_like_cnt']]
+        bk_like_df = bk_like_df.sort_values(by=['book_like_cnt'], axis=0, ascending=False)
+
+        best_book_list = bk_like_df['book_isbn'].tolist()[:10]
+
+        best_book_list.reverse()
+
+        BestBookTenModel.objects.all().delete()
+
+        for book_isbn in best_book_list:
+            BestBookTenModel(
+                book_isbn=Book.objects.get(book_isbn=book_isbn)
+            ).save()
+
+    def item_based_save_list(self):
         item_book_df = self.item_based_cf()
         item_book_dic = item_book_df.to_dict()
 
@@ -205,6 +222,8 @@ class UserPredictedGrade:
     def save_list(self):
         user_predicted_book_dic = self.make_predicted_dic()
 
+        UserPredictedGradeModel.objects.all().delete()
+
         for user_email, book_isbn_list in user_predicted_book_dic.items():
             book_isbn_list.reverse()
             for book_isbn in book_isbn_list:
@@ -214,8 +233,8 @@ class UserPredictedGrade:
                 ).save()
 
 
-
 if __name__ == "__main__":
     UserBasedCF().save_list()
-    ItemBasedCF().save_list()
+    ItemBasedCF().item_based_save_list()
     UserPredictedGrade().save_list()
+    ItemBasedCF().best_book_ten_save_list()
