@@ -12,20 +12,26 @@
 	</select>
 
     <select id="getUserReviewList" parameterType="String" resultType="com.pjt2.lb.response.UserReviewListInfoRes">
-        SELECT R.*, B.book_title, B.book_img_url, BG.book_grade, 
+		SELECT R.*, B.book_title, B.book_img_url, BG.book_grade, 
 		   CASE 
-		      WHEN Review_Like.review_id IS NULL 
-		      THEN false 
-		      ELSE true 
-		      END as "isLiked"
-		FROM Review R
-		JOIN LookBookDB.Book AS B
+			  WHEN RL.review_id IS NULL 
+			  THEN false 
+			  ELSE true 
+			  END as "isLiked"
+		FROM (
+			SELECT 
+			* FROM 
+			Review 
+			WHERE Review.user_email = #{userEmail}
+			) AS R
+		LEFT JOIN Review_Like RL
+		ON R.review_id = RL.review_Id
+		AND R.user_email = RL.user_email
+		LEFT JOIN Book AS B
 		ON R.book_isbn = B.book_isbn
-		AND R.user_email = #{userEmail}
-		LEFT JOIN LookBookDB.Book_Grade AS BG
-		ON B.book_isbn = BG.book_isbn
-		LEFT JOIN Review_Like 
-		ON R.review_id=Review_Like.review_Id;
+		LEFT JOIN Book_Grade AS BG
+		ON R.book_isbn = BG.book_isbn
+		AND R.user_email = BG.user_email;
     </select>
     
     <select id="getBookRecommReviewList" parameterType="map" resultType="com.pjt2.lb.response.BookReviewListInfoRes">
