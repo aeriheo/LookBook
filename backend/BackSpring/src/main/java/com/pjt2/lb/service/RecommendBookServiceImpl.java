@@ -22,7 +22,7 @@ public class RecommendBookServiceImpl implements RecommendBookService{
 
 	@Override
 	public List<BookListInfoRes> getUserBasedCFListInfo(String userEmail, int limitCnt) {
-		List<String> userBasedRecommIsbnList = userBasedCFModelRepositorySupport.getuserBasedRecommIsbnList(userEmail, limitCnt);
+		List<String> userBasedRecommIsbnList = userBasedCFModelRepositorySupport.getUserBasedRecommIsbnList(userEmail, limitCnt);
 		List<BookListInfoRes> userBasedRecommList = new ArrayList<>();
 		for(String isbn : userBasedRecommIsbnList) {
 			userBasedRecommList.add(bookRepositorySupport.getListBookInfo(isbn));

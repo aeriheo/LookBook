@@ -18,7 +18,7 @@ public class UserBasedCFModelRepositorySupport {
 	
 	QUserBasedCFModel qUserBasedCFModel = QUserBasedCFModel.userBasedCFModel;
 
-	public List<String> getuserBasedRecommIsbnList(String userEmail, int limitCnt) {
+	public List<String> getUserBasedRecommIsbnList(String userEmail, int limitCnt) {
 		List<String> userBasedRecommIsbnList = query.select(qUserBasedCFModel.book.bookIsbn).from(qUserBasedCFModel).where(qUserBasedCFModel.user.userEmail.eq(userEmail)).limit(limitCnt).fetch();
 		return userBasedRecommIsbnList;
 	}
