@@ -48,6 +48,8 @@ public class QBook extends EntityPathBase<Book> {
 
     public final StringPath bookTitle = createString("bookTitle");
 
+    public final ListPath<ItemBasedCFModel, QItemBasedCFModel> itemBasedCF = this.<ItemBasedCFModel, QItemBasedCFModel>createList("itemBasedCF", ItemBasedCFModel.class, QItemBasedCFModel.class, PathInits.DIRECT2);
+
     public final ListPath<Library, QLibrary> library = this.<Library, QLibrary>createList("library", Library.class, QLibrary.class, PathInits.DIRECT2);
 
     public final ListPath<BookLike, QBookLike> like = this.<BookLike, QBookLike>createList("like", BookLike.class, QBookLike.class, PathInits.DIRECT2);
@@ -55,6 +57,10 @@ public class QBook extends EntityPathBase<Book> {
     public final ListPath<Review, QReview> review = this.<Review, QReview>createList("review", Review.class, QReview.class, PathInits.DIRECT2);
 
     public final ListPath<SearchLog, QSearchLog> searchLog = this.<SearchLog, QSearchLog>createList("searchLog", SearchLog.class, QSearchLog.class, PathInits.DIRECT2);
+
+    public final ListPath<UserBasedCFModel, QUserBasedCFModel> userBasedCF = this.<UserBasedCFModel, QUserBasedCFModel>createList("userBasedCF", UserBasedCFModel.class, QUserBasedCFModel.class, PathInits.DIRECT2);
+
+    public final ListPath<UserPredictedGradeModel, QUserPredictedGradeModel> userPredictedGrade = this.<UserPredictedGradeModel, QUserPredictedGradeModel>createList("userPredictedGrade", UserPredictedGradeModel.class, QUserPredictedGradeModel.class, PathInits.DIRECT2);
 
     public QBook(String variable) {
         super(Book.class, forVariable(variable));
