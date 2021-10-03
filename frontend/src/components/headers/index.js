@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useLayoutEffect } from 'react';
 import {AppBar, Avatar, Typography, Menu, MenuItem, Button, Grid, Divider, Toolbar, IconButton, Drawer, ListItem, List, ListItemText} from '@mui/material';
 import {useMediaQuery} from 'react-responsive';
 import SearchIcon from '@mui/icons-material/Search';
@@ -12,12 +12,14 @@ import StarBorderRoundedIcon from '@mui/icons-material/StarBorderRounded';
 import ListRoundedIcon from '@mui/icons-material/ListRounded';
 import './style.css';
 import {userAPI} from '../../utils/axios';
+import { useHistory } from "react-router-dom";
 
 const Header = props=>{
+    let history = useHistory();
     const [anchorEl, setAnchorEl] = useState(null);
     const [menuOpen, setMenuOpen] = useState(false);
-    const [query, setQuery] = useState('react');
     const [data, setData] = useState({});
+    const [avatarUrl, setavatarUrl] = useState('');
 
     const handleDrawerOpen = () =>{  
         setMenuOpen(true);
@@ -39,12 +41,29 @@ const Header = props=>{
         query: "(max-width : 768px)"
     });
 
-    useEffect(()=>{
+    const reloadUser = async()=>{
+        let retry = await userAPI.reissue();
+        if(retry.statusCode!==200) {
+            alert('올바른 사용자가 아닙니다.');
+            logout();
+            
+        }
+        const result = await userAPI.userinfo();
+        setData(result.data);
+        setavatarUrl(result.data.userProfileUrl);
+    }
+
+    useLayoutEffect (()=>{
         let completed = false;
 
         async function loadUser(){
             const result = await userAPI.userinfo();
-            setData(result.data);
+            if(result.status===400){
+                reloadUser();
+            }else{
+                setData(result.data);
+                setavatarUrl(result.data.userProfileUrl);
+            }
         }
 
         loadUser();
@@ -52,7 +71,7 @@ const Header = props=>{
         return()=>{
             completed=true;
         };
-    },[query]);
+    },[]);
 
     const logout = ()=>{
         window.sessionStorage.removeItem('refreshToken');
@@ -85,21 +104,25 @@ const Header = props=>{
                         <div>
                             <Divider variant="middle"/>
                             <div id='userMobile'>
-                                <Avatar sx={{bgcolor:'#C4C4C4', marginRight:'10px'}}></Avatar>
+                                {avatarUrl?(
+                                    <Avatar src={`https://pjt2-lookbook.s3.ap-northeast-2.amazonaws.com/profile/${avatarUrl}`} style={{marginRight:'10px'}} />
+                                ):(
+                                    <Avatar sx={{bgcolor:'#C4C4C4', marginRight:'10px'}}></Avatar>
+                                )}
                                 {data.userNickname}
                             </div>
                             <Divider variant="middle"/>
                             <div>
                                 <List id='listMobile'>
-                                    <ListItem button onClick={handleClose} id = 'listItemMobile'>
+                                    <ListItem button onClick={handleClose} id = 'listItemMobile' onClick={()=>history.push(`/mypage/mypage`)}>
                                         <PersonOutlineIcon id='iconLargeMobile'/>
                                         <ListItemText primary="MYPAGE" id = 'listItemTextMobile'/>
                                     </ListItem>
-                                    <ListItem button onClick={handleClose} id = 'listItemMobile'>
+                                    <ListItem button onClick={handleClose} id = 'listItemMobile' onClick={()=>history.push(`/mypage/like`)}>
                                         <FavoriteBorderIcon id='iconMediumMobile' style={{color:'#FF7474'}} />
                                         <ListItemText primary="LIKE" id = 'listItemTextMobile'/>
                                     </ListItem>
-                                    <ListItem button onClick={handleClose} id = 'listItemMobile'>
+                                    <ListItem button onClick={handleClose} id = 'listItemMobile' onClick={()=>history.push(`/mypage/mylb`)}>
                                         <ImportContactsIcon id='iconMediumMobile'/>
                                         <ListItemText primary="MY LB" id = 'listItemTextMobile'/>
                                     </ListItem>
@@ -108,11 +131,11 @@ const Header = props=>{
                             <Divider variant="middle"/>
                         </div>
                         <List id='listMobile'>
-                            <ListItem button >
+                            <ListItem button onClick={()=>history.push(`/search`)}>
                                 <SearchIcon id = 'iconMediumMobile'/>
                                 <ListItemText primary="검색" id = 'listItemTextMobile'/>
                             </ListItem>
-                            <ListItem button >
+                            <ListItem button onClick={() => window.location.replace (`/category`)}>
                                 <ListRoundedIcon id = 'iconMediumMobile'/>
                                 <ListItemText primary="카테고리" id = 'listItemTextMobile'/>
                             </ListItem>
@@ -123,7 +146,7 @@ const Header = props=>{
                         </List>
                             <List id='listMobile'>
                                 <Divider variant="middle"/>
-                                <ListItem button onClick={()=>window.location.replace(`/`)} id = 'listItemMobile' >
+                                <ListItem button onClick={()=>logout()} id = 'listItemMobile' >
                                     <LogoutIcon id = 'iconMediumMobile'/>
                                     <ListItemText primary="로그아웃" id='listItemTextMobile'/>
                                 </ListItem>
@@ -138,7 +161,7 @@ const Header = props=>{
                         <Typography variant = "h3" id='logoWeb' onClick={() => window.location.replace (`/lookbook`)}>
                             LB
                         </Typography>
-                        <Button size = "large" id = 'buttonWeb' >
+                        <Button size = "large" id = 'buttonWeb' onClick={() => window.location.replace (`/category`)} >
                             카테고리
                         </Button>
                         <Button size = "large" id = 'buttonWeb' >
@@ -146,41 +169,53 @@ const Header = props=>{
                         </Button>
                     </div>
                     <div id = 'divWeb'>
-                        <Button size = "large" id = 'buttonWeb' >
+                        <Button size = "large" id = 'buttonWeb' onClick={()=>history.push(`/search`)}>
                             <SearchIcon/>
                             <div id = 'searchBtnWeb'>
                                 검색
                             </div>
                         </Button>
                         <div id='userDivWeb'>
-                            <Avatar 
-                            sx={{bgcolor:'#C4C4C4'}} 
-                            id = 'user-avatar'
-                            onClick={handleClick} 
-                            aria-controls="user-menu"
-                            aria-haspopup="true"
-                            aria-expanded={open?'true':undefined}>
-                            </Avatar>
+                            {avatarUrl?(
+                                <Avatar src={`https://pjt2-lookbook.s3.ap-northeast-2.amazonaws.com/profile/${avatarUrl}`} 
+                                    id = 'user-avatar'
+                                    onClick={handleClick} 
+                                    aria-controls="user-menu"
+                                    aria-haspopup="true"
+                                    aria-expanded={open?'true':undefined} />
+                            ):(
+                                <Avatar 
+                                sx={{bgcolor:'#C4C4C4'}} 
+                                id = 'user-avatar'
+                                onClick={handleClick} 
+                                aria-controls="user-menu"
+                                aria-haspopup="true"
+                                aria-expanded={open?'true':undefined}>
+                            </Avatar>)}
                             <Menu anchorOrigin = {{vertical:'bottom', horizontal:'right'}} transformOrigin={{vertical:'top'}} id = "user-menu" anchorEl = {anchorEl} open = {open} onClick={handleClose} MenuListProps={{'aria-labelledby':'user-avatar'}}>
                                 <div id='menuUserWeb'>
-                                    <Avatar sx={{bgcolor:'#C4C4C4', marginRight:'10px'}}></Avatar>
+                                    {avatarUrl?(
+                                        <Avatar src={`https://pjt2-lookbook.s3.ap-northeast-2.amazonaws.com/profile/${avatarUrl}`} style={{marginRight:'10px'}} />
+                                    ):(
+                                        <Avatar sx={{bgcolor:'#C4C4C4', marginRight:'10px'}}></Avatar>
+                                    )}
                                     {data.userNickname}
                                 </div>
                                 <Divider variant="middle"/>
-                                <MenuItem onClick={handleClose} id='menuItemWeb'>
+                                <MenuItem onClick={handleClose} id='menuItemWeb' onClick={()=>history.push(`/mypage/mypage`)}>
                                     <PersonOutlineIcon id='menuIconLargeWeb'/>
                                     MYPAGE
                                 </MenuItem>
-                                <MenuItem onClick={handleClose} id='menuItemWeb'>
+                                <MenuItem onClick={handleClose} id='menuItemWeb' onClick={()=>history.push(`/mypage/like`)}>
                                     <FavoriteBorderIcon style={{color:'#FF7474'}} id = 'menuIconMediumWeb'/>
                                     LIKE
                                 </MenuItem>
-                                <MenuItem onClick={handleClose} id='menuItemWeb'>
+                                <MenuItem onClick={handleClose} id='menuItemWeb' onClick={()=>history.push(`/mypage/mylb`)}>
                                     <ImportContactsIcon id = 'menuIconMediumWeb'/>
                                     MY LB
                                 </MenuItem>
                                 <Divider variant="middle"/>
-                                <MenuItem onClick={logout} id='menuItemWeb'>
+                                <MenuItem onClick={()=>logout()} id='menuItemWeb'>
                                     <LogoutIcon id = 'menuIconMediumWeb'/>
                                     로그아웃
                                 </MenuItem>

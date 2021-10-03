@@ -1,0 +1,47 @@
+.rc-tabs {
+  border: none !important;
+}
+.rc-tabs-tab {
+  padding: 5px;
+  text-transform: capitalize;
+}
+.rc-tabs-tab .rc-tabs-tab-btn {
+  font-weight: normal;
+}
+.rc-tabs-tab.rc-tabs-tab-active {
+  background: ececec;
+  color: #b28963;
+}
+.rc-tabs-ink-bar {
+  background: #b28963 !important;
+}
+.rc-tabs-content-holder {
+  padding: 10px;
+  background: white;
+}
+.rc-tabs-content {
+}
+
+#TabWeb {
+  width: 99vw;
+}
+
+#TabMobile {
+  height: 100vh;
+}
+
+#TabListWeb {
+  width: 90vw;
+}
+
+#TabListMobile {
+  width: 80vw;
+}
+
+#mypageDiv {
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  direction: column;
+}

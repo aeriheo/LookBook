@@ -1,0 +1,348 @@
+#moreMobile {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 5;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+
+#reviewFormWeb {
+  height: 15vh;
+}
+
+#reviewWriterWeb {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 2vh;
+}
+
+#reviewMargin {
+  margin-right: 1vw;
+}
+
+#likeColor {
+  color: #ff7474;
+}
+
+#reviewFormMobile {
+  height: 10vh;
+}
+
+#reviewWriterMobile {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 2vh;
+}
+
+.divForm {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  margin-top: 15vh;
+}
+
+#bookDetailMobile {
+  width: 80vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#bookDetailWeb {
+  width: 80vw;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#bookInfoWeb {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  height: 45vh;
+}
+
+#bookTitleMobile {
+  font-size: 5vw;
+  margin-bottom: 4vh;
+  font-family: "NotoSans";
+}
+
+#bookTitleWeb {
+  font-size: 2.5vw;
+  margin-bottom: 1vw;
+  font-family: "NotoSans";
+}
+
+#bookScoreMobile {
+  font-size: 3.5vw;
+  margin-bottom: 3vh;
+  font-family: "NotoSans";
+}
+
+#bookScoreWeb {
+  font-size: 1.5vw;
+  font-family: "NotoSans";
+}
+
+#bookContentWeb {
+  font-size: 1.2vw;
+  margin-bottom: 0.5vw;
+  font-family: "NotoSans";
+}
+
+#bookImgDivMobile {
+  height: 45vh;
+  margin-bottom: 3vh;
+}
+
+#bookDetailImgDivWeb {
+  height: 45vh;
+}
+
+#bookDetailImg {
+  object-fit: contain;
+  height: 100%;
+  opacity: 1;
+}
+
+#bookDataMobile {
+  font-size: 3vw;
+  font-family: "NotoSans";
+  margin-bottom: 1vh;
+}
+
+#bookPubdateMobile {
+  font-size: 3vw;
+  font-family: "NotoSans";
+  margin-bottom: 2vh;
+}
+
+#buyMobile {
+  background-color: #f3bbbb;
+  color: black;
+  font-size: 3.5vw;
+  font-family: "NotoSans";
+  width: 60vw;
+  margin-bottom: 0.8vh;
+}
+
+#rentMobile {
+  background-color: #d7bfbe;
+  color: black;
+  font-size: 3.5vw;
+  width: 60vw;
+  font-family: "NotoSans";
+  margin-bottom: 0.8vh;
+}
+
+#buyWeb {
+  background-color: #f3bbbb;
+  color: black;
+  font-size: 1vw;
+  width: 20vw;
+  margin-bottom: 0.3vw;
+  font-family: "NotoSans";
+}
+
+#rentWeb {
+  font-family: "NotoSans";
+  color: black;
+  font-size: 1vw;
+  width: 20vw;
+  margin-bottom: 0.3vw;
+  background-color: #d7bfbe;
+}
+
+#columnDiv {
+  display: flex;
+  flex-direction: column;
+}
+
+#myGradeDivMobile {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1vh;
+}
+
+#myGradeDivWeb {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1vh;
+}
+
+#myGradeTitleMobile {
+  font-size: 3vw;
+  font-family: "NotoSans";
+  margin-right: 1vw;
+}
+
+#myGradeTitleWeb {
+  font-size: 1vw;
+  margin-right: 1vw;
+  font-family: "NotoSans";
+}
+
+#ratingStyle {
+  color: #b28963;
+  margin-right: 1vw;
+}
+
+#ratingfontMobile {
+  font-size: 3vw;
+  cursor: pointer;
+  font-family: "NotoSans";
+}
+
+#ratingfontWeb {
+  font-size: 1vw;
+  cursor: pointer;
+  font-family: "NotoSans";
+}
+
+#dividerMobile {
+  width: 80vw;
+  height: 1px;
+  background-color: black;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+}
+
+#dividerWeb {
+  width: 80vw;
+  height: 1px;
+  background-color: black;
+  margin-top: 5vh;
+  margin-bottom: 5vh;
+}
+
+#bookDescMobile {
+  width: 80vw;
+  display: flex;
+  flex-direction: column;
+}
+
+#bookIntroduceMobile {
+  font-size: 4vw;
+  margin-bottom: 3vh;
+  font-family: "NotoSans";
+}
+
+#bookIntroduceWeb {
+  font-size: 1.5vw;
+  margin-bottom: 3vh;
+  font-family: "NotoSans";
+}
+
+#bookDescWeb {
+  font-size: 1vw;
+  font-family: "NotoSans";
+}
+
+#morebtn {
+  color: black;
+  cursor: pointer;
+}
+
+#reviewTitleMobile {
+  font-size: 4vw;
+  font-family: "NotoSans";
+  margin-bottom: 2vh;
+}
+
+#reviewWriteFormMobile {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 2vh;
+}
+
+#reviewWriteFormWeb {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 3vh;
+}
+
+#submitBtnMobile {
+  width: 15vw;
+  margin-left: 1vw;
+  height: 9vh;
+  color: black;
+  font-family: "NotoSans";
+  background-color: #d8c2aa;
+  font-size: 3vw;
+  font-weight: bold;
+}
+
+#submitBtnWeb {
+  width: 15vw;
+  margin-left: 1vw;
+  height: 11vh;
+  color: black;
+  background-color: #d8c2aa;
+  font-size: 1vw;
+  font-weight: bold;
+  font-family: "NotoSans";
+}
+
+#reviewTabMobile {
+  justify-content: flex-end;
+  margin-bottom: 2vh;
+}
+
+#reviewTabWeb {
+  justify-content: flex-end;
+  margin-bottom: 3vh;
+}
+
+#paginationMobile {
+  width: 100%;
+  margin-top: 3vh;
+  margin-bottom: 2vh;
+}
+
+#paginationWeb {
+  width: 100%;
+  margin-top: 3vh;
+  margin-bottom: 3vh;
+}
+
+#likeBookWeb {
+  color: #ff7474;
+  width: 2vw;
+  height: 2vw;
+  cursor: pointer;
+}
+
+#dislikeBookWeb {
+  color: #c4c4c4;
+  width: 2vw;
+  height: 2vw;
+  cursor: pointer;
+}
+
+#likeBookMobile {
+  color: #ff7474;
+  width: 5vw;
+  height: 5vw;
+  cursor: pointer;
+}
+
+#dislikeBookMobile {
+  color: #c4c4c4;
+  width: 5vw;
+  height: 5vw;
+  cursor: pointer;
+}
