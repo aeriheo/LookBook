@@ -196,7 +196,7 @@ public class UserController {
 			
 			String resBody = response.getBody();
 			
-			return ResponseEntity.status(200).body(BaseResponseBody.of(200, resBody + " 유저의 추천리스트가 업데이트 되었습니다."));
+			return ResponseEntity.status(200).body(BaseResponseBody.of(200, resBody + " 님의 추천리스트가 업데이트 되었습니다."));
 		} catch (NullPointerException e) {
 			return ResponseEntity.status(400).body(BaseResponseBody.of(400, "만료된 토큰입니다."));
 		}	
