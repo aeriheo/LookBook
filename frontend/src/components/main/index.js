@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useLayoutEffect} from 'react';
 import {useMediaQuery} from 'react-responsive';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
@@ -11,12 +11,12 @@ import { useHistory } from "react-router-dom";
 
 const MainSession = () =>{
     let history = useHistory();
-    const [q, setQ] = useState('react');
     const [data, setData] = useState({});
+
     // book isbn 수정필요
     let bookisbn = '9788984371071';
-
-    useEffect(()=>{
+    
+    useLayoutEffect(()=>{
         let completed = false;
 
         async function loadUser(){
@@ -29,7 +29,8 @@ const MainSession = () =>{
         return()=>{
             completed=true;
         };
-    },[q]);
+    },[]);
+
 
     const isMobile = useMediaQuery({
         query: "(max-width : 768px)"

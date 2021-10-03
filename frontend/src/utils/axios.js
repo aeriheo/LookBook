@@ -22,6 +22,7 @@ export const userAPI = {
         return await request.get(`/users/me`,{
             
         }).then(function(response){
+            // console.log(response);
             return response;
         }).catch(function(e){
             return e.response;
@@ -85,6 +86,13 @@ export const userAPI = {
         }).catch((error)=>{
             return error.response;
         })
+    },
+    changeProfile:async(userProfileUrl)=>{
+        return await request.put('users/profile',{
+            userProfileUrl
+        }).then((response)=>{
+            console.log(response);
+        })
     }
 }
 
@@ -112,6 +120,16 @@ export const bookAPI={
         }).then((response) => {
             // console.log(response);
         })
+    },
+    search : async(searchKey, searchWord)=>{
+        return await request.get('/books',{
+            params:{
+                searchKey: searchKey,
+                searchWord: searchWord
+            }
+        }).then((response) => {
+            return response.data;
+        })
     }
 }
 
@@ -134,6 +152,20 @@ export const reviewAPI = {
         return await request.delete(`/reviewlikes/${reviewId}`,{
 
         })
+    },
+    myreviews : async () => {
+        return await request.get('/reviews',{
+
+        }).then((response) =>{
+            return response.data;
+        })
+    },
+    deletemyreivew: async (reviewId)=>{
+        return await request.delete(`/reviews/${reviewId}`,{
+
+        }).then((response) =>{
+            return response;
+        })
     }
 }
 
@@ -146,6 +178,16 @@ export const likeAPI={
     removelike : async (bookIsbn) => {
         return await request.delete(`/likes/${bookIsbn}`,{
 
+        })
+    },
+    mylikelist : async () => {
+        return await request.get('/likes', {
+
+        }).then((response)=>{
+            // console.log(response);
+            return response.data;
+        }).catch((err)=>{
+            console.log(err);
         })
     }
 }

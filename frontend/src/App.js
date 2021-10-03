@@ -5,6 +5,8 @@ import LoginPage from './pages/login';
 import JoinPage from './pages/join';
 import JoinSocialPage from './pages/joinsocial';
 import BookDetailPage from './pages/detail';
+import Mypage from './pages/mypage';
+import SearchPage from './pages/search';
 
 const App = () =>{
 
@@ -16,6 +18,8 @@ const App = () =>{
         <Route exact path = "/join" component={JoinPage}/>
         <Route exact path = "/joinsocial" component={JoinSocialPage}/>
         <Route exact path = "/book/:isbn" component={BookDetailPage}/>
+        <Route exact path = "/mypage/:tab" component={Mypage}/>
+        <Route exact path = "/search" component={SearchPage}/>
       </Switch>
     </BrowserRouter>
   );

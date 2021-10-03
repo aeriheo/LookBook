@@ -7,8 +7,10 @@ import Logo from '../logo';
 import './style.css';
 import {userAPI} from '../../utils/axios';
 import {KAKAO_AUTH_URL} from '../../oauth';
+import { useHistory } from "react-router-dom";
 
 const Login = () =>{
+    let history = useHistory();
     const isMobile = useMediaQuery({
         query: "(max-width : 768px)"
     });
@@ -33,7 +35,7 @@ const Login = () =>{
         if(id!=='' && pw !== '') {
             try{
                 await userAPI.login(id, pw);
-                window.location.href='/lookbook';
+                window.location.href=`/lookbook`;
             }catch(e){
                 console.log(e);
                 alert('아이디 혹은 비밀번호를 틀리셨습니다.');
@@ -48,9 +50,9 @@ const Login = () =>{
         if (result===false){
             alert(`회원이 아닙니다.
             회원가입 페이지로 이동합니다.`);
-            window.location.href='/joinSocial';
+            window.location.href=`/joinSocial`;
         }else{
-            window.location.href='/lookbook';
+            window.location.href=`/lookbook`;
         }
     }
 
@@ -74,7 +76,7 @@ const Login = () =>{
                             <TextField type='password' placeholder='비밀번호를 입력해주세요' className='pwMobile' value={pw} onChange={handlePw}  style={{marginTop: '2vh'}}/>
                             <Button variant='contained' id='btnMobile' onClick={login}>로그인</Button>
                         </div>
-                        <div id='goSignInMobile' onClick={() => window.location.replace (`/join`)}>
+                        <div id='goSignInMobile' onClick={() => history.push(`/join`)}>
                             아직 회원이 아니신가요?
                         </div>
                         <Divider/>
@@ -105,7 +107,7 @@ const Login = () =>{
                             <TextField type='password' placeholder='비밀번호를 입력해주세요' className='pwWeb' value={pw} onChange={handlePw} style={{marginTop: '2vh'}}/>
                             <Button variant='contained' id='btnWeb' onClick={login}>로그인</Button>
                         </div>
-                        <div id='goSignInWeb' onClick={() => window.location.replace (`/join`)}>
+                        <div id='goSignInWeb' onClick={() => history.push(`/join`)}>
                             아직 회원이 아니신가요?
                         </div>
                         <Divider/>

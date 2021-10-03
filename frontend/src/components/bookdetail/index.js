@@ -2,8 +2,7 @@ import React , {useState, useEffect} from 'react';
 import {useMediaQuery} from 'react-responsive';
 import {bookAPI, reviewAPI, likeAPI} from '../../utils/axios';
 import { useLocation } from "react-router-dom";
-import {Button, Rating, TextField, Tab, IconButton, Stack} from '@mui/material';
-import {TabContext,TabList,TabPanel} from '@mui/lab';
+import {Button, Rating, TextField, IconButton} from '@mui/material';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import RoomOutlinedIcon from '@mui/icons-material/RoomOutlined';
 import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
@@ -12,6 +11,8 @@ import './style.css';
 import default_url from '../../images/default_imgurl.png';
 import Pagination from 'react-js-pagination';
 import './pagination.css'
+import Tabs, {TabPane} from 'rc-tabs';
+import "rc-tabs/assets/index.css";
 
 const BookDetail= () =>{
     const location = useLocation();
@@ -67,14 +68,14 @@ const BookDetail= () =>{
         const result = await bookAPI.detail(bookisbn);
         setData(result);
         // console.log(result);
-        if(result.bookImgUrl.length>0) setImglink(result.bookImgUrl);
+        if(result.bookImgUrl) setImglink(result.bookImgUrl);
         setbookTitle(result.bookTitle);
         setBookPub(result.bookPub);
         setBookAuthor(result.bookAuthor);
-        if(result.bookPubDate.length>0) setBookPubdate(result.bookPubDate);
+        if(result.bookPubDate) setBookPubdate(result.bookPubDate);
         setMyGrade(result.myGrade);
         setbookGrade(result.avgGrade);
-        if(result.bookDesc.length>0) setbookDesc(result.bookDesc);
+        if(result.bookDesc) setbookDesc(result.bookDesc);
         setrecommReivew(result.recommReviewList);
         setrecentReivew(result.recentReviewList);
         setIsLike(result.isLiked);
@@ -220,37 +221,24 @@ const BookDetail= () =>{
                         </div>
                         {/* 리뷰 list */}
                         <div>
-                            <TabContext value={tab} >
-                                <div id='reviewTabMobile'>
-                                    <TabList onChange={handleTab} textColor='black' indicatorColor='secondary'>
-                                        <Tab label = "추천순" value="recommend"/>
-                                        <Tab label = "최신순" value="recently"/>
-                                    </TabList>
-                                </div>
-                                {/* 추천순 */}
-                                <TabPanel value = "recommend">
-                                    {/* 리뷰 */}
-                                    <Stack spacing={2}>
-                                        <div>
-                                        {pageListMobile(recommReivew)}
-                                        </div>
-                                        <div id='paginationMobile'>
-                                            <Pagination itemsCountPerPage={Math.ceil(recentReivew.length/5)} activePage={page} onChange={handlePage} prevPageText={"<"} nextPageText={">"} itemsCountPerPage={5} totalItemsCount={recentReivew.length}/>
-                                        </div>
-                                    </Stack>
-                                </TabPanel>
-                                {/* 최신순 */}
-                                <TabPanel value = "recently">
-                                    <Stack spacing={2}>
-                                        <div>
-                                        {pageListMobile(recentReivew)}
-                                        </div>
-                                        <div id='paginationMobile'>
-                                            <Pagination itemsCountPerPage={Math.ceil(recentReivew.length/5)} activePage={page} onChange={handlePage} prevPageText={"<"} nextPageText={">"} itemsCountPerPage={5} totalItemsCount={recentReivew.length}/>
-                                        </div>
-                                    </Stack>
-                                </TabPanel>
-                            </TabContext>
+                            <Tabs onChange={handleTab} defaultActiveKey={tab}>
+                                <TabPane tab="추천 순" key="recommend" >
+                                    <div style={{marginTop:'10px'}}>
+                                    {pageListMobile(recommReivew)}
+                                    </div>
+                                    <div id='paginationMobile'>
+                                        <Pagination itemsCountPerPage={Math.ceil(recentReivew.length/5)} activePage={page} onChange={handlePage} prevPageText={"<"} nextPageText={">"} itemsCountPerPage={5} totalItemsCount={recentReivew.length}/>
+                                    </div>
+                                </TabPane>
+                                <TabPane tab="최신 순" key = "recently" >
+                                    <div style={{marginTop:'10px'}}>
+                                    {pageListMobile(recentReivew)}
+                                    </div>
+                                    <div id='paginationMobile'>
+                                        <Pagination itemsCountPerPage={Math.ceil(recentReivew.length/5)} activePage={page} onChange={handlePage} prevPageText={"<"} nextPageText={">"} itemsCountPerPage={5} totalItemsCount={recentReivew.length}/>
+                                    </div>
+                                </TabPane>
+                            </Tabs>
                         </div>
                     </div>
                 </div>
@@ -314,37 +302,24 @@ const BookDetail= () =>{
                         </div>
                         {/* 리뷰 list */}
                         <div>
-                            <TabContext value={tab} >
-                                <div id='reviewTabWeb'>
-                                    <TabList onChange={handleTab} textColor='black' indicatorColor='secondary'>
-                                        <Tab label = "추천순" value="recommend"/>
-                                        <Tab label = "최신순" value="recently"/>
-                                    </TabList>
-                                </div>
-                                {/* 추천순 */}
-                                <TabPanel value = "recommend">
-                                    {/* 리뷰 */}
-                                    <Stack spacing={2}>
-                                        <div>
-                                        {pageList(recommReivew)}
-                                        </div>
-                                        <div id='paginationWeb'>
-                                            <Pagination itemsCountPerPage={Math.ceil(recentReivew.length/5)} activePage={page} onChange={handlePage} prevPageText={"<"} nextPageText={">"} itemsCountPerPage={5} totalItemsCount={recentReivew.length}/>
-                                        </div>
-                                    </Stack>
-                                </TabPanel>
-                                {/* 최신순 */}
-                                <TabPanel value = "recently">
-                                    <Stack spacing={2}>
-                                        <div>
-                                        {pageList(recentReivew)}
-                                        </div>
-                                        <div id='paginationWeb'>
-                                            <Pagination itemsCountPerPage={Math.ceil(recentReivew.length/5)} activePage={page} onChange={handlePage} prevPageText={"<"} nextPageText={">"} itemsCountPerPage={5} totalItemsCount={recentReivew.length}/>
-                                        </div>
-                                    </Stack>
-                                </TabPanel>
-                            </TabContext>
+                            <Tabs onChange={handleTab} defaultActiveKey={tab}>
+                                <TabPane tab="추천 순" key="recommend" >
+                                    <div style={{marginTop:'10px'}}>
+                                    {pageList(recommReivew)}
+                                    </div>
+                                    <div id='paginationWeb'>
+                                        <Pagination itemsCountPerPage={Math.ceil(recentReivew.length/5)} activePage={page} onChange={handlePage} prevPageText={"<"} nextPageText={">"} itemsCountPerPage={5} totalItemsCount={recentReivew.length}/>
+                                    </div>
+                                </TabPane>
+                                <TabPane tab="최신 순" key = "recently" >
+                                    <div style={{marginTop:'10px'}}>
+                                    {pageList(recentReivew)}
+                                    </div>
+                                    <div id='paginationWeb'>
+                                        <Pagination itemsCountPerPage={Math.ceil(recentReivew.length/5)} activePage={page} onChange={handlePage} prevPageText={"<"} nextPageText={">"} itemsCountPerPage={5} totalItemsCount={recentReivew.length}/>
+                                    </div>
+                                </TabPane>
+                            </Tabs>
                         </div>
                     </div>
                 </div>
