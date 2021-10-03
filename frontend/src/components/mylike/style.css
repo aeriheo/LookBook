@@ -1,0 +1,73 @@
+#bookDivWeb {
+  height: 30vh;
+  box-shadow: 1px 1px 3px #999999;
+  position: relative;
+  cursor: pointer;
+  margin: 1vw;
+}
+
+#bookLikeImgWeb {
+  object-fit: contain;
+  height: 100%;
+}
+
+#bookTitlelikeWeb {
+  height: 100%;
+  min-width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  opacity: 0;
+}
+
+#bookTitlelikeWeb:hover {
+  background-color: rgba(128, 128, 128, 0.5);
+  opacity: 1;
+}
+
+#bookTitleFontWeb {
+  text-align: center;
+  font-family: "NotoSans";
+  font-size: 1vw;
+  color: white;
+  font-weight: bold;
+}
+
+#myLikeDivWeb {
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  margin: 1vw;
+}
+
+#myLikeDivMobile {
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  width: 70vw;
+  margin: 1vw;
+}
+
+#myLikeList {
+  display: flex;
+  flex-direction: row;
+  flex-flow: row wrap;
+}
+
+#myListNameWeb {
+  font-size: 2vw;
+  font-weight: bold;
+  margin-bottom: 2vh;
+  font-family: "NotoSans";
+}
+
+#myListNameMobile {
+  font-size: 5vw;
+  font-family: "NotoSans";
+  font-weight: bold;
+  margin-bottom: 2vh;
+}

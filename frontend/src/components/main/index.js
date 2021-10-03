@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useLayoutEffect} from 'react';
 import {useMediaQuery} from 'react-responsive';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
@@ -7,12 +7,16 @@ import './style.css';
 import {Box, Card, CardContent} from '@mui/material';
 import Logo from '../logo';
 import {userAPI} from '../../utils/axios';
+import { useHistory } from "react-router-dom";
 
 const MainSession = () =>{
-    const [q, setQ] = useState('react');
+    let history = useHistory();
     const [data, setData] = useState({});
 
-    useEffect(()=>{
+    // book isbn 수정필요
+    let bookisbn = '9788984371071';
+    
+    useLayoutEffect(()=>{
         let completed = false;
 
         async function loadUser(){
@@ -25,7 +29,8 @@ const MainSession = () =>{
         return()=>{
             completed=true;
         };
-    },[q]);
+    },[]);
+
 
     const isMobile = useMediaQuery({
         query: "(max-width : 768px)"
@@ -83,7 +88,7 @@ const MainSession = () =>{
                         <Slider {...bookMobileSettings}>
                             {booklist.map(item=>{
                                 return(
-                                    <Card variant='outlined' sx={{maxWidth: 140,alignItems: 'center',justifyContent: 'center',cursor:'pointer', border:0}}>
+                                    <Card variant='outlined' sx={{maxWidth: 140,alignItems: 'center',justifyContent: 'center',cursor:'pointer', border:0}} onClick={() => {history.push(`/book/${bookisbn}`)}}>
                                         <CardContent sx={{alignItems: 'center', justifyContent: 'center', marginLeft:'auto'}}>
                                             <div id='cardSizeMobile'>
                                                 <img src={item.url} width='100%' id='cardImgMobile'/>
@@ -106,7 +111,7 @@ const MainSession = () =>{
                         <Slider {...bookSettings}>
                             {booklist.map(item=>{
                                 return(
-                                    <Box sx={{alignItems: 'center', justifyContent: 'center', cursor:'pointer'}}>
+                                    <Box sx={{alignItems: 'center', justifyContent: 'center', cursor:'pointer'}} onClick={() => {history.push(`/book/${bookisbn}`)}}>
                                         <img src={item.url} id='boxImgWeb'/>
                                         <div id='textcss'>{item.title}</div>
                                     </Box>
@@ -158,7 +163,7 @@ const MainSession = () =>{
                             </div>
                         </div>
                     </div>
-                    <div id='reviewBookWeb'>
+                    <div id='reviewBookWeb' onClick={() => {history.push(`/book/${bookisbn}`)}}>
                         <img src='https://image.aladin.co.kr/product/11830/53/cover500/k722531529_1.jpg' id='reviewBookImg'/>
                     </div>
                 </div>
@@ -173,7 +178,7 @@ const MainSession = () =>{
                     <div id='recommBookMobile'>
                         {bookreclist.map(item=>{
                             return(
-                                <Card variant='outlined' sx={{maxWidth: 140,alignItems: 'center',justifyContent: 'center',cursor:'pointer', border:0}}>
+                                <Card variant='outlined' sx={{maxWidth: 140,alignItems: 'center',justifyContent: 'center',cursor:'pointer', border:0}} onClick={() => {history.push(`/book/${bookisbn}`)}}>
                                     <CardContent sx={{alignItems: 'center', justifyContent: 'center', marginLeft:'auto'}}>
                                         <div id='cardSizeMobile'>
                                             <img src={item.url} width='100%' id='cardImgMobile'/>
@@ -194,7 +199,47 @@ const MainSession = () =>{
                     <div id='recommBookWeb'>
                         {bookreclist.map(item=>{
                             return(
-                                <Box sx={{alignItems: 'center', justifyContent: 'center', cursor:'pointer'}}>
+                                <Box sx={{alignItems: 'center', justifyContent: 'center', cursor:'pointer'}} onClick={() => {history.push(`/book/${bookisbn}`)}}>
+                                    <img src={item.url} id='boxImgWeb'/>
+                                    <div id='recommBookTitleWeb'>{item.title}</div>
+                                </Box>
+                            )
+                        })}
+                    </div>
+                </div>
+            )}
+            {/* 나와 비슷한 성향의 유저 */}
+            {isMobile?(
+                <div id='mobileWidth'>
+                    <div id='recommDiv'>
+                        <div id='recommTitleMobile'>'{data.userNickname}'님과 비슷한 취향의 유저가 읽은 도서</div>
+                        <div id='recommGoMobile'>추천도서 보러가기</div>
+                    </div>
+                    <div id='recommBookMobile'>
+                        {bookreclist.map(item=>{
+                            return(
+                                <Card variant='outlined' sx={{maxWidth: 140,alignItems: 'center',justifyContent: 'center',cursor:'pointer', border:0}} onClick={() => {history.push(`/book/${bookisbn}`)}}>
+                                    <CardContent sx={{alignItems: 'center', justifyContent: 'center', marginLeft:'auto'}}>
+                                        <div id='cardSizeMobile'>
+                                            <img src={item.url} width='100%' id='cardImgMobile'/>
+                                            <div id='cardTitleMobile'>{item.title}</div>
+                                        </div>
+                                    </CardContent>
+                                </Card>
+                            )
+                        })}
+                    </div>
+                </div>
+            ):(
+                <div>
+                    <div id='recommDiv'>
+                        <div id='recommTitleWeb'>'{data.userNickname}'님과 비슷한 취향의 유저가 읽은 도서</div>
+                        <div id='recommGoWeb'>추천도서 보러가기</div>
+                    </div>
+                    <div id='recommBookWeb'>
+                        {bookreclist.map(item=>{
+                            return(
+                                <Box sx={{alignItems: 'center', justifyContent: 'center', cursor:'pointer'}} onClick={() => {history.push(`/book/${bookisbn}`)}}>
                                     <img src={item.url} id='boxImgWeb'/>
                                     <div id='recommBookTitleWeb'>{item.title}</div>
                                 </Box>
@@ -213,7 +258,7 @@ const MainSession = () =>{
                     <div id='recommBookMobile'>
                         {bookreclist.map(item=>{
                             return(
-                                <Card variant='outlined' sx={{maxWidth: 140,alignItems: 'center',justifyContent: 'center',cursor:'pointer', border:0}}>
+                                <Card variant='outlined' sx={{maxWidth: 140,alignItems: 'center',justifyContent: 'center',cursor:'pointer', border:0}} onClick={() => {history.push(`/book/${bookisbn}`)}}>
                                     <CardContent sx={{alignItems: 'center', justifyContent: 'center', marginLeft:'auto'}}>
                                         <div id='cardSizeMobile'>
                                             <img src={item.url} width='100%' id='cardImgMobile'/>
@@ -234,7 +279,7 @@ const MainSession = () =>{
                     <div id='recommBookWeb'>
                         {bookreclist.map(item=>{
                             return(
-                                <Box sx={{alignItems: 'center', justifyContent: 'center' , cursor:'pointer'}}>
+                                <Box sx={{alignItems: 'center', justifyContent: 'center' , cursor:'pointer'}} onClick={() => {history.push(`/book/${bookisbn}`)}}>
                                     <img src={item.url} id='boxImgWeb'/>
                                     <div id='recommBookTitleWeb'>{item.title}</div>
                                 </Box>

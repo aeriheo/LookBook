@@ -12,11 +12,11 @@ const JoinSocial = (props) =>{
 
     useEffect(()=>{
         let completed = false;
-
+        // kakaologin
         async function loadUser(){
             if(new URL(window.location.href).searchParams.get('code')){
                 const result = await userAPI.loginKakao(new URL(window.location.href).searchParams.get('code'));
-                console.log(result);
+                // console.log(result);
                 if (result.data.actionCode===true) setId(result.data.email);
                 else if(result.data.actionCode===false){
                     // login access token
