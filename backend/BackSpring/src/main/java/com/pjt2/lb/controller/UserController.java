@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import com.pjt2.lb.common.auth.LBUserDetails;
 import com.pjt2.lb.common.response.BaseResponseBody;
@@ -22,6 +23,7 @@ import com.pjt2.lb.request.UserInfoPutReq;
 import com.pjt2.lb.request.UserProfilePostReq;
 import com.pjt2.lb.request.UserRegisterPostReq;
 import com.pjt2.lb.response.UserInfoGetRes;
+import com.pjt2.lb.service.DjangoUrlService;
 import com.pjt2.lb.service.UserService;
 
 @CrossOrigin(
@@ -36,6 +38,9 @@ public class UserController {
 	
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	DjangoUrlService djangoService;
 	
 	@Autowired
 	PasswordEncoder passwordEncoder;
@@ -101,64 +106,103 @@ public class UserController {
 	// 닉네임 중복 체크 (가입 후 회원정보 수정 시)
 	@GetMapping("/me/nickname/{userNickname}")
 	public ResponseEntity<BaseResponseBody> checkDuplicatedNicknameUpdate (Authentication authentication, @PathVariable String userNickname){
-		User user = userService.getUserByUserNickname(userNickname);
-		LBUserDetails userDetails = (LBUserDetails) authentication.getDetails();
-		String nickName = userDetails.getUser().getUserNickname();
-		if (user != null) {
-			if(!nickName.equals(userNickname)) {
-				return ResponseEntity.status(409).body(BaseResponseBody.of(409, "다른 회원이 사용중인 닉네임입니다."));	
+		try {
+			User user = userService.getUserByUserNickname(userNickname);
+			LBUserDetails userDetails = (LBUserDetails) authentication.getDetails();
+			String nickName = userDetails.getUser().getUserNickname();
+			if (user != null) {
+				if(!nickName.equals(userNickname)) {
+					return ResponseEntity.status(409).body(BaseResponseBody.of(409, "다른 회원이 사용중인 닉네임입니다."));	
+				}
+				else {				
+					return ResponseEntity.status(200).body(BaseResponseBody.of(200, "현재 회원님이 사용중인 닉네임입니다. (사용할 수 있는 닉네임입니다.)"));	
+				}
 			}
-			else {				
-				return ResponseEntity.status(200).body(BaseResponseBody.of(200, "현재 회원님이 사용중인 닉네임입니다. (사용할 수 있는 닉네임입니다.)"));	
+			else {
+				return ResponseEntity.status(200).body(BaseResponseBody.of(200, "사용할 수 있는 닉네임입니다."));	
 			}
-		}
-		else {
-			return ResponseEntity.status(200).body(BaseResponseBody.of(200, "사용할 수 있는 닉네임입니다."));	
+		} catch (NullPointerException e) {
+			return ResponseEntity.status(400).body(BaseResponseBody.of(400, "만료된 토큰입니다."));
 		}
 	}
 	
 	// 회원 탈퇴
 	@DeleteMapping()
 	public ResponseEntity<BaseResponseBody> deleteUser (Authentication authentication){
-		LBUserDetails userDetails = (LBUserDetails) authentication.getDetails();
-		String userEmail = userDetails.getUsername();
-		
-		if (userService.deleteUser(userEmail) == 1) {
-			return ResponseEntity.status(200).body(BaseResponseBody.of(200, "회원탈퇴에 성공하셨습니다."));
-		}
-		else {
-			return ResponseEntity.status(404).body(BaseResponseBody.of(404, "회원탈퇴중에 문제가 발생하였습니다."));			
+		try {
+			LBUserDetails userDetails = (LBUserDetails) authentication.getDetails();
+			String userEmail = userDetails.getUsername();
+			
+			if (userService.deleteUser(userEmail) == 1) {
+				return ResponseEntity.status(200).body(BaseResponseBody.of(200, "회원탈퇴에 성공하셨습니다."));
+			}
+			else {
+				return ResponseEntity.status(404).body(BaseResponseBody.of(404, "회원탈퇴중에 문제가 발생하였습니다."));			
+			}
+		} catch (NullPointerException e) {
+			return ResponseEntity.status(400).body(BaseResponseBody.of(400, "만료된 토큰입니다."));
 		}
 	}
 	
 	// 내 정보 수정
 	@PutMapping("/me")
 	public ResponseEntity<BaseResponseBody> updateUserInfo (Authentication authentication, @RequestBody UserInfoPutReq userUpdateInfo){
-		LBUserDetails userDetails = (LBUserDetails) authentication.getDetails();
-		User user = userDetails.getUser();
-		
-		if (userService.update(user, userUpdateInfo) == 1) {
-			return ResponseEntity.status(200).body(BaseResponseBody.of(200, "내 정보가 수정되었습니다."));			
-		}
-		else if (userService.update(user, userUpdateInfo) == 2) {
-			return ResponseEntity.status(409).body(BaseResponseBody.of(409, "중복된 닉네임입니다."));
-		}
-		else {
-			return ResponseEntity.status(404).body(BaseResponseBody.of(404, "업데이트 과정에서 문제가 발생했습니다."));
+		try {
+			LBUserDetails userDetails = (LBUserDetails) authentication.getDetails();
+			User user = userDetails.getUser();
+			
+			if (userService.update(user, userUpdateInfo) == 1) {
+				return ResponseEntity.status(200).body(BaseResponseBody.of(200, "내 정보가 수정되었습니다."));			
+			}
+			else if (userService.update(user, userUpdateInfo) == 2) {
+				return ResponseEntity.status(409).body(BaseResponseBody.of(409, "중복된 닉네임입니다."));
+			}
+			else {
+				return ResponseEntity.status(404).body(BaseResponseBody.of(404, "업데이트 과정에서 문제가 발생했습니다."));
+			}
+		} catch (NullPointerException e) {
+			return ResponseEntity.status(400).body(BaseResponseBody.of(400, "만료된 토큰입니다."));
 		}
 	}
 	
 	// 내 프로필 사진 수정
 	@PutMapping("/profile")
 	public ResponseEntity<BaseResponseBody> updateUserProfile (Authentication authentication, @RequestBody UserProfilePostReq userProfileInfo){
-		LBUserDetails userDetails = (LBUserDetails) authentication.getDetails();
-		User user = userDetails.getUser();
-		
-		if (userService.updateProfile(user, userProfileInfo) == 1) {
-			return ResponseEntity.status(200).body(BaseResponseBody.of(200, "프로필 사진이 수정되었습니다."));
-		}
-		else {
-			return ResponseEntity.status(400).body(BaseResponseBody.of(400, "프로필 사진 업데이트 과정에서 문제가 발생했습니다."));				
+		try {
+			LBUserDetails userDetails = (LBUserDetails) authentication.getDetails();
+			User user = userDetails.getUser();
+			
+			if (userService.updateProfile(user, userProfileInfo) == 1) {
+				return ResponseEntity.status(200).body(BaseResponseBody.of(200, "프로필 사진이 수정되었습니다."));
+			}
+			else {
+				return ResponseEntity.status(400).body(BaseResponseBody.of(400, "프로필 사진 업데이트 과정에서 문제가 발생했습니다."));				
+			}
+		} catch (NullPointerException e) {
+			return ResponseEntity.status(400).body(BaseResponseBody.of(400, "만료된 토큰입니다."));
 		}
 	}
+	
+	@GetMapping("/recomm")
+	public ResponseEntity<BaseResponseBody> updateRecommList(Authentication authentication) {
+		try {
+			LBUserDetails userDetails = (LBUserDetails) authentication.getDetails();
+			User user = userDetails.getUser();
+			
+			String userEmail = user.getUserEmail();
+			String url = djangoService.getRecommUrl() + userEmail;
+			RestTemplate restTemplate = new RestTemplate();
+			ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+			
+			String resBody = response.getBody();
+			
+			return ResponseEntity.status(200).body(BaseResponseBody.of(200, resBody + " 유저의 추천리스트가 업데이트 되었습니다."));
+		} catch (NullPointerException e) {
+			return ResponseEntity.status(400).body(BaseResponseBody.of(400, "만료된 토큰입니다."));
+		}	
+		
+	}
+	
+	// 비밀번호 확인
+	
 }
