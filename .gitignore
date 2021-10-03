@@ -4,6 +4,9 @@ node_modules
 # package-lock.json
 package-lock.json
 
+# log
+log
+
 # Django Secret
 secret.py
 
