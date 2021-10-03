@@ -39,8 +39,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    # for test
-    'testAPI',
     # for Book Data - Read Data from LB Database
     'book',
     # for User Data - Read Data from LB Database
