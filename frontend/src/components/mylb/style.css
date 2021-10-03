@@ -28,11 +28,13 @@
   font-size: 1.5vw;
   color: #575757;
   font-weight: bold;
+  font-family: "NotoSans";
 }
 
 #myLBbookBtnWeb {
   color: black;
   font-size: 1vw;
+  font-family: "NotoSans";
 }
 
 #myLBbookRatingDivWeb {
@@ -53,6 +55,7 @@
 #myLBbookDateWeb {
   margin-right: 1vw;
   font-size: 1vw;
+  font-family: "NotoSans";
 }
 
 #myLBLikeColor {
@@ -63,10 +66,12 @@
 #myLBLikeWeb {
   margin-right: 1vw;
   font-size: 1vw;
+  font-family: "NotoSans";
 }
 
 #myLBContentWeb {
   font-size: 1vw;
+  font-family: "NotoSans";
 }
 
 #myLBDivMobile {
@@ -85,11 +90,13 @@
   font-size: 3vw;
   color: #575757;
   font-weight: bold;
+  font-family: "NotoSans";
 }
 
 #myLBbookBtnMobile {
   color: black;
   font-size: 2vw;
+  font-family: "NotoSans";
 }
 
 #myLBbookDateLikeMobile {
@@ -103,11 +110,13 @@
   margin-left: 1vw;
   margin-right: 1vw;
   font-size: 2vw;
+  font-family: "NotoSans";
 }
 
 #myLBbookLikeMobile {
   margin-right: 1vw;
   font-size: 2vw;
+  font-family: "NotoSans";
 }
 
 #myLBbookContentDivMobile {
@@ -116,6 +125,7 @@
 
 #myLBbookContentMobile {
   font-size: 2vw;
+  font-family: "NotoSans";
 }
 
 #myLBMobile {
@@ -134,11 +144,13 @@
 #myLBNameWeb {
   font-size: 2vw;
   font-weight: bold;
+  font-family: "NotoSans";
   margin-bottom: 2vh;
 }
 
 #myLBNameMobile {
   font-size: 5vw;
+  font-family: "NotoSans";
   font-weight: bold;
   margin-bottom: 2vh;
 }

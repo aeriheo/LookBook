@@ -135,7 +135,7 @@ const Header = props=>{
                                 <SearchIcon id = 'iconMediumMobile'/>
                                 <ListItemText primary="검색" id = 'listItemTextMobile'/>
                             </ListItem>
-                            <ListItem button >
+                            <ListItem button onClick={() => window.location.replace (`/category`)}>
                                 <ListRoundedIcon id = 'iconMediumMobile'/>
                                 <ListItemText primary="카테고리" id = 'listItemTextMobile'/>
                             </ListItem>
@@ -161,7 +161,7 @@ const Header = props=>{
                         <Typography variant = "h3" id='logoWeb' onClick={() => window.location.replace (`/lookbook`)}>
                             LB
                         </Typography>
-                        <Button size = "large" id = 'buttonWeb'  >
+                        <Button size = "large" id = 'buttonWeb' onClick={() => window.location.replace (`/category`)} >
                             카테고리
                         </Button>
                         <Button size = "large" id = 'buttonWeb' >

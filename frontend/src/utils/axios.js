@@ -130,6 +130,13 @@ export const bookAPI={
         }).then((response) => {
             return response.data;
         })
+    },
+    category : async(categoryId) => {
+        return await request.get(`/books/category/${categoryId}`,{
+            categoryId
+        }).then(response => {
+            return response.data;
+        })
     }
 }
 

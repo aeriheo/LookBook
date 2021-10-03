@@ -18,6 +18,7 @@
 
 #searchbookTitle {
   text-align: center;
+  font-family: "NotoSans";
   margin-top: 1vh;
 }
 
@@ -33,6 +34,7 @@
 #searchResultMobile {
   margin-left: 4vw;
   font-size: 5vw;
+  font-family: "NotoSans";
   font-weight: bold;
   margin-bottom: 5vh;
 }
@@ -41,6 +43,7 @@
   margin-left: 4vw;
   font-size: 2vw;
   font-weight: bold;
+  font-family: "NotoSans";
   margin-bottom: 5vh;
 }
 

@@ -31,6 +31,7 @@
 
 #bookTitleFontWeb {
   text-align: center;
+  font-family: "NotoSans";
   font-size: 1vw;
   color: white;
   font-weight: bold;
@@ -61,10 +62,12 @@
   font-size: 2vw;
   font-weight: bold;
   margin-bottom: 2vh;
+  font-family: "NotoSans";
 }
 
 #myListNameMobile {
   font-size: 5vw;
+  font-family: "NotoSans";
   font-weight: bold;
   margin-bottom: 2vh;
 }
