@@ -85,11 +85,10 @@ class UpdateUserBasedCF:
         for user_email, book_isbn_list in user_book_dic.items():
             book_isbn_list.reverse()
             for book_isbn in book_isbn_list:
-                print(user_email, book_isbn)
-                # UserBasedCFModel(
-                #     user_email=User.objects.get(user_email=user_email),
-                #     book_isbn=Book.objects.get(book_isbn=book_isbn)
-                # )
+                UserBasedCFModel(
+                    user_email=User.objects.get(user_email=user_email),
+                    book_isbn=Book.objects.get(book_isbn=book_isbn)
+                ).save()
 
 class UpdateUserPredictedGrade:
     def __init__(self, user_email):
@@ -171,8 +170,7 @@ class UpdateUserPredictedGrade:
         for user_email, book_isbn_list in user_predicted_book_dic.items():
             book_isbn_list.reverse()
             for book_isbn in book_isbn_list:
-                print(user_email, book_isbn)
-                # UserPredictedGradeModel(
-                #     user_email=User.objects.get(user_email=user_email),
-                #     book_isbn=Book.objects.get(book_isbn=book_isbn)
-                # ).save()
+                UserPredictedGradeModel(
+                    user_email=User.objects.get(user_email=user_email),
+                    book_isbn=Book.objects.get(book_isbn=book_isbn)
+                ).save()
