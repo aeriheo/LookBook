@@ -42,12 +42,6 @@ public class AuthController {
 	
 	@Autowired
 	PasswordEncoder passwordEncoder;
-	
-	@GetMapping("/hello")
-	public String hello() {
-		String message = "Hello My name is AuthController";
-		return message;
-	}
 
 	@PostMapping("/reissue")
 	public ResponseEntity<TokenPostRes> reissue(@RequestBody TokenPostReq refreshToken){
