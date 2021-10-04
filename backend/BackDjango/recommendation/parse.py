@@ -233,8 +233,12 @@ class UserPredictedGrade:
                 ).save()
 
 
-if __name__ == "__main__":
+def execute_algorithm():
     UserBasedCF().save_list()
     ItemBasedCF().item_based_save_list()
     UserPredictedGrade().save_list()
     ItemBasedCF().best_book_ten_save_list()
+
+
+if __name__ == "__main__":
+    execute_algorithm()

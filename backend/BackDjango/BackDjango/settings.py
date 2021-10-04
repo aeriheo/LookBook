@@ -90,7 +90,7 @@ DATABASES = LB_DATABASES
 # Cron Jobs
 # 분, 시, 일, 월, 요일
 CRONJOBS = [
-    ('* 3 * * *', 'recommendation.parse')
+    ('* 15 * * *', 'recommendation.parse.execute_algorithm')
 ]
 
 # Password validation
