@@ -59,5 +59,11 @@ public class RecommendBookServiceImpl implements RecommendBookService{
 		return userBasedRecommList;
 	}
 
+	@Override
+	public List<BookListInfoRes> getFirstBookList() {
+		List<BookListInfoRes> firstBookList = bookRepositorySupport.getFirstBookList();
+		return firstBookList;
+	}
+
 	
 }

@@ -42,4 +42,11 @@ public class BookRepositorySupport {
 		.from(qBook).where(qBook.bookIsbn.eq(bookIsbn)).fetchOne();
 		return bookListInfoRes;
 	}
+
+	public List<BookListInfoRes> getFirstBookList() {
+		List<BookListInfoRes> firstBookList = query.select(Projections.bean(BookListInfoRes.class, qBook.bookIsbn, qBook.bookTitle, qBook.bookImgUrl))
+				.from(qBook).orderBy(qBook.bookLikeCnt.desc()).limit(30)
+				.fetch();
+		return firstBookList;
+	}
 }
