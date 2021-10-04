@@ -99,12 +99,10 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public List<BookListInfoRes> getBestBookListInfo() {
-		
 		List<BestBookTenModel> bestBookIsbnList = bestBookTenRepository.findTop10ByOrderByIdDesc();
-		System.out.println(bestBookIsbnList.size());
 		List<BookListInfoRes> bestBookInfoList = new ArrayList<>();
+		
 		for(BestBookTenModel bestBook : bestBookIsbnList) {
-			System.out.println(bestBook);
 			Book book = bookRepository.findByBookIsbn(bestBook.getBook().getBookIsbn());
 			bestBookInfoList.add(new BookListInfoRes(book.getBookIsbn(), book.getBookTitle(), book.getBookImgUrl()));
 		}

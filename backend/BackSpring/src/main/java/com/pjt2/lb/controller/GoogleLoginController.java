@@ -36,7 +36,6 @@ public class GoogleLoginController {
 		try {
 			User user = userService.getUserByUserEmail(info.getEmail());
 			String userEmail = user.getUserEmail();
-			System.out.println(userEmail);
 			
 			String accessToken = JwtTokenUtil.getToken(userEmail);
 			String refreshToken = JwtTokenUtil.getRefreshToken();
