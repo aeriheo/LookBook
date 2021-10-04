@@ -96,4 +96,27 @@ public class RecommendBookController {
 		}
 	}
 	
+	
+	@GetMapping()
+	public ResponseEntity<?> getFirstBookList(Authentication authentication) {
+		try {
+			User user;
+			
+			LBUserDetails userDetails = (LBUserDetails) authentication.getDetails(); 
+			user = userDetails.getUser();
+
+			List<BookListInfoRes> firstBookList = recommendBookService.getFirstBookList();
+
+			Map<String, List> map = new HashMap<String, List>();
+			map.put("firstBookList", firstBookList);
+			
+			return ResponseEntity.status(200).body(map);
+		} catch(NullPointerException e) {
+			e.printStackTrace();
+			return ResponseEntity.status(400).body(new UserInfoGetRes(400, "만료된 토큰입니다."));
+		} catch(Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.status(500).body(new UserInfoGetRes(500, "Internal Server Error"));
+		}
+	}
 }
