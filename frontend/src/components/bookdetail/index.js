@@ -1,9 +1,8 @@
-import React , {useState, useEffect} from 'react';
+import React , {useState, useLayoutEffect} from 'react';
 import {useMediaQuery} from 'react-responsive';
 import {bookAPI, reviewAPI, likeAPI} from '../../utils/axios';
 import { useLocation } from "react-router-dom";
 import {Button, Rating, TextField, IconButton} from '@mui/material';
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import RoomOutlinedIcon from '@mui/icons-material/RoomOutlined';
 import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
@@ -20,6 +19,7 @@ const BookDetail= () =>{
 
     const [data, setData] = useState({});
     const [page, setPage] = useState(1);
+    const [btnOn, setbtnOn] = useState(false);
 
     const [recentReivew, setrecentReivew] = useState({});
     const [recommReivew, setrecommReivew] = useState({});
@@ -58,16 +58,17 @@ const BookDetail= () =>{
 
     const addgrade = async()=>{
         await bookAPI.addBookGrade(bookisbn, myGrade);
+        setbtnOn(true);
     }
 
     const modifygrade = async()=>{
         await bookAPI.modifyBookGrade(bookisbn, myGrade);
+        setbtnOn(true);
     }
 
     const loadBook = async()=>{
         const result = await bookAPI.detail(bookisbn);
         setData(result);
-        // console.log(result);
         if(result.bookImgUrl) setImglink(result.bookImgUrl);
         setbookTitle(result.bookTitle);
         setBookPub(result.bookPub);
@@ -80,13 +81,12 @@ const BookDetail= () =>{
         setrecentReivew(result.recentReviewList);
         setIsLike(result.isLiked);
     }
-    useEffect(()=>{
+    useLayoutEffect(()=>{
         
         loadBook();
-        const interval = setInterval(()=>{loadBook()}, 7000)
 
-        return ()=> clearInterval(interval);
-    },[]);
+        return ()=> setbtnOn(false);
+    },[btnOn]);
 
     const reviewLikes = async(reviewId, isLiked, click=false)=>{
         if (isLiked===0 && click===true) {
@@ -94,6 +94,7 @@ const BookDetail= () =>{
         }else if(isLiked===1 && click===true){
             await reviewAPI.likeremove(reviewId);
         }
+        setbtnOn(true);
     }
 
     const reviewAppended = async()=>{
@@ -105,14 +106,15 @@ const BookDetail= () =>{
             alert('등록에 실패했습니다.');
             console.log(err);
         }
+        setbtnOn(true);
     }
 
     const addBookLike = async(isLike)=>{
         if(isLike===0) await likeAPI.addlike(bookisbn);
         else if (isLike===1) await likeAPI.removelike(bookisbn);
+        setbtnOn(true);
     }
 
-    // page마다 보여줄 개수정하기
     const pageList = (reviewlist)=>{
         let indexOfLast = page * 5;
         let indexOfFirst = indexOfLast - 5;
@@ -186,7 +188,6 @@ const BookDetail= () =>{
                         <div id='bookDataMobile'>출판사 {bookPub}</div>
                         <div id='bookPubdateMobile'>발행일자 {bookPubdate}</div>
                         
-                        <Button id='buyMobile'><ShoppingCartOutlinedIcon/>도서 구매하기</Button>
                         <Button id='rentMobile'><RoomOutlinedIcon/>내 주변에서 도서 대여하기</Button>
                         <div id='myGradeDivMobile'>
                             <div id='myGradeTitleMobile'>이미 읽은 도서인가요?</div>
@@ -263,7 +264,6 @@ const BookDetail= () =>{
                                 <div id='bookContentWeb'>발행일자 {bookPubdate}</div>
                             </div>
                             <div id='columnDiv'>
-                                <Button id='buyWeb'><ShoppingCartOutlinedIcon/>도서 구매하기</Button>
                                 <Button id='rentWeb'><RoomOutlinedIcon/>내 주변에서 도서 대여하기</Button>
                                 <div id='myGradeDivWeb'>
                                     <div id='myGradeTitleWeb'>이미 읽은 도서인가요?</div>

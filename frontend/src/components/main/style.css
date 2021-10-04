@@ -38,7 +38,7 @@
 }
 
 .mobileWidth {
-  min-width: 500px;
+  min-width: 370px;
 }
 
 #bestMobile {
@@ -58,6 +58,7 @@
   font-family: "NotoSans";
   font-size: 4vw;
   margin-left: 10px;
+  font-weight: bold;
 }
 
 #bestSliderMobile {
@@ -79,7 +80,12 @@
   text-align: center;
   font-family: "NotoSans";
   margin-top: 15px;
-  font-size: 2vw;
+  font-size: 2.5vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 3;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
 }
 
 #bestWeb {
@@ -97,8 +103,20 @@
 
 #bestTenWeb {
   font-family: "NotoSans";
-  font-size: 4vw;
+  font-size: 3vw;
   margin-left: 10px;
+  font-weight: bold;
+}
+
+#bestTenListDiv {
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+#bestTenImgDiv {
+  width: 15vw;
+  height: 40vh;
 }
 
 #cardSizeWeb {
@@ -106,7 +124,15 @@
 }
 
 #boxImgWeb {
-  width: 15vw;
+  width: 100%;
+  height: 100%;
+  box-shadow: 1px 1px 5px #999999;
+  object-fit: contain;
+}
+
+#carouselImgWeb {
+  width: 100%;
+  height: 100%;
   box-shadow: 1px 1px 5px #999999;
   object-fit: contain;
 }
@@ -116,12 +142,12 @@
   font-family: "NotoSans";
   margin-top: 15px;
   width: 15vw;
-  font-size: 1.5vw;
+  /* font-size: 1vw; */
 }
 
 #reviewMobile {
   background-color: rgba(216, 194, 170, 0.29);
-  min-width: 500px;
+  min-width: 370px;
 }
 
 #reviewDivMobile {
@@ -133,6 +159,7 @@
 
 #reviewNameMobile {
   padding-top: 2vw;
+  font-weight: bold;
 }
 
 #reviewContentMobile {
@@ -178,7 +205,7 @@
 
 #reviewWeb2 {
   width: 70%;
-  margin: 1vw;
+  margin: 1.5vw;
 }
 
 #reviewContentWeb {
@@ -191,7 +218,8 @@
 #reviewNameWeb {
   font-family: "NotoSans";
   font-weight: 500;
-  font-size: 3.3vw;
+  font-size: 3vw;
+  font-weight: bold;
 }
 
 #reviewGoWeb {
@@ -227,6 +255,7 @@
   display: flex;
   justify-content: flex-end;
   margin-top: 1.2vw;
+  margin-right: 1vw;
 }
 
 #reviewBookWeb {
@@ -234,7 +263,7 @@
 }
 
 #reviewBookImg {
-  height: 23vw;
+  width: 13vw;
   box-shadow: 1px 1px 10px #999999;
 }
 
@@ -243,6 +272,7 @@
   justify-content: space-between;
   align-items: center;
   margin: 2vw;
+  margin-top: 5vh;
 }
 
 #recommTitleMobile {
@@ -291,12 +321,35 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  margin-bottom: 1vw;
+  height: 35vh;
 }
 
 #recommBookTitleWeb {
   text-align: center;
   font-family: "NotoSans";
   margin-top: 15px;
+  width: 100%;
   font-size: 1vw;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+
+#recommBookListDivMobile {
+  width: 20vw;
+  height: 20vh;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 0;
+}
+
+#recommBookListDivWeb {
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  width: 15vw;
+  height: 40vh;
 }

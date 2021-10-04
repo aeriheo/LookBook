@@ -12,7 +12,6 @@ export const userAPI = {
         return await request.post(`/auth/login`,{
             userEmail, userPassword
         }).then(function(response) {
-            // accessToken은 header에 refreshToken은 sessionStorage에 넣어주기
             window.sessionStorage.setItem('token', response.data.accessToken);
             window.sessionStorage.setItem('refreshToken', response.data.refreshToken);
             return response;
@@ -22,7 +21,6 @@ export const userAPI = {
         return await request.get(`/users/me`,{
             
         }).then(function(response){
-            // console.log(response);
             return response;
         }).catch(function(e){
             return e.response;
@@ -59,7 +57,6 @@ export const userAPI = {
                 return response;
             }
         }).catch((err)=>{
-                console.log(err);
                 window.sessionStorage.setItem('email', email);
                 return false;
         })
@@ -71,9 +68,6 @@ export const userAPI = {
             }
         }).then((response)=>{
             return response;
-            // console.log(response);
-        }).catch((error)=>{
-            console.log(error);
         })
     },
     reissue: async () => {
@@ -90,8 +84,11 @@ export const userAPI = {
     changeProfile:async(userProfileUrl)=>{
         return await request.put('users/profile',{
             userProfileUrl
-        }).then((response)=>{
-            console.log(response);
+        })
+    },
+    updateList : async()=>{
+        return await request.get('/users/recomm',{
+
         })
     }
 }
@@ -101,24 +98,17 @@ export const bookAPI={
         return await request.get(`/books/${bookIsbn}`,{
             bookIsbn
         }).then((response)=>{
-            // console.log(response);
             return response.data;
-        }).catch((err)=>{
-            console.log(err);
         })
     },
     addBookGrade: async (bookIsbn, bookGrade) => {
         return await request.post('/bookgrade',{
             bookIsbn, bookGrade
-        }).then((response) => {
-            // console.log(response);
-        })
+        });
     },
     modifyBookGrade: async (bookIsbn, bookGrade) => {
         return await request.put('/bookgrade',{
             bookIsbn, bookGrade
-        }).then((response) => {
-            // console.log(response);
         })
     },
     search : async(searchKey, searchWord)=>{
@@ -137,6 +127,13 @@ export const bookAPI={
         }).then(response => {
             return response.data;
         })
+    },
+    mainBooks: async ()=> {
+        return await request.get('/books/main', {
+
+        }).then(response => {
+            return response.data;
+        })
     }
 }
 
@@ -151,8 +148,6 @@ export const reviewAPI = {
     like: async (reviewId) => {
         return await request.post(`/reviewlikes/${reviewId}`,{
 
-        }).then((response) => {
-            // console.log(response);
         })
     },
     likeremove : async (reviewId) => {
@@ -191,10 +186,17 @@ export const likeAPI={
         return await request.get('/likes', {
 
         }).then((response)=>{
-            // console.log(response);
             return response.data;
-        }).catch((err)=>{
-            console.log(err);
+        })
+    }
+}
+
+export const recommendAPI={
+    firstRecomm : async() => {
+        return await request.get('/recommends',{
+
+        }).then((response)=>{
+            return response.data;
         })
     }
 }
