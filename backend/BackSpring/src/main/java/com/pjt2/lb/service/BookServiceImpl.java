@@ -55,23 +55,19 @@ public class BookServiceImpl implements BookService {
 		
 		String userEmail = user.getUserEmail();
 		
-		// 책 기본 정보
 		BookInfoGetRes bookInfo = new BookInfoGetRes();
 		Book book = bookRepository.findByBookIsbn(bookIsbn);
 		BeanUtils.copyProperties(book, bookInfo);
 		
-		// 최신 순 책 리뷰 리스트
 		List<BookReviewListInfoRes> reviewRecentList = reviewDao.getBookRecentReviewList(bookIsbn, userEmail);
 		bookInfo.setRecentReviewList(reviewRecentList);
 		
 		List<BookReviewListInfoRes> reviewRecommList = reviewDao.getBookRecommReviewList(bookIsbn, userEmail);
 		bookInfo.setRecommReviewList(reviewRecommList);
 		
-		// 책 평균 평점
 		Double avgGrade = bookGradeRepositorySupport.getBookGradeAvg(bookIsbn);
 		bookInfo.setAvgGrade(avgGrade);
 		
-		// 나의 평점
 		try {
 			int myGrade = bookGradeRepositorySupport.getBookGrade(bookIsbn, userEmail);
 			bookInfo.setMyGrade(myGrade);
@@ -79,7 +75,6 @@ public class BookServiceImpl implements BookService {
 			bookInfo.setMyGrade(0);
 		}	
 		
-		// 나의 좋아요 여부
 		BookLike bookLike = bookLikeRepository.findByBookBookIsbnAndUserUserEmail(bookIsbn,userEmail);
 		if(bookLike != null) bookInfo.setIsLiked(1);
 		else bookInfo.setIsLiked(0);	

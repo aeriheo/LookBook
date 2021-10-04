@@ -1,6 +1,7 @@
 package com.pjt2.lb.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -25,7 +26,9 @@ public class KakaoLoginServiceImpl implements KakaoLoginService {
 	@Autowired
 	private ObjectMapper objectMapper;
 
-	private final String kakaoOauth2ClinetId = "a765ac439be73b3505f709a713a0dcd0";
+	@Value("${kakao.oauth2-id}")
+	private String kakaoOauth2ClinetId;
+	
 	private final String frontendRedirectUrl = "https://j5A502.p.ssafy.io";
 
 	@Override
@@ -33,7 +36,6 @@ public class KakaoLoginServiceImpl implements KakaoLoginService {
 
 		KakaoOAuthToken kakaoOAuthToken = null;
 		
-		// POST 방식으로 token에 대한 key=value 데이터 요청
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 

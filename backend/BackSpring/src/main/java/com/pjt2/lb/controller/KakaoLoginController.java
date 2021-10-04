@@ -42,17 +42,13 @@ public class KakaoLoginController {
 		 try {
 			 KakaoLoginRes kakaoLoginRes = new KakaoLoginRes();
 
-			 // code로 accessToken을 받아내고
+
 			 KakaoOAuthToken kakaoOAuthToken = kakaoLoginService.getKakaoTokenApi(code);
-			 // 받은 accessToken으로 회원 정보를 가져온다.
 			 KakaoProfile kakaoProfile = kakaoLoginService.getUserByAccessToken(kakaoOAuthToken.getAccess_token());
-			 
-			 // System.out.println(kakaoProfile);
 			 
 			 String userEmail = kakaoProfile.getKakao_account().getEmail();
 			 kakaoLoginRes.setEmail(userEmail);
-			 // System.out.println(kakaoLoginRes.getEmail());			 
-
+		 
 			 User user = userService.getUserByUserEmail(userEmail);
 			 
 			 if(user != null) {
@@ -63,6 +59,7 @@ public class KakaoLoginController {
 				 kakaoLoginRes.setStatusCode(200);
 				 return ResponseEntity.status(200).body(kakaoLoginRes);
 			 }
+			 
 		 } catch (Exception e) {
 			 return ResponseEntity.status(500).body(BaseResponseBody.of(500, "Internal Server Error"));
 		 }
