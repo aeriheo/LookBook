@@ -11,38 +11,38 @@ import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
- * QBestBookTen is a Querydsl query type for BestBookTen
+ * QBestBookTenModel is a Querydsl query type for BestBookTenModel
  */
 @Generated("com.querydsl.codegen.EntitySerializer")
-public class QBestBookTen extends EntityPathBase<BestBookTen> {
+public class QBestBookTenModel extends EntityPathBase<BestBookTenModel> {
 
-    private static final long serialVersionUID = -296068972L;
+    private static final long serialVersionUID = 626716405L;
 
     private static final PathInits INITS = PathInits.DIRECT2;
 
-    public static final QBestBookTen bestBookTen = new QBestBookTen("bestBookTen");
+    public static final QBestBookTenModel bestBookTenModel = new QBestBookTenModel("bestBookTenModel");
 
     public final QBook book;
 
     public final NumberPath<Integer> id = createNumber("id", Integer.class);
 
-    public QBestBookTen(String variable) {
-        this(BestBookTen.class, forVariable(variable), INITS);
+    public QBestBookTenModel(String variable) {
+        this(BestBookTenModel.class, forVariable(variable), INITS);
     }
 
-    public QBestBookTen(Path<? extends BestBookTen> path) {
+    public QBestBookTenModel(Path<? extends BestBookTenModel> path) {
         this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
-    public QBestBookTen(PathMetadata metadata) {
+    public QBestBookTenModel(PathMetadata metadata) {
         this(metadata, PathInits.getFor(metadata, INITS));
     }
 
-    public QBestBookTen(PathMetadata metadata, PathInits inits) {
-        this(BestBookTen.class, metadata, inits);
+    public QBestBookTenModel(PathMetadata metadata, PathInits inits) {
+        this(BestBookTenModel.class, metadata, inits);
     }
 
-    public QBestBookTen(Class<? extends BestBookTen> type, PathMetadata metadata, PathInits inits) {
+    public QBestBookTenModel(Class<? extends BestBookTenModel> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.book = inits.isInitialized("book") ? new QBook(forProperty("book")) : null;
     }

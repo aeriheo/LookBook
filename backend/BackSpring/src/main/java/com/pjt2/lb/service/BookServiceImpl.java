@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.pjt2.lb.dao.BookDao;
 import com.pjt2.lb.dao.ReviewDao;
-import com.pjt2.lb.entity.BestBookTen;
+import com.pjt2.lb.entity.BestBookTenModel;
 import com.pjt2.lb.entity.Book;
 import com.pjt2.lb.entity.BookLike;
 import com.pjt2.lb.entity.User;
@@ -100,9 +100,11 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public List<BookListInfoRes> getBestBookListInfo() {
 		
-		List<BestBookTen> bestBookIsbnList = bestBookTenRepository.findTop10ByOrderByIdDesc();
+		List<BestBookTenModel> bestBookIsbnList = bestBookTenRepository.findTop10ByOrderByIdDesc();
+		System.out.println(bestBookIsbnList.size());
 		List<BookListInfoRes> bestBookInfoList = new ArrayList<>();
-		for(BestBookTen bestBook : bestBookIsbnList) {
+		for(BestBookTenModel bestBook : bestBookIsbnList) {
+			System.out.println(bestBook);
 			Book book = bookRepository.findByBookIsbn(bestBook.getBook().getBookIsbn());
 			bestBookInfoList.add(new BookListInfoRes(book.getBookIsbn(), book.getBookTitle(), book.getBookImgUrl()));
 		}
