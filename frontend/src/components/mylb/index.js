@@ -16,7 +16,6 @@ const MyLB = () =>{
     const [data, setData] = useState({});
     const loadReview = async()=>{
         const result = await reviewAPI.myreviews();
-        console.log(result.UserReviewList);
         setData(result.UserReviewList);
     }
 
@@ -25,7 +24,6 @@ const MyLB = () =>{
     },[]);
 
     const deleteReview = async(reviewId)=>{
-        console.log(reviewId);
         let res = window.confirm('리뷰를 삭제하시겠습니까?');
         if (res) {
             try{
@@ -118,9 +116,6 @@ const MyLB = () =>{
         <div>
             {isMobile ? (
                 <div id='myLBMobile' style={{height: '100%'}}>
-                    <div id='myLBNameMobile'>
-                        MY LB
-                    </div>
                     <div id='myLBList'>
                         {reviewListMobile(data)}
                     </div>

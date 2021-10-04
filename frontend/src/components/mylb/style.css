@@ -133,16 +133,17 @@
   align-items: center;
   width: 70vw;
   margin: 1vw;
+  margin-top: 5vh;
 }
 
 #myLBWeb {
   justify-content: center;
   align-items: center;
-  margin: 1vw;
+  margin-left: 2vw;
 }
 
 #myLBNameWeb {
-  font-size: 2vw;
+  font-size: 1.5vw;
   font-weight: bold;
   font-family: "NotoSans";
   margin-bottom: 2vh;

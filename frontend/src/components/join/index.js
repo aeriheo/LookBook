@@ -1,13 +1,12 @@
 import React , {useState} from 'react';
 import {useMediaQuery} from 'react-responsive';
-import {TextField, Button, Divider} from '@mui/material';
+import {TextField, Button, Divider, Modal} from '@mui/material';
 import {GoogleLogin} from 'react-google-login';
 import kakaobtn from '../../images/kakao_login.png';
 import Logo from '../logo';
 import './style.css';
 import {userAPI} from '../../utils/axios';
 import {KAKAO_AUTH_URL} from '../../oauth';
-
 
 const Join = (props) =>{
     const isMobile = useMediaQuery({
@@ -25,6 +24,7 @@ const Join = (props) =>{
     const [checkEqual, setCheckEqual] = useState('');
     const [nickChk, setnickchk] = useState(false);
     const [emailChk, setEmailchk] = useState(false);
+    
 
     const handleId = (e) =>{
         setId(e.target.value);
@@ -78,7 +78,7 @@ const Join = (props) =>{
         if (result===false){
             window.location.href='/joinSocial';
         }else{
-            window.location.href='/lookbook';
+            window.location.replace('/lookbook');
         }
     }
 
@@ -88,9 +88,10 @@ const Join = (props) =>{
         if(emailChk===false) alert('이메일 중복 확인을 해주세요');
         if(nickChk===false) alert('닉네임 중복확인을 해주세요');
         if(emailChk & nickChk & pw===pwCheck & pw.length !== 0){
-            await userAPI.join(id, pw, name, nickname);
-            alert('회원가입에 성공했습니다! 로그인해주세요.');
-            window.location.href='/';
+            await userAPI.join(id, pw, name, nickname)
+            .then(alert(`회원가입에 성공했습니다!
+            서비스 이용을 위해 평가하기를 진행해주세요.`));
+            await userAPI.login(id, pw).then(window.location.replace('/score'));
         }   
     }
 

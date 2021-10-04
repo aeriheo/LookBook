@@ -35,7 +35,7 @@ const Login = () =>{
         if(id!=='' && pw !== '') {
             try{
                 await userAPI.login(id, pw);
-                window.location.href=`/lookbook`;
+                window.location.replace('/lookbook');
             }catch(e){
                 console.log(e);
                 alert('아이디 혹은 비밀번호를 틀리셨습니다.');
@@ -52,7 +52,7 @@ const Login = () =>{
             회원가입 페이지로 이동합니다.`);
             window.location.href=`/joinSocial`;
         }else{
-            window.location.href=`/lookbook`;
+            window.location.replace('/lookbook');
         }
     }
 

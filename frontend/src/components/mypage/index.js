@@ -25,13 +25,13 @@ const MyInfo = () =>{
                 <div id='TabMobile'>
                     <div id='mypageDiv'>
                         <Tabs onChange={handleTabs} defaultActiveKey={value} tabBarGutter={50} id='TabListMobile'>
-                            <TabPane tab="MY PAGE" key="mypage" style={{height:'70vh', overflow: 'auto'}}>
+                            <TabPane tab="MY PAGE" key="mypage" style={{height:'70vh', overflow: 'auto', outline: 'none'}}>
                                 <UserInfo/>
                             </TabPane>
-                            <TabPane tab="LIKE" key = "like" style={{height:'70vh', overflow: 'auto'}} >
+                            <TabPane tab="LIKE" key = "like" style={{height:'70vh', overflow: 'auto', outline: 'none'}} >
                                 <Mylike/>
                             </TabPane>
-                            <TabPane tab="MY LB" key = "mylb" style={{height:'70vh', overflow: 'auto'}} >
+                            <TabPane tab="MY LB" key = "mylb" style={{height:'70vh', overflow: 'auto', outline: 'none'}} >
                                 <MYLB/>
                             </TabPane>
                         </Tabs>
@@ -43,13 +43,13 @@ const MyInfo = () =>{
                     <div>
                         <div id='mypageDiv'>
                             <Tabs onChange={handleTabs} tabPosition = "left"  defaultActiveKey={value} tabBarGutter={50} id='TabListWeb'>
-                                <TabPane tab="MY PAGE　" key="mypage" style={{height:'100vh', overflow: 'auto'}} >
+                                <TabPane tab="MY PAGE　" key="mypage" style={{height:'100vh', overflow: 'auto', outline: 'none'}} >
                                     <UserInfo/>
                                 </TabPane>
-                                <TabPane tab="LIKE " key = "like" style={{height:'100vh', overflow: 'auto'}} >
+                                <TabPane tab="LIKE " key = "like" style={{height:'100vh', overflow: 'auto', outline: 'none'}} >
                                     <Mylike/>
                                 </TabPane>
-                                <TabPane tab="MY LB " key = "mylb" style={{height:'100vh', overflow: 'auto'}} >
+                                <TabPane tab="MY LB " key = "mylb" style={{height:'100vh', overflow: 'auto', outline: 'none'}} >
                                     <MYLB/>
                                 </TabPane>
                             </Tabs>
