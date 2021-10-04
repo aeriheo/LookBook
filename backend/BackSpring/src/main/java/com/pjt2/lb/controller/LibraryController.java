@@ -39,13 +39,12 @@ public class LibraryController {
 			LBUserDetails userDetails = (LBUserDetails) authentication.getDetails();
 			User user = userDetails.getUser();
 			
-			// 도서관 Response
 			List<LibraryGetRes> libraryList = libraryService.getLibraryList(bookIsbn, libGugun);
-//			return ResponseEntity.status(200).body(libraryList);
+			
 			return new ResponseEntity<List>(libraryList, HttpStatus.OK);
 		} catch (NullPointerException e) {
 			e.printStackTrace();
-//			return ResponseEntity.status(400).body(null);
+			
 			return ResponseEntity.status(400).body(new UserInfoGetRes(400, "만료된 토큰입니다.")); 
 		}
 		
