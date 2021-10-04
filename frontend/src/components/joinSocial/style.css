@@ -182,3 +182,29 @@
   margin-top: 20px;
   background-color: rgba(178, 137, 99, 0.65);
 }
+
+#modalScoreSocialMobile {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 350px;
+  height: 700px;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  align-items: center;
+  justify-content: center;
+  overflow: auto;
+}
+
+#modalScoreSocial {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 550px;
+  height: 700px;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  align-items: center;
+  justify-content: center;
+  overflow: auto;
+}

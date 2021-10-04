@@ -1,39 +1,34 @@
 import React , {useState, useEffect} from 'react';
 import {useMediaQuery} from 'react-responsive';
-import {TextField, Button} from '@mui/material';
+import {TextField, Button, Modal} from '@mui/material';
 import Logo from '../logo';
 import './style.css';
 import {userAPI} from '../../utils/axios';
+import Score from '../score';
 
 
 const JoinSocial = (props) =>{
-    const [query, setQuery] = useState('social');
     const [id, setId] = useState(window.sessionStorage.getItem('email'));
+    const [open, setOpen] = useState(false);
 
     useEffect(()=>{
-        let completed = false;
         // kakaologin
         async function loadUser(){
             if(new URL(window.location.href).searchParams.get('code')){
                 const result = await userAPI.loginKakao(new URL(window.location.href).searchParams.get('code'));
-                // console.log(result);
                 if (result.data.actionCode===true) setId(result.data.email);
                 else if(result.data.actionCode===false){
                     // login access token
                     window.sessionStorage.setItem('token', result.data.accessToken);
                     window.sessionStorage.setItem('refreshToken', result.data.refreshToken);
-                    window.location.href='/lookbook';
+                    window.location.replace('/lookbook');
+                    setOpen(true);
                 }
             }
-            
         }
 
         loadUser();
-
-        return()=>{
-            completed=true;
-        };
-    },[query]);
+    },[]);
 
     const isMobile = useMediaQuery({
         query: "(max-width : 768px)"
@@ -68,9 +63,12 @@ const JoinSocial = (props) =>{
         if(nickChk===false) alert('닉네임 중복확인을 해주세요');
         if(nickChk){
             await userAPI.join(id, '', name, nickname);
-            alert('회원가입에 성공했습니다! 로그인해주세요.');
             window.sessionStorage.removeItem('email');
-            window.location.href='/';
+            alert(`회원가입에 성공했습니다!
+            서비스 이용을 위해 평가하기를 진행해주세요.`);
+            await userAPI.loginGoogle(id);
+            setOpen(true);
+            
         }   
     }
 
@@ -94,6 +92,11 @@ const JoinSocial = (props) =>{
                                 <Button id='dupBtnMobile' onClick={chkNickname}>중복확인</Button>
                             </div>
                             <Button id='btnMobile' onClick={signin}>회원가입</Button>
+                            <Modal open={open}>
+                                <div id='modalScoreSocialMobile'>
+                                    <Score/>
+                                </div>
+                            </Modal>
                         </div>
                     </div>
                 </div>
@@ -123,6 +126,11 @@ const JoinSocial = (props) =>{
                                 <Button id='dupBtn' onClick={chkNickname}>중복확인</Button>
                             </div>
                             <Button id='btnWeb' onClick={signin}>회원가입</Button>
+                            <Modal open={open}>
+                                <div id='modalScoreSocial'>
+                                    <Score/>
+                                </div>
+                            </Modal>
                         </div>
                     </div>
                 </div>
