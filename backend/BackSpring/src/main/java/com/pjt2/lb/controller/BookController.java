@@ -124,13 +124,13 @@ public class BookController {
 			BestReviewInfoRes bestReview = reviewService.getBestReviewInfo();
 			mainBookListInfo.setBestReview(bestReview);
 			
-			List<BookListInfoRes> userPredictedGradeList = recommendBookService.getUserPredictedGradeListInfo(user.getUserEmail(), 10);
+			List<BookListInfoRes> userPredictedGradeList = recommendBookService.getUserPredictedGradeListInfo(user.getUserEmail(), 5);
 			mainBookListInfo.setUserPredictedGradeList(userPredictedGradeList);
 			
-			List<BookListInfoRes> userBasedCFList = recommendBookService.getUserBasedCFListInfo(user.getUserEmail(), 10);
+			List<BookListInfoRes> userBasedCFList = recommendBookService.getUserBasedCFListInfo(user.getUserEmail(), 5);
 			mainBookListInfo.setUserBasedCFList(userBasedCFList);
 			
-			List<BookListInfoRes> itemBasedCFList = recommendBookService.getItemBasedCFListInfo(10);                   
+			List<BookListInfoRes> itemBasedCFList = recommendBookService.getItemBasedCFListInfo(5);                   
 			mainBookListInfo.setItemBasedCFList(itemBasedCFList);
 			
 			 return ResponseEntity.status(200).body(mainBookListInfo);
