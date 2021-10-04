@@ -17,6 +17,7 @@ public class UserInfoGetRes {
 	String userName;
 	String userNickname;
 	String userProfileUrl;
+	int userJoinType;
 	String refreshToken;
 	
 	public UserInfoGetRes(int statusCode, String message) {

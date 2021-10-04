@@ -32,6 +32,7 @@ public class UserServiceImpl implements UserService {
 		user.setUserPassword(passwordEncoder.encode(userRegisterInfo.getUserPassword()));
 		user.setUserName(userRegisterInfo.getUserName());
 		user.setUserNickname(userRegisterInfo.getUserNickname());
+		user.setUserJoinType(1);
 		
 		return userRepository.save(user);
 	}

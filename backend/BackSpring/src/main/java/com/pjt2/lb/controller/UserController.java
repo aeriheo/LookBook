@@ -19,6 +19,7 @@ import org.springframework.web.client.RestTemplate;
 import com.pjt2.lb.common.auth.LBUserDetails;
 import com.pjt2.lb.common.response.BaseResponseBody;
 import com.pjt2.lb.entity.User;
+import com.pjt2.lb.request.CheckUserPwdPostReq;
 import com.pjt2.lb.request.UserInfoPutReq;
 import com.pjt2.lb.request.UserProfilePostReq;
 import com.pjt2.lb.request.UserRegisterPostReq;
@@ -204,5 +205,24 @@ public class UserController {
 	}
 	
 	// 비밀번호 확인
-	
+	@PostMapping("password")
+	public ResponseEntity<BaseResponseBody> checkUserPassword(Authentication authentication, @RequestBody CheckUserPwdPostReq checkUserPwdInfo){
+		
+		try {
+			LBUserDetails userDetails = (LBUserDetails) authentication.getDetails();
+			User user = userDetails.getUser();
+			String userPassword = checkUserPwdInfo.getUserPassword();
+			
+			if (passwordEncoder.matches(userPassword, user.getUserPassword())) {
+				return ResponseEntity.status(200).body(BaseResponseBody.of(200, "알맞는 비밀번호 입니다."));
+			}
+			else {
+				return ResponseEntity.status(401).body(BaseResponseBody.of(401, "잘못된 비밀번호 입니다."));
+			}
+			
+		} catch (NullPointerException e) {
+			return ResponseEntity.status(400).body(BaseResponseBody.of(400, "만료된 토큰입니다."));
+		}
+		
+	}
 }
