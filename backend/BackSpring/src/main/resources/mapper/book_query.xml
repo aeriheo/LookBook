@@ -25,6 +25,7 @@
 		OR (#{categoryId} = 16 and book_category_code like '__594')
 		OR (#{categoryId} = 17 and (book_category_code like '__592' or book_category_code like '__593'))
 		OR (#{categoryId} = 18 and book_category_code like '__6__')
+		ORDER BY B.book_pub_date DESC, B.book_img_url DESC
 		limit 500
 	</select>
 
