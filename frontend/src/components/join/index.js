@@ -7,7 +7,6 @@ import Logo from '../logo';
 import './style.css';
 import {userAPI} from '../../utils/axios';
 import {KAKAO_AUTH_URL} from '../../oauth';
-import Score from '../score';
 
 const Join = (props) =>{
     const isMobile = useMediaQuery({
@@ -25,7 +24,6 @@ const Join = (props) =>{
     const [checkEqual, setCheckEqual] = useState('');
     const [nickChk, setnickchk] = useState(false);
     const [emailChk, setEmailchk] = useState(false);
-    const [open, setOpen] = useState(false);
     
 
     const handleId = (e) =>{
@@ -90,10 +88,10 @@ const Join = (props) =>{
         if(emailChk===false) alert('이메일 중복 확인을 해주세요');
         if(nickChk===false) alert('닉네임 중복확인을 해주세요');
         if(emailChk & nickChk & pw===pwCheck & pw.length !== 0){
-            await userAPI.join(id, pw, name, nickname);
-            alert(`회원가입에 성공했습니다!
-            서비스 이용을 위해 평가하기를 진행해주세요.`);
-            await userAPI.login(id, pw).then(setOpen(true));
+            await userAPI.join(id, pw, name, nickname)
+            .then(alert(`회원가입에 성공했습니다!
+            서비스 이용을 위해 평가하기를 진행해주세요.`));
+            await userAPI.login(id, pw).then(window.location.replace('/score'));
         }   
     }
 
@@ -125,11 +123,6 @@ const Join = (props) =>{
                                 <Button id='dupBtnMobile' onClick={chkNickname}>중복확인</Button>
                             </div>
                             <Button id='btnMobile' onClick={signin}>회원가입</Button>
-                            <Modal open={open}>
-                                <div id='modalScoreDivMobile'>
-                                    <Score/>
-                                </div>
-                            </Modal>
                         </div>
                         <Divider/>
                         <div  className='another'>
@@ -177,11 +170,6 @@ const Join = (props) =>{
                                 <Button id='dupBtn' onClick={chkNickname}>중복확인</Button>
                             </div>
                             <Button id='btnWeb' onClick={signin}>회원가입</Button>
-                            <Modal open={open}>
-                                <div id='modalScoreDiv'>
-                                    <Score/>
-                                </div>
-                            </Modal>
                         </div>
                         <Divider/>
                         <div  className='another'>

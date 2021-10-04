@@ -8,6 +8,7 @@ import BookDetailPage from './pages/detail';
 import Mypage from './pages/mypage';
 import SearchPage from './pages/search';
 import CategoryPage from './pages/category';
+import ScorePage from './pages/score';
 
 const App = () =>{
 
@@ -22,6 +23,8 @@ const App = () =>{
         <Route exact path = "/mypage/:tab" component={Mypage}/>
         <Route exact path = "/search" component={SearchPage}/>
         <Route exact path = "/category" component={CategoryPage}/>
+        
+        <Route exact path = "/score" component={ScorePage}/>
       </Switch>
     </BrowserRouter>
   );

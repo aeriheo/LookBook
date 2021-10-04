@@ -34,13 +34,13 @@
 #firstDivMobile {
   align-items: center;
   height: 100%;
-  width: 300px;
+  min-width: 300px;
+  max-width: 370px;
 }
 
 #firstDivWeb {
-  align-items: center;
   height: 100%;
-  width: 500px;
+  margin: 2px;
 }
 
 #firstIntroDiv {

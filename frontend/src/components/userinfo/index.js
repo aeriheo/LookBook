@@ -25,7 +25,6 @@ const UserInfo = () =>{
 
     const loadUser = async()=>{
         const result = await userAPI.userinfo();
-        console.log(result);
         setData(result.data);
         setmyProfile(result.data.userProfileUrl);
     }

@@ -35,12 +35,11 @@ const Score = () =>{
         setCnt(cnt+1);
     }
 
-    const serviceStart = ()=>{
+    const serviceStart = async ()=>{
         if(cnt<5) alert('평가를 5개 이상 진행해주세요 !');
         else{
             alert('사용자 취향 분석 중 입니다.. 잠시만 기다려주세요!');
-            userAPI.updateList();
-            alert('환영합니다!');
+            await userAPI.updateList().then(alert('환영합니다!'));
             window.location.replace('/lookbook');
         }
     }
@@ -70,7 +69,7 @@ const Score = () =>{
         return result;
     }
     return(
-        <div>
+        <div style={{width: '100%', display:'flex', direction:'column', justifyContent: 'center', alignItems: 'center'}}>
             {isMobile?(
                 <div id='firstDivMobile'>
                     <div id='firstIntroDiv'>
