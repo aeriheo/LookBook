@@ -50,9 +50,6 @@ const UserInfo = () =>{
         <div>
             {isMobile ? (
                 <div id='userinfoDiv'>
-                    <div id='userinfoNameMobile'>
-                        MY PAGE
-                    </div>
                     <div id='userinfoMobile'>
                         <div id='userinfoProfileDiv'>
                             <div id='userinfoProfileImgDivMobile'>

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useLayoutEffect} from 'react';
 import {useMediaQuery} from 'react-responsive';
 import { useHistory } from "react-router-dom";
 import {Select, MenuItem, IconButton} from '@mui/material';
@@ -31,6 +31,10 @@ const Category = () =>{
             console.log(e);
         }
     }
+
+    useLayoutEffect (()=>{
+        categoryBook();
+    },[]);
 
     const bookListMobile = (books)=>{
         let result = [];
@@ -133,7 +137,7 @@ const Category = () =>{
                     <div id='categoryFormDivWeb'>
                         <div id='categoryNameWeb'>카테고리별로 보고싶은 작품을 찾아보세요</div>
                         <div>
-                            <Select value={category} onChange={handleChange} variant="standard" style={{marginRight:'1vw'}}>
+                            <Select value={category} onChange={handleChange} variant="standard" style={{marginRight:'1vw', width:'15vw', fontSize:'1.5vw'}}>
                                 <MenuItem value={'1'}>소설</MenuItem>
                                 <MenuItem value={'2'}>시/에세이</MenuItem>
                                 <MenuItem value={'3'}>인문</MenuItem>
@@ -153,8 +157,8 @@ const Category = () =>{
                                 <MenuItem value={'17'}>건강/뷰티</MenuItem>
                                 <MenuItem value={'18'}>취미/실용/스포츠</MenuItem>
                             </Select>
-                            <IconButton onClick={()=>categoryBook()}>
-                                <SearchIcon/>
+                            <IconButton onClick={()=>categoryBook()} >
+                                <SearchIcon style={{width:'3vw', height:'3vw'}}/>
                             </IconButton>
                         </div>
                     </div>

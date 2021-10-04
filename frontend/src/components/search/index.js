@@ -123,7 +123,7 @@ const Search = () =>{
                         </Select>
                         <TextField value={word} onChange={handleWord} variant="standard" style={{width:'15vw'}}/>
                         <IconButton onClick={()=>searchBook()}>
-                            <SearchIcon/>
+                            <SearchIcon style={{width:'2vw', height:'2vw'}}/>
                         </IconButton>
                     </div>
                     {query?(
