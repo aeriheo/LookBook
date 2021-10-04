@@ -1,9 +1,14 @@
 package com.pjt2.lb.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +21,7 @@ import com.pjt2.lb.common.response.BaseResponseBody;
 import com.pjt2.lb.entity.User;
 import com.pjt2.lb.repository.BookRepository;
 import com.pjt2.lb.request.BookGradePostReq;
+import com.pjt2.lb.response.BookGradeListInfoRes;
 import com.pjt2.lb.response.UserInfoGetRes;
 import com.pjt2.lb.service.BookGradeService;
 
@@ -75,5 +81,23 @@ public class BookGradeController {
 		}
 
 		
+	}
+	
+	@GetMapping()
+	public ResponseEntity<?> getBookGradeList(Authentication authentication){
+		try {
+			LBUserDetails userDetails = (LBUserDetails) authentication.getDetails();
+			User user = userDetails.getUser();
+			
+			List<BookGradeListInfoRes> bookGradeList = bookGradeService.getBookGradeList(user.getUserEmail());
+			Map<String, List> map = new HashMap<String, List>();
+			map.put("bookGradeList", bookGradeList);
+			
+			return ResponseEntity.status(200).body(map);
+		} catch (NullPointerException e) {
+			return ResponseEntity.status(400).body(new UserInfoGetRes(400, "만료된 토큰입니다."));
+		} catch (Exception e) {
+			return ResponseEntity.status(500).body(BaseResponseBody.of(500, "Internal Server Error"));
+		}
 	}
 }
