@@ -1,0 +1,166 @@
+#myLBDivWeb {
+  height: 30vh;
+  width: 100%;
+  display: flex;
+  direction: row;
+  margin-bottom: 2vh;
+}
+
+#myLBbookWeb {
+  height: 30vh;
+  margin-right: 1vw;
+  cursor: pointer;
+}
+
+#myLBbookImgWeb {
+  object-fit: contain;
+  height: 100%;
+}
+
+#myLBbookInfoDivWeb {
+  display: flex;
+  direction: row;
+  align-items: center;
+  margin-bottom: 1vh;
+}
+
+#myLBbookTitleWeb {
+  font-size: 1.5vw;
+  color: #575757;
+  font-weight: bold;
+  font-family: "NotoSans";
+}
+
+#myLBbookBtnWeb {
+  color: black;
+  font-size: 1vw;
+  font-family: "NotoSans";
+}
+
+#myLBbookRatingDivWeb {
+  margin-bottom: 1vh;
+}
+
+#ratingColor {
+  color: #b28963;
+}
+
+#myLBbookDateLikeWeb {
+  display: flex;
+  direction: row;
+  margin-bottom: 1vh;
+  align-items: center;
+}
+
+#myLBbookDateWeb {
+  margin-right: 1vw;
+  font-size: 1vw;
+  font-family: "NotoSans";
+}
+
+#myLBLikeColor {
+  color: #ff7474;
+  margin-right: 1vw;
+}
+
+#myLBLikeWeb {
+  margin-right: 1vw;
+  font-size: 1vw;
+}
+
+#myLBLikeMobile {
+  margin-right: 1vw;
+  font-size: 3vw;
+}
+
+#myLBContentWeb {
+  font-size: 1vw;
+  font-family: "NotoSans";
+}
+
+#myLBDivMobile {
+  height: 20vh;
+  width: 100%;
+}
+
+#myLBbookInfoDivMobile {
+  display: flex;
+  direction: row;
+  align-items: center;
+  margin-bottom: 1vh;
+}
+
+#myLBbookTitleMobile {
+  font-size: 3vw;
+  color: #575757;
+  font-weight: bold;
+  font-family: "NotoSans";
+}
+
+#myLBbookBtnMobile {
+  color: black;
+  font-size: 2vw;
+  font-family: "NotoSans";
+}
+
+#myLBbookDateLikeMobile {
+  display: flex;
+  direction: row;
+  margin-bottom: 2vh;
+  align-items: center;
+}
+
+#myLBbookDateMobile {
+  margin-left: 1vw;
+  margin-right: 1vw;
+  font-size: 3vw;
+  font-family: "NotoSans";
+}
+
+#myLBbookLikeMobile {
+  margin-right: 1vw;
+  font-size: 3vw;
+  font-family: "NotoSans";
+}
+
+#myLBbookContentDivMobile {
+  margin-left: 1vw;
+}
+
+#myLBbookContentMobile {
+  font-size: 2vw;
+  font-family: "NotoSans";
+}
+
+#myLBMobile {
+  justify-content: center;
+  align-items: center;
+  width: 70vw;
+  margin: 1vw;
+  margin-top: 5vh;
+}
+
+#myLBWeb {
+  justify-content: center;
+  align-items: center;
+  margin-left: 2vw;
+}
+
+#myLBNameWeb {
+  font-size: 1.5vw;
+  font-weight: bold;
+  font-family: "NotoSans";
+  margin-bottom: 2vh;
+}
+
+#myLBNameMobile {
+  font-size: 5vw;
+  font-family: "NotoSans";
+  font-weight: bold;
+  margin-bottom: 2vh;
+}
+
+#myLBList {
+  display: flex;
+  flex-direction: column;
+}

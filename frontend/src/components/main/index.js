@@ -172,7 +172,7 @@ const MainSession = () =>{
                 <div id='mobileWidth'>
                     <div id='recommDiv'>
                         <div id='recommTitleMobile'>'{data.userNickname}'님을 위한 추천 도서</div>
-                        <div id='recommGoMobile'>추천도서 보러가기</div>
+                        <div id='recommGoMobile' onClick={()=>window.location.href='/myrecommend'}>추천도서 보러가기</div>
                     </div>
                     <div id='recommBookMobile'>
                         {userRecommList && userRecommList.map(item=>{
@@ -195,7 +195,7 @@ const MainSession = () =>{
                 <div style={{marginBottom: '15vh'}}>
                     <div id='recommDiv'>
                         <div id='recommTitleWeb'>'{data.userNickname}'님을 위한 추천 도서</div>
-                        <div id='recommGoWeb'>추천도서 보러가기</div>
+                        <div id='recommGoWeb' onClick={()=>window.location.href='/myrecommend'}>추천도서 보러가기</div>
                     </div>
                     <div id='recommBookWeb'>
                         {userRecommList && userRecommList.map(item=>{
@@ -218,7 +218,7 @@ const MainSession = () =>{
                 <div id='mobileWidth'>
                     <div id='recommDiv'>
                         <div id='recommTitleMobile'>'{data.userNickname}'님과 비슷한 취향의 유저가 읽은 도서</div>
-                        <div id='recommGoMobile'>추천도서 보러가기</div>
+                        <div id='recommGoMobile'onClick={()=>window.location.href='/otherrecommend'}>추천도서 보러가기</div>
                     </div>
                     <div id='recommBookMobile'>
                         {otherRecommList && otherRecommList.map(item=>{
@@ -241,7 +241,7 @@ const MainSession = () =>{
                 <div style={{marginBottom: '10vh'}}>
                     <div id='recommDiv'>
                         <div id='recommTitleWeb'>'{data.userNickname}'님과 비슷한 취향의 유저가 읽은 도서</div>
-                        <div id='recommGoWeb'>추천도서 보러가기</div>
+                        <div id='recommGoWeb'onClick={()=>window.location.href='/otherrecommend'}>추천도서 보러가기</div>
                     </div>
                     <div id='recommBookWeb'>
                         {otherRecommList && otherRecommList.map(item=>{
@@ -264,7 +264,7 @@ const MainSession = () =>{
                 <div id='mobileWidth'>
                     <div id='recommDiv'>
                         <div id='recommTitleMobile'>'{numberOne}'와 비슷한 책</div>
-                        <div id='recommGoMobile'>비슷한 책 보러가기</div>
+                        <div id='recommGoMobile' onClick={()=>window.location.href='/itemrecommend'}>비슷한 책 보러가기</div>
                     </div>
                     <div id='recommBookMobile'>
                         {itemRecommList && itemRecommList.map(item=>{
@@ -287,7 +287,7 @@ const MainSession = () =>{
                 <div style={{marginBottom: '20vh'}}>
                     <div id='recommDiv'>
                         <div id='recommTitleWeb'>'{numberOne}'와 비슷한 책</div>
-                        <div id='recommGoWeb'>비슷한 책 보러가기</div>
+                        <div id='recommGoWeb' onClick={()=>window.location.href='/itemrecommend'}>비슷한 책 보러가기</div>
                     </div>
                     <div id='recommBookWeb'>
                         {itemRecommList && itemRecommList.map(item=>{

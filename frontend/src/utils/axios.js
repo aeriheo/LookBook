@@ -90,6 +90,20 @@ export const userAPI = {
         return await request.get('/users/recomm',{
 
         })
+    },
+    changeUser : async(userEmail, userPassword, userName, userNickname, userProfileUrl)=>{
+        return await request.put('/users/me',{
+            userEmail, userPassword, userName, userNickname, userProfileUrl
+        }).then(response=>{
+            return response.status;
+        })
+    },
+    checkPw: async (userPassword)=>{
+        return await request.post('/users/password',{
+            userPassword
+        }).then((response)=>{
+            return response.status;
+        })
     }
 }
 
@@ -130,6 +144,13 @@ export const bookAPI={
     },
     mainBooks: async ()=> {
         return await request.get('/books/main', {
+
+        }).then(response => {
+            return response.data;
+        })
+    },
+    gradeList: async ()=> {
+        return await request.get('/bookgrade',{
 
         }).then(response => {
             return response.data;
@@ -194,6 +215,27 @@ export const likeAPI={
 export const recommendAPI={
     firstRecomm : async() => {
         return await request.get('/recommends',{
+
+        }).then((response)=>{
+            return response.data;
+        })
+    },
+    userPredict : async() => {
+        return await request.get('/recommends/predict',{
+
+        }).then((response)=>{
+            return response.data;
+        })
+    },
+    otherPredict: async ()=>{
+        return await request.get('/recommends/user',{
+
+        }).then((response)=>{
+            return response.data;
+        })
+    },
+    itemBased: async ()=>{
+        return await request.get('/recommends/item',{
 
         }).then((response)=>{
             return response.data;
