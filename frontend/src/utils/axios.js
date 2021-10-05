@@ -242,3 +242,19 @@ export const recommendAPI={
         })
     }
 }
+
+export const libraryAPI = {
+    getLibrary: async (bookIsbn, libGugun) => {
+        return await request.get(`/libraries`, {
+            params:{
+                bookIsbn: bookIsbn,
+                libGugun: libGugun
+            }
+        }).then(function (response) {
+            return response.data;
+        }).catch(function (e) {
+            console.log("axios.js 에서 잡음");
+            console.log(e);
+        })
+    }
+}
