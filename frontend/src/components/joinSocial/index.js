@@ -65,6 +65,7 @@ const JoinSocial = (props) =>{
             window.sessionStorage.removeItem('email');
             alert(`회원가입에 성공했습니다!
             서비스 이용을 위해 평가하기를 진행해주세요.`);
+            window.sessionStorage.setItem('newuser', true);
             {isKakao==0?(
                 await userAPI.loginGoogle(id).then(window.location.replace('/score'))
             ):(

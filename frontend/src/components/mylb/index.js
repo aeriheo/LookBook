@@ -17,24 +17,11 @@ const MYLB = () =>{
     const loadGrade = async()=>{
         const result = await bookAPI.gradeList();
         setData(result.bookGradeList);
-        console.log(result);
     }
 
     useEffect(()=>{
         loadGrade();
     },[]);
-
-    // const deleteReview = async(reviewId)=>{
-    //     let res = window.confirm('리뷰를 삭제하시겠습니까?');
-    //     if (res) {
-    //         try{
-    //             await bookAPI.deletemyreivew(reviewId);
-    //             alert('리뷰가 삭제되었습니다.');
-    //         }catch(e){
-    //             alert('리뷰 삭제를 취소하셨습니다.');
-    //         }
-    //     }
-    // }
 
     const reviewList = (data)=>{
         let result = [];
@@ -53,9 +40,6 @@ const MYLB = () =>{
                             <div id='myLBbookInfoDivWeb'>
                                 <div id='myLBbookTitleWeb'>
                                     {item.bookTitle}
-                                </div>
-                                <div>
-                                    {/* <Button id='myLBbookBtnWeb' onClick={()=>deleteReview(item.reviewId)}>삭제</Button> */}
                                 </div>
                             </div>
                             <div is='myLBbookRatingDivWeb'>
@@ -78,9 +62,6 @@ const MYLB = () =>{
                         <div id='myLBbookInfoDivMobile'>
                             <div id='myLBbookTitleMobile'>
                                 {item.bookTitle}
-                            </div>
-                            <div>
-                                {/* <Button id='myLBbookBtnMobile' onClick={()=>deleteReview(item.reviewId)}>삭제</Button> */}
                             </div>
                         </div>
                         <div id='myLBbookDateLikeMobile'>

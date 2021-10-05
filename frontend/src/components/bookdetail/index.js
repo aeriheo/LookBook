@@ -104,7 +104,6 @@ const BookDetail= () =>{
             setmyReview('');
         }catch(err){
             alert('등록에 실패했습니다.');
-            console.log(err);
         }
         setbtnOn(true);
     }

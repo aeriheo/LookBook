@@ -1,4 +1,4 @@
-import React , {useState} from 'react';
+import React , {useState, useEffect} from 'react';
 import {useMediaQuery} from 'react-responsive';
 import {TextField, Button, Divider} from '@mui/material';
 import {GoogleLogin} from 'react-google-login';
@@ -6,7 +6,7 @@ import kakaobtn from '../../images/kakao_login.png';
 import Logo from '../logo';
 import './style.css';
 import {userAPI} from '../../utils/axios';
-import {KAKAO_AUTH_URL} from '../../oauth';
+import {KAKAO_AUTH_URL, GOOGLE_CLIENT_ID} from '../../oauth';
 import { useHistory } from "react-router-dom";
 
 const Login = () =>{
@@ -14,9 +14,6 @@ const Login = () =>{
     const isMobile = useMediaQuery({
         query: "(max-width : 768px)"
     });
-
-    // google clientid
-    const clientId = '1052285930140-4qqr208qoiipl1agabhpbq03pvflv5fj.apps.googleusercontent.com';
     
     const [id, setId] = useState('');
     const [pw, setPw] = useState('');
@@ -37,7 +34,6 @@ const Login = () =>{
                 await userAPI.login(id, pw);
                 window.location.replace('/lookbook');
             }catch(e){
-                console.log(e);
                 alert('아이디 혹은 비밀번호를 틀리셨습니다.');
                 setId('');
                 setPw('');
@@ -56,6 +52,14 @@ const Login = () =>{
         }
     }
 
+    useEffect(()=>{
+        if(window.sessionStorage.getItem('token')!==null){
+            alert('로그아웃됩니다.');
+            window.sessionStorage.removeItem('token');
+            window.sessionStorage.removeItem('refreshToken');
+        }
+    })
+
     return(
         <div>
         {isMobile?(
@@ -66,9 +70,6 @@ const Login = () =>{
                         <div id='loginHeaderMobile'>
                             <div id='loginMobile'>
                                 로그인
-                            </div>
-                            <div id='forgotMobile'>
-                                아이디/비밀번호를 잊어버리셨나요?
                             </div>
                         </div>
                         <div>
@@ -82,7 +83,7 @@ const Login = () =>{
                         <Divider/>
                         <div className='another'>
                             <div id='wayMobile'>다른 방법으로 로그인하기</div>
-                            <GoogleLogin clientId={clientId} buttonText='Login' onSuccess={responseGoogle}/>
+                            <GoogleLogin clientId={GOOGLE_CLIENT_ID} buttonText='Login' onSuccess={responseGoogle}/>
                             <div  onClick={()=>{window.location.href = KAKAO_AUTH_URL}}>
                                 <img src={kakaobtn} id='kakaoWay'/>
                             </div>
@@ -98,9 +99,6 @@ const Login = () =>{
                             <div id='loginWeb'>
                                 로그인
                             </div>
-                            <div id='forgotWeb'>
-                                아이디/비밀번호를 잊어버리셨나요?
-                            </div>
                         </div>
                         <div>
                             <TextField placeholder='이메일을 입력해주세요' className='idWeb' value={id} onChange={handleId} style={{marginTop: '2vh'}}/>
@@ -114,7 +112,7 @@ const Login = () =>{
                         <div  className='another'>
                             <div id='wayWeb'>다른 방법으로 로그인하기</div>
                             <div style={{display: 'flex'}}> 
-                                <GoogleLogin clientId={clientId} buttonText='Login' onSuccess={responseGoogle}/>
+                                <GoogleLogin clientId={GOOGLE_CLIENT_ID} buttonText='Login' onSuccess={responseGoogle}/>
                                 <div style={{marginLeft: '1vw'}} onClick={()=>{window.location.href = KAKAO_AUTH_URL}}>
                                     <img src={kakaobtn} id='kakaoWay'/>
                                 </div>

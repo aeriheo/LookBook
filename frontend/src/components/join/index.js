@@ -6,15 +6,12 @@ import kakaobtn from '../../images/kakao_login.png';
 import Logo from '../logo';
 import './style.css';
 import {userAPI} from '../../utils/axios';
-import {KAKAO_AUTH_URL} from '../../oauth';
+import {KAKAO_AUTH_URL, GOOGLE_CLIENT_ID} from '../../oauth';
 
 const Join = (props) =>{
     const isMobile = useMediaQuery({
         query: "(max-width : 768px)"
     });
-
-    // google clientid
-    const clientId = '1052285930140-4qqr208qoiipl1agabhpbq03pvflv5fj.apps.googleusercontent.com';
     
     const [id, setId] = useState('');
     const [pw, setPw] = useState('');
@@ -76,7 +73,7 @@ const Join = (props) =>{
     const responseGoogle = async(guser)=>{
         const result = await userAPI.loginGoogle(guser.profileObj.email);
         if (result===false){
-            window.location.href='/joinSocial';
+            window.location.replace('/joinSocial');
         }else{
             window.location.replace('/lookbook');
         }
@@ -91,6 +88,7 @@ const Join = (props) =>{
             await userAPI.join(id, pw, name, nickname)
             .then(alert(`회원가입에 성공했습니다!
             서비스 이용을 위해 평가하기를 진행해주세요.`));
+            window.sessionStorage.setItem('newuser', true);
             await userAPI.login(id, pw).then(window.location.replace('/score'));
         }   
     }
@@ -128,7 +126,7 @@ const Join = (props) =>{
                         <div  className='another'>
                             <div id='wayMobile'>다른 방법으로 회원가입하기</div>
                             <div id='socialWeb'>
-                                <GoogleLogin clientId={clientId} buttonText='Login' onSuccess={responseGoogle}/>
+                                <GoogleLogin clientId={GOOGLE_CLIENT_ID} buttonText='Login' onSuccess={responseGoogle}/>
                                 <div id='kakaoDiv' onClick={()=>{window.location.href = KAKAO_AUTH_URL}}>
                                     <img src={kakaobtn} id='kakaoWay'/>
                                 </div>
@@ -175,7 +173,7 @@ const Join = (props) =>{
                         <div  className='another'>
                             <div id='wayWeb'>다른 방법으로 회원가입하기</div>
                             <div id='socialWeb'>
-                                <GoogleLogin clientId={clientId} buttonText='Login' onSuccess={responseGoogle}/>
+                                <GoogleLogin clientId={GOOGLE_CLIENT_ID} buttonText='Login' onSuccess={responseGoogle}/>
                                 <div id='kakaoDiv' onClick={()=>{window.location.href = KAKAO_AUTH_URL}}>
                                     <img src={kakaobtn} id='kakaoWay'/>
                                 </div>

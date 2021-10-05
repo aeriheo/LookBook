@@ -26,9 +26,8 @@ const Category = () =>{
             const result = await bookAPI.category(category);
             setData(result.categoryList);
             setQuery(true);
-            console.log(result);
         }catch(e){
-            console.log(e);
+            
         }
     }
 
