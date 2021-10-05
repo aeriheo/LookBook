@@ -6,10 +6,12 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ImportContactsIcon from '@mui/icons-material/ImportContacts';
 import {Button, Modal} from '@mui/material';
 import S3Upload from '../profile';
+import PwCheck from '../pwCheck';
+import ChangeSocial from '../changeSocial';
+import ChangeInfo from '../change';
 import './style.css';
 
 const UserInfo = () =>{
-    let history = useHistory();
     const isMobile = useMediaQuery({
         query: "(max-width : 768px)"
     });
@@ -18,15 +20,28 @@ const UserInfo = () =>{
     const [mylbNum, setmylbNum] = useState(0);
     const [myLikeNum, setmyLikeNum] = useState(0);
     const [open, setOpen] = useState(false);
+    const [open2, setOpen2] = useState(false);
+    const [open3, setOpen3] = useState(false);
+    const [open4, setOpen4] = useState(window.sessionStorage.getItem('pwcheck'));
     const [myProfile, setmyProfile] = useState('');
+    const [usertype, setusertype] = useState(0);
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+
+    const handleOpen2 = () => setOpen2(true);
+    const handleClose2 = () => setOpen2(false);
+
+    const handleOpen3 = () => setOpen3(true);
+    const handleClose3 = () => setOpen3(false);
+
+    const handleClose4 = () => setOpen4(false);
 
     const loadUser = async()=>{
         const result = await userAPI.userinfo();
         setData(result.data);
         setmyProfile(result.data.userProfileUrl);
+        setusertype(result.data.userJoinType);
     }
 
     const likenum = async()=>{
@@ -82,6 +97,32 @@ const UserInfo = () =>{
                                     </div>
                                 </div>
                             </Modal>
+                            <Button id='userinfoBtnMobile' onClick={()=>{usertype!==0?handleOpen2():handleOpen3()}}>내 정보 수정하기</Button>
+                            <Modal open={open2} onClose={()=>handleClose2()}>
+                                <div id='modalDiv'>
+                                    <div id='exitModal' onClick={()=>handleClose2()}>X</div>
+                                    <div>
+                                        <PwCheck/>
+                                    </div>
+                                </div>
+                            </Modal>
+                            {/* social */}
+                            <Modal open={open3} onClose={()=>handleClose3()}>
+                                <div id='modalDiv2'>
+                                    <div id='exitModal' onClick={()=>handleClose3()}>X</div>
+                                    <div>
+                                        <ChangeSocial/>
+                                    </div>
+                                </div>
+                            </Modal>
+                            <Modal open={open4} onClose={()=>{handleClose4(); window.sessionStorage.removeItem('pwcheck');}}>
+                                <div id='modalDiv3'>
+                                    <div id='exitModal' onClick={()=>{handleClose4(); window.sessionStorage.removeItem('pwcheck');}}>X</div>
+                                    <div>
+                                        <ChangeInfo/>
+                                    </div>
+                                </div>
+                            </Modal>
                         </div>
                     </div>
                 </div>
@@ -120,6 +161,33 @@ const UserInfo = () =>{
                                         <div id='modalLeft'>
                                             <S3Upload/>
                                         </div>
+                                    </div>
+                                </div>
+                            </Modal>
+                            <Button id='userinfoBtnWeb' onClick={()=>{usertype!==0?handleOpen2():handleOpen3()}}>내 정보 수정하기</Button>
+                            <Modal open={open2} onClose={()=>handleClose2()}>
+                                <div id='modalDiv'>
+                                    <div id='exitModal' onClick={()=>handleClose2()}>X</div>
+                                    <div>
+                                        <PwCheck/>
+                                    </div>
+                                </div>
+                            </Modal>
+                            {/* social */}
+                            <Modal open={open3} onClose={()=>handleClose3()}>
+                                <div id='modalDiv2'>
+                                    <div id='exitModal' onClick={()=>handleClose3()}>X</div>
+                                    <div>
+                                        <ChangeSocial/>
+                                    </div>
+                                </div>
+                            </Modal>
+                            {/* 일반유저 */}
+                            <Modal open={open4} onClose={()=>{handleClose4(); window.sessionStorage.removeItem('pwcheck');}}>
+                                <div id='modalDiv3'>
+                                    <div id='exitModal' onClick={()=>{handleClose4(); window.sessionStorage.removeItem('pwcheck');}}>X</div>
+                                    <div>
+                                        <ChangeInfo/>
                                     </div>
                                 </div>
                             </Modal>

@@ -5,8 +5,9 @@ import Tabs, {TabPane} from 'rc-tabs';
 import './style.css';
 import "rc-tabs/assets/index.css";
 import Mylike from '../mylike';
-import MYLB from '../mylb';
+import Review from '../review';
 import UserInfo from '../userinfo';
+import MYLB from '../mylb';
 import { useLocation } from "react-router-dom";
 
 const MyInfo = () =>{
@@ -24,15 +25,18 @@ const MyInfo = () =>{
             {isMobile?(
                 <div id='TabMobile'>
                     <div id='mypageDiv'>
-                        <Tabs onChange={handleTabs} defaultActiveKey={value} tabBarGutter={50} id='TabListMobile'>
+                        <Tabs onChange={handleTabs} defaultActiveKey={value} tabBarGutter={20} id='TabListMobile'>
                             <TabPane tab="MY PAGE" key="mypage" style={{height:'70vh', overflow: 'auto', outline: 'none'}}>
                                 <UserInfo/>
+                            </TabPane>
+                            <TabPane tab="MY LB" key = "mylb" style={{height:'70vh', overflow: 'auto', outline: 'none'}} >
+                                <MYLB/>
                             </TabPane>
                             <TabPane tab="LIKE" key = "like" style={{height:'70vh', overflow: 'auto', outline: 'none'}} >
                                 <Mylike/>
                             </TabPane>
-                            <TabPane tab="MY LB" key = "mylb" style={{height:'70vh', overflow: 'auto', outline: 'none'}} >
-                                <MYLB/>
+                            <TabPane tab="REVIEW" key = "review" style={{height:'70vh', overflow: 'auto', outline: 'none'}} >
+                                <Review/>
                             </TabPane>
                         </Tabs>
                     </div>
@@ -46,11 +50,14 @@ const MyInfo = () =>{
                                 <TabPane tab="MY PAGE　" key="mypage" style={{height:'100vh', overflow: 'auto', outline: 'none'}} >
                                     <UserInfo/>
                                 </TabPane>
+                                <TabPane tab="MY LB " key = "mylb" style={{height:'100vh', overflow: 'auto', outline: 'none'}} >
+                                    <MYLB/>
+                                </TabPane>
                                 <TabPane tab="LIKE " key = "like" style={{height:'100vh', overflow: 'auto', outline: 'none'}} >
                                     <Mylike/>
                                 </TabPane>
-                                <TabPane tab="MY LB " key = "mylb" style={{height:'100vh', overflow: 'auto', outline: 'none'}} >
-                                    <MYLB/>
+                                <TabPane tab="REVIEW" key = "review" style={{height:'100vh', overflow: 'auto', outline: 'none'}} >
+                                    <Review/>
                                 </TabPane>
                             </Tabs>
                         </div>

@@ -1,20 +1,20 @@
 import React , {useState, useEffect} from 'react';
 import {useMediaQuery} from 'react-responsive';
-import {TextField, Button, Modal} from '@mui/material';
+import {TextField, Button} from '@mui/material';
 import Logo from '../logo';
 import './style.css';
 import {userAPI} from '../../utils/axios';
-import Score from '../score';
 
 
 const JoinSocial = (props) =>{
+    const [isKakao, setisKakao] = useState(0);
     const [id, setId] = useState(window.sessionStorage.getItem('email'));
-    const [open, setOpen] = useState(false);
 
     useEffect(()=>{
         // kakaologin
         async function loadUser(){
             if(new URL(window.location.href).searchParams.get('code')){
+                setisKakao(1);
                 const result = await userAPI.loginKakao(new URL(window.location.href).searchParams.get('code'));
                 if (result.data.actionCode===true) setId(result.data.email);
                 else if(result.data.actionCode===false){
@@ -22,7 +22,6 @@ const JoinSocial = (props) =>{
                     window.sessionStorage.setItem('token', result.data.accessToken);
                     window.sessionStorage.setItem('refreshToken', result.data.refreshToken);
                     window.location.replace('/lookbook');
-                    setOpen(true);
                 }
             }
         }
@@ -66,9 +65,18 @@ const JoinSocial = (props) =>{
             window.sessionStorage.removeItem('email');
             alert(`회원가입에 성공했습니다!
             서비스 이용을 위해 평가하기를 진행해주세요.`);
-            await userAPI.loginGoogle(id);
-            setOpen(true);
-            
+            {isKakao==0?(
+                await userAPI.loginGoogle(id).then(window.location.replace('/score'))
+            ):(
+                await userAPI.loginKakao(new URL(window.location.href).searchParams.get('code'))
+                .then((result)=>{
+                    if(result.data.actionCode===false){
+                        window.sessionStorage.setItem('token', result.data.accessToken);
+                        window.sessionStorage.setItem('refreshToken', result.data.refreshToken);
+                        window.location.replace('/score');
+                    }
+                })
+            )}
         }   
     }
 
@@ -92,11 +100,6 @@ const JoinSocial = (props) =>{
                                 <Button id='dupBtnMobile' onClick={chkNickname}>중복확인</Button>
                             </div>
                             <Button id='btnMobile' onClick={signin}>회원가입</Button>
-                            <Modal open={open}>
-                                <div id='modalScoreSocialMobile'>
-                                    <Score/>
-                                </div>
-                            </Modal>
                         </div>
                     </div>
                 </div>
@@ -126,11 +129,6 @@ const JoinSocial = (props) =>{
                                 <Button id='dupBtn' onClick={chkNickname}>중복확인</Button>
                             </div>
                             <Button id='btnWeb' onClick={signin}>회원가입</Button>
-                            <Modal open={open}>
-                                <div id='modalScoreSocial'>
-                                    <Score/>
-                                </div>
-                            </Modal>
                         </div>
                     </div>
                 </div>

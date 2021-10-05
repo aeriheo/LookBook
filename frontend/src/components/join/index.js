@@ -1,6 +1,6 @@
 import React , {useState} from 'react';
 import {useMediaQuery} from 'react-responsive';
-import {TextField, Button, Divider, Modal} from '@mui/material';
+import {TextField, Button, Divider} from '@mui/material';
 import {GoogleLogin} from 'react-google-login';
 import kakaobtn from '../../images/kakao_login.png';
 import Logo from '../logo';
