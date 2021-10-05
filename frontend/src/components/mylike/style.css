@@ -41,7 +41,7 @@
   height: 100%;
   justify-content: center;
   align-items: center;
-  margin: 1vw;
+  margin-left: 2vw;
 }
 
 #myLikeDivMobile {
@@ -50,6 +50,7 @@
   align-items: center;
   width: 70vw;
   margin: 1vw;
+  margin-top: 3vh;
 }
 
 #myLikeList {
@@ -59,7 +60,7 @@
 }
 
 #myListNameWeb {
-  font-size: 2vw;
+  font-size: 1.5vw;
   font-weight: bold;
   margin-bottom: 2vh;
   font-family: "NotoSans";

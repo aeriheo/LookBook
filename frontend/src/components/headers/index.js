@@ -139,10 +139,6 @@ const Header = props=>{
                                 <ListRoundedIcon id = 'iconMediumMobile'/>
                                 <ListItemText primary="카테고리" id = 'listItemTextMobile'/>
                             </ListItem>
-                            <ListItem button >
-                                <StarBorderRoundedIcon style={{color:'#FFC700'}} id = 'iconLargeMobile'/>
-                                <ListItemText primary="도서평가" id = 'listItemTextMobile'/>
-                            </ListItem>
                         </List>
                             <List id='listMobile'>
                                 <Divider variant="middle"/>
@@ -164,13 +160,10 @@ const Header = props=>{
                         <Button size = "large" id = 'buttonWeb' onClick={() => window.location.replace (`/category`)} >
                             카테고리
                         </Button>
-                        <Button size = "large" id = 'buttonWeb' >
-                            도서평가
-                        </Button>
                     </div>
                     <div id = 'divWeb'>
                         <Button size = "large" id = 'buttonWeb' onClick={()=>history.push(`/search`)}>
-                            <SearchIcon/>
+                            <SearchIcon style={{width:'2.5vw', height:'2vw'}}/>
                             <div id = 'searchBtnWeb'>
                                 검색
                             </div>
@@ -182,10 +175,11 @@ const Header = props=>{
                                     onClick={handleClick} 
                                     aria-controls="user-menu"
                                     aria-haspopup="true"
-                                    aria-expanded={open?'true':undefined} />
+                                    aria-expanded={open?'true':undefined} 
+                                    sx={{width:56, height:56}}/>
                             ):(
                                 <Avatar 
-                                sx={{bgcolor:'#C4C4C4'}} 
+                                sx={{bgcolor:'#C4C4C4', width:56, height:56}} 
                                 id = 'user-avatar'
                                 onClick={handleClick} 
                                 aria-controls="user-menu"

@@ -25,7 +25,6 @@ const UserInfo = () =>{
 
     const loadUser = async()=>{
         const result = await userAPI.userinfo();
-        console.log(result);
         setData(result.data);
         setmyProfile(result.data.userProfileUrl);
     }
@@ -50,9 +49,6 @@ const UserInfo = () =>{
         <div>
             {isMobile ? (
                 <div id='userinfoDiv'>
-                    <div id='userinfoNameMobile'>
-                        MY PAGE
-                    </div>
                     <div id='userinfoMobile'>
                         <div id='userinfoProfileDiv'>
                             <div id='userinfoProfileImgDivMobile'>

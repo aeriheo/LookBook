@@ -45,9 +45,6 @@ const Mylike = () =>{
         <div>
             {isMobile ? (
                 <div id='myLikeDivMobile'>
-                    <div id='myListNameMobile'>
-                        LIKE
-                    </div>
                     <div id='myLikeList'>
                         {likelist(data)}
                     </div>

@@ -26,14 +26,14 @@
 }
 
 #reviewFormMobile {
-  height: 10vh;
+  height: 17vh;
 }
 
 #reviewWriterMobile {
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-bottom: 2vh;
+  margin-bottom: 1vh;
 }
 
 .divForm {
@@ -73,12 +73,19 @@
   font-size: 5vw;
   margin-bottom: 4vh;
   font-family: "NotoSans";
+  align-items: center;
+  display: flex;
+  direction: row;
 }
 
 #bookTitleWeb {
-  font-size: 2.5vw;
+  font-size: 2vw;
   margin-bottom: 1vw;
   font-family: "NotoSans";
+  width: 46vw;
+  align-items: center;
+  display: flex;
+  direction: row;
 }
 
 #bookScoreMobile {
@@ -125,15 +132,6 @@
   margin-bottom: 2vh;
 }
 
-#buyMobile {
-  background-color: #f3bbbb;
-  color: black;
-  font-size: 3.5vw;
-  font-family: "NotoSans";
-  width: 60vw;
-  margin-bottom: 0.8vh;
-}
-
 #rentMobile {
   background-color: #d7bfbe;
   color: black;
@@ -141,15 +139,6 @@
   width: 60vw;
   font-family: "NotoSans";
   margin-bottom: 0.8vh;
-}
-
-#buyWeb {
-  background-color: #f3bbbb;
-  color: black;
-  font-size: 1vw;
-  width: 20vw;
-  margin-bottom: 0.3vw;
-  font-family: "NotoSans";
 }
 
 #rentWeb {
@@ -214,7 +203,7 @@
 #dividerMobile {
   width: 80vw;
   height: 1px;
-  background-color: black;
+  background-color: #cccccc;
   margin-top: 2vh;
   margin-bottom: 2vh;
 }
@@ -222,7 +211,7 @@
 #dividerWeb {
   width: 80vw;
   height: 1px;
-  background-color: black;
+  background-color: #cccccc;
   margin-top: 5vh;
   margin-bottom: 5vh;
 }
@@ -321,28 +310,32 @@
 
 #likeBookWeb {
   color: #ff7474;
-  width: 2vw;
-  height: 2vw;
+  width: 3vw;
+  height: 3vw;
   cursor: pointer;
+  margin-left: 1vw;
 }
 
 #dislikeBookWeb {
   color: #c4c4c4;
-  width: 2vw;
-  height: 2vw;
+  width: 3vw;
+  height: 3vw;
   cursor: pointer;
+  margin-left: 1vw;
 }
 
 #likeBookMobile {
   color: #ff7474;
-  width: 5vw;
-  height: 5vw;
+  width: 6vw;
+  height: 6vw;
   cursor: pointer;
+  margin-left: 1vw;
 }
 
 #dislikeBookMobile {
   color: #c4c4c4;
-  width: 5vw;
-  height: 5vw;
+  width: 6vw;
+  height: 6vw;
   cursor: pointer;
+  margin-left: 1vw;
 }
