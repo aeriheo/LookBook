@@ -1,0 +1,158 @@
+.customoverlay {
+  position: relative;
+  bottom: 85px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  border-bottom: 2px solid #ddd;
+  float: left;
+}
+.customoverlay:nth-of-type(n) {
+  border: 0;
+  box-shadow: 0px 1px 2px #888;
+}
+.customoverlay a {
+  display: block;
+  text-decoration: none;
+  color: #000;
+  text-align: center;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: bold;
+  overflow: hidden;
+  background: #d8c2aa;
+  background: #d8c2aa
+    url(https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/arrow_white.png)
+    no-repeat right 14px center;
+}
+.title {
+  display: block;
+  text-align: center;
+  background: #fff;
+  margin-right: 35px;
+  padding: 10px 15px;
+  font-size: 14px;
+  font-weight: bold;
+}
+.customoverlay:after {
+  content: "";
+  position: absolute;
+  margin-left: -12px;
+  left: 52%;
+  bottom: -12px;
+  width: 22px;
+  height: 12px;
+  background: url("https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png");
+}
+
+#libListDivWeb {
+  width: 18vw;
+  margin: 10px;
+}
+
+#libListNameWeb {
+  margin: 10px;
+  font-size: 1.2vw;
+  font-weight: bold;
+}
+
+#libListAddrWeb {
+  margin: 10px;
+  font-size: 1.1vw;
+}
+
+#libListTelWeb {
+  margin: 10px;
+  font-size: 1.1vw;
+  align-items: center;
+  display: flex;
+}
+
+#libListDividerWeb {
+  width: 18vw;
+  background-color: #c2c2c2;
+  height: 1px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+#libListDivMobile {
+  width: 90vw;
+  margin: 10px;
+}
+
+#libListNameMobile {
+  margin: 10px;
+  font-size: 2.5vw;
+  font-weight: bold;
+}
+
+#libListAddrMobile {
+  margin: 10px;
+  font-size: 2vw;
+}
+
+#libListTelMobile {
+  margin: 10px;
+  font-size: 2vw;
+  align-items: center;
+  display: flex;
+}
+
+#libListDividerMobile {
+  width: 90vw;
+  background-color: #c2c2c2;
+  height: 1px;
+  margin: 10px;
+}
+
+#mobileDivForm {
+  min-width: 375px;
+}
+
+.mobileMap {
+  width: 100%;
+  height: 60vh;
+  margin-top: 8vh;
+}
+
+#mobileListDiv {
+  width: 100%;
+  height: 32vh;
+}
+
+#mobileListForm {
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #fbfbfb;
+  display: flex;
+  flex-direction: column;
+}
+
+#webDivForm {
+  width: 100%;
+  display: flex;
+}
+
+.webMap {
+  width: 80vw;
+  height: 92vh;
+  margin-top: 8vh;
+}
+
+#webListDiv {
+  width: 20vw;
+  height: 92vh;
+  margin-top: 8vh;
+}
+
+#webListForm {
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #fbfbfb;
+  display: flex;
+  flex-direction: column;
+}

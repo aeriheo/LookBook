@@ -33,9 +33,7 @@ const Search = () =>{
             setData(result.searchBookList);
             setQuery(true);
             setSearchWord(word);
-            console.log(result);
         }catch(e){
-            console.log(e);
         }
     }
 
