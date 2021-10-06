@@ -26,13 +26,13 @@ function S3Upload() {
  
 
     const handleFileInput = (e) => {
-    const file = e.target.files[0];
-    const fileExt = file.name.split('.').pop();
-    if(fileExt !=='jpg' && fileExt !== 'png'){
-        alert('이미지 파일만 Upload 가능합니다.');
-        return;
-    }
-    setSelectedFile(file);
+        const file = e.target.files[0];
+        const fileExt = file.name.split('.').pop();
+        if(fileExt !=='jpg' && fileExt !== 'png'){
+            alert('이미지 파일만 Upload 가능합니다.');
+            return;
+        }
+        setSelectedFile(file);
     }
 
     const deleteProfile = (deleteKey) => new AWS.S3().deleteObject(
@@ -43,50 +43,54 @@ function S3Upload() {
     )
 
     const uploadFile = (file) => {
-    // 여기서 있는거 일단 삭제
-        Promise.resolve(loadUserUrl()).then(function(value){
-            if (value != null) {
-                const deleteKey = "profile/"+ value
-                
-                const promise_delete = deleteProfile(deleteKey).promise()
 
-                promise_delete.then(
-                function (data) {
-                    // alert("이미지 삭제 성공")
-                },
-                function (err) {
-                    return alert("이미지 삭제 실패", err.message)
-                }
-                )
+        if(file==='' || file===null) alert('파일을 등록해주세요.');
+    
+        else{
+            Promise.resolve(loadUserUrl()).then(function(value){
+                if (value != null) {
+                    const deleteKey = "profile/"+ value
+                    
+                    const promise_delete = deleteProfile(deleteKey).promise()
 
-            }
-        })
-
-        Promise.resolve(loadfilename()).then(function(filename){
-            const uploadProfile = new AWS.S3.ManagedUpload({
-                params : {
-                ACL: 'public-read',
-                Body: file,
-                Key: "profile/" + filename,
-                Bucket: S3_BUCKET
-                },
-            })
-            const promise = uploadProfile.promise()
-
-            promise.then(
-                function (data) {
-                    alert("이미지 업로드 성공")
-                    async function uploadUrl (filename){
-                        await userAPI.changeProfile(filename);
+                    promise_delete.then(
+                    function (data) {
+                        // alert("이미지 삭제 성공")
+                    },
+                    function (err) {
+                        return alert("이미지 삭제 실패", err.message)
                     }
-                    uploadUrl(filename);
-                    window.location.href='/mypage/mypage';
-                },
-                function (err) {
-                return alert("이미지 업로드 실패", err.message)
+                    )
+
                 }
-            )
-        })
+            })
+
+            Promise.resolve(loadfilename()).then(function(filename){
+                const uploadProfile = new AWS.S3.ManagedUpload({
+                    params : {
+                    ACL: 'public-read',
+                    Body: file,
+                    Key: "profile/" + filename,
+                    Bucket: S3_BUCKET
+                    },
+                })
+                const promise = uploadProfile.promise()
+
+                promise.then(
+                    function (data) {
+                        alert("이미지 업로드 성공")
+                        async function uploadUrl (filename){
+                            await userAPI.changeProfile(filename);
+                        }
+                        uploadUrl(filename);
+                        window.location.href='/mypage/mypage';
+                    },
+                    function (err) {
+                    return alert("이미지 업로드 실패", err.message)
+                    }
+                )
+            })
+        }
     }
 
     return (

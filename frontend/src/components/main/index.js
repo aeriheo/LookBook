@@ -19,12 +19,18 @@ const MainSession = () =>{
     const [otherRecommList, setotherRecommList] = useState([]); // CF UserBased
     const [itemRecommList, setitemRecommList] = useState([]); //CF itemBased
     const [numberOne, setnumberOne] = useState(''); 
+    const [numList, setNumList] = useState(1);
     
     useLayoutEffect(()=>{
 
         async function loadUser(){
             const result = await userAPI.userinfo();
             setData(result.data);
+            setNumList(result.data.bookGradeListSize);
+            if(numList===0) {
+                alert('추천 시스템 이용을 위해 평점 페이지로 이동합니다.');
+                window.location.href='/score';
+            }
         }
 
         async function loadBooks(){
