@@ -46,24 +46,25 @@ const Header = props=>{
         if(retry.statusCode!==200) {
             alert('올바른 사용자가 아닙니다.');
             logout();
-            
         }
         const result = await userAPI.userinfo();
         setData(result.data);
         setavatarUrl(result.data.userProfileUrl);
+        window.location.reload();
+    }
+
+    const loadUser = async()=>{
+        await userAPI.userinfo()
+        .then((result)=>{
+            if(result.status===400){
+                reloadUser();
+            }else if(result.status===200){
+                setData(result.data);
+                setavatarUrl(result.data.userProfileUrl);
+            }});
     }
 
     useLayoutEffect (()=>{
-        async function loadUser(){
-            await userAPI.userinfo()
-            .then((result)=>{
-                if(result.status===400){
-                  reloadUser();
-                }else if(result.status===200){
-                    setData(result.data);
-                    setavatarUrl(result.data.userProfileUrl);
-                }});
-        }
         loadUser();
     },[]);
 

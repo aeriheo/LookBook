@@ -15,6 +15,8 @@ export const userAPI = {
             window.sessionStorage.setItem('token', response.data.accessToken);
             window.sessionStorage.setItem('refreshToken', response.data.refreshToken);
             return response;
+        }).catch(function (err) {
+            return err.response;
         })
     },
     userinfo:async ()=>{
@@ -70,17 +72,6 @@ export const userAPI = {
             return response;
         })
     },
-    reissue: async () => {
-        return await request.post('auth/reissue',{
-            refreshToken : window.sessionStorage.getItem('refreshToken')
-        }).then((response)=>{
-            window.sessionStorage.setItem('token', response.data.accessToken);
-            window.sessionStorage.setItem('refreshToken', response.data.refreshToken);
-            return response.data;
-        }).catch((error)=>{
-            return error.response;
-        })
-    },
     changeProfile:async(userProfileUrl)=>{
         return await request.put('users/profile',{
             userProfileUrl
@@ -104,7 +95,18 @@ export const userAPI = {
         }).then((response)=>{
             return response.status;
         })
-    }
+    },
+    reissue: async () => {
+        return await request.post('auth/reissue',{
+            refreshToken : window.sessionStorage.getItem('refreshToken')
+        }).then((response)=>{
+            window.sessionStorage.setItem('token', response.data.accessToken);
+            window.sessionStorage.setItem('refreshToken', response.data.refreshToken);
+            return response.data;
+        }).catch((error)=>{
+            return error.response;
+        })
+    },
 }
 
 export const bookAPI={
