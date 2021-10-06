@@ -46,31 +46,26 @@ const Header = props=>{
         if(retry.statusCode!==200) {
             alert('올바른 사용자가 아닙니다.');
             logout();
-            
         }
         const result = await userAPI.userinfo();
         setData(result.data);
         setavatarUrl(result.data.userProfileUrl);
+        window.location.reload();
+    }
+
+    const loadUser = async()=>{
+        await userAPI.userinfo()
+        .then((result)=>{
+            if(result.status===400){
+                reloadUser();
+            }else if(result.status===200){
+                setData(result.data);
+                setavatarUrl(result.data.userProfileUrl);
+            }});
     }
 
     useLayoutEffect (()=>{
-        let completed = false;
-
-        async function loadUser(){
-            const result = await userAPI.userinfo();
-            if(result.status===400){
-                reloadUser();
-            }else{
-                setData(result.data);
-                setavatarUrl(result.data.userProfileUrl);
-            }
-        }
-
         loadUser();
-
-        return()=>{
-            completed=true;
-        };
     },[]);
 
     const logout = ()=>{
@@ -118,13 +113,17 @@ const Header = props=>{
                                         <PersonOutlineIcon id='iconLargeMobile'/>
                                         <ListItemText primary="MYPAGE" id = 'listItemTextMobile'/>
                                     </ListItem>
+                                    <ListItem button onClick={handleClose} id = 'listItemMobile' onClick={()=>history.push(`/mypage/mylb`)}>
+                                        <StarBorderRoundedIcon id='menuIconLargeWeb' style={{color:'#FFC700'}}/>
+                                        <ListItemText primary="MY LB" id = 'listItemTextMobile'/>
+                                    </ListItem>
                                     <ListItem button onClick={handleClose} id = 'listItemMobile' onClick={()=>history.push(`/mypage/like`)}>
                                         <FavoriteBorderIcon id='iconMediumMobile' style={{color:'#FF7474'}} />
                                         <ListItemText primary="LIKE" id = 'listItemTextMobile'/>
                                     </ListItem>
-                                    <ListItem button onClick={handleClose} id = 'listItemMobile' onClick={()=>history.push(`/mypage/mylb`)}>
+                                    <ListItem button onClick={handleClose} id = 'listItemMobile' onClick={()=>history.push(`/mypage/review`)}>
                                         <ImportContactsIcon id='iconMediumMobile'/>
-                                        <ListItemText primary="MY LB" id = 'listItemTextMobile'/>
+                                        <ListItemText primary="REVIEW" id = 'listItemTextMobile'/>
                                     </ListItem>
                                 </List>
                             </div>
@@ -200,13 +199,17 @@ const Header = props=>{
                                     <PersonOutlineIcon id='menuIconLargeWeb'/>
                                     MYPAGE
                                 </MenuItem>
+                                <MenuItem onClick={handleClose} id='menuItemWeb' onClick={()=>history.push(`/mypage/mylb`)}>
+                                    <StarBorderRoundedIcon id = 'menuIconLargeWeb' style={{color:'#FFC700'}}/>
+                                    MY LB
+                                </MenuItem>
                                 <MenuItem onClick={handleClose} id='menuItemWeb' onClick={()=>history.push(`/mypage/like`)}>
                                     <FavoriteBorderIcon style={{color:'#FF7474'}} id = 'menuIconMediumWeb'/>
                                     LIKE
                                 </MenuItem>
-                                <MenuItem onClick={handleClose} id='menuItemWeb' onClick={()=>history.push(`/mypage/mylb`)}>
+                                <MenuItem onClick={handleClose} id='menuItemWeb' onClick={()=>history.push(`/mypage/review`)}>
                                     <ImportContactsIcon id = 'menuIconMediumWeb'/>
-                                    MY LB
+                                    REVIEW
                                 </MenuItem>
                                 <Divider variant="middle"/>
                                 <MenuItem onClick={()=>logout()} id='menuItemWeb'>

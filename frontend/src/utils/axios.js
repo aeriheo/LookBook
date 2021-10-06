@@ -15,6 +15,8 @@ export const userAPI = {
             window.sessionStorage.setItem('token', response.data.accessToken);
             window.sessionStorage.setItem('refreshToken', response.data.refreshToken);
             return response;
+        }).catch(function (err) {
+            return err.response;
         })
     },
     userinfo:async ()=>{
@@ -70,6 +72,30 @@ export const userAPI = {
             return response;
         })
     },
+    changeProfile:async(userProfileUrl)=>{
+        return await request.put('users/profile',{
+            userProfileUrl
+        })
+    },
+    updateList : async()=>{
+        return await request.get('/users/recomm',{
+
+        })
+    },
+    changeUser : async(userEmail, userPassword, userName, userNickname, userProfileUrl)=>{
+        return await request.put('/users/me',{
+            userEmail, userPassword, userName, userNickname, userProfileUrl
+        }).then(response=>{
+            return response.status;
+        })
+    },
+    checkPw: async (userPassword)=>{
+        return await request.post('/users/password',{
+            userPassword
+        }).then((response)=>{
+            return response.status;
+        })
+    },
     reissue: async () => {
         return await request.post('auth/reissue',{
             refreshToken : window.sessionStorage.getItem('refreshToken')
@@ -81,16 +107,6 @@ export const userAPI = {
             return error.response;
         })
     },
-    changeProfile:async(userProfileUrl)=>{
-        return await request.put('users/profile',{
-            userProfileUrl
-        })
-    },
-    updateList : async()=>{
-        return await request.get('/users/recomm',{
-
-        })
-    }
 }
 
 export const bookAPI={
@@ -130,6 +146,13 @@ export const bookAPI={
     },
     mainBooks: async ()=> {
         return await request.get('/books/main', {
+
+        }).then(response => {
+            return response.data;
+        })
+    },
+    gradeList: async ()=> {
+        return await request.get('/bookgrade',{
 
         }).then(response => {
             return response.data;
@@ -197,6 +220,41 @@ export const recommendAPI={
 
         }).then((response)=>{
             return response.data;
+        })
+    },
+    userPredict : async() => {
+        return await request.get('/recommends/predict',{
+
+        }).then((response)=>{
+            return response.data;
+        })
+    },
+    otherPredict: async ()=>{
+        return await request.get('/recommends/user',{
+
+        }).then((response)=>{
+            return response.data;
+        })
+    },
+    itemBased: async ()=>{
+        return await request.get('/recommends/item',{
+
+        }).then((response)=>{
+            return response.data;
+        })
+    }
+}
+
+export const libraryAPI = {
+    getLibrary: async (bookIsbn, libGugun) => {
+        return await request.get(`/libraries`, {
+            params:{
+                bookIsbn: bookIsbn,
+                libGugun: libGugun
+            }
+        }).then(function (response) {
+            return response.data;
+        }).catch(function (e) {
         })
     }
 }

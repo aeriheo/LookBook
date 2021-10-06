@@ -9,6 +9,10 @@ import Mypage from './pages/mypage';
 import SearchPage from './pages/search';
 import CategoryPage from './pages/category';
 import ScorePage from './pages/score';
+import userBasedPage from './pages/userRecomm';
+import otherbasedPage from './pages/otherRecomm';
+import itembasedPage from './pages/itemRecomm';
+import Library from './pages/library';
 
 const App = () =>{
 
@@ -23,8 +27,11 @@ const App = () =>{
         <Route exact path = "/mypage/:tab" component={Mypage}/>
         <Route exact path = "/search" component={SearchPage}/>
         <Route exact path = "/category" component={CategoryPage}/>
-        
         <Route exact path = "/score" component={ScorePage}/>
+        <Route exact path = "/myrecommend" component={userBasedPage}/>
+        <Route exact path = "/otherrecommend" component={otherbasedPage}/>
+        <Route exact path = "/itemrecommend" component={itembasedPage}/>
+        <Route exact path = "/library/:isbn" component={Library}/>
       </Switch>
     </BrowserRouter>
   );

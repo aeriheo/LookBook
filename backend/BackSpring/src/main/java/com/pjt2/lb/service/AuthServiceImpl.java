@@ -1,5 +1,7 @@
 package com.pjt2.lb.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -10,6 +12,7 @@ import com.pjt2.lb.entity.User;
 import com.pjt2.lb.repository.UserRepository;
 import com.pjt2.lb.request.TokenPostReq;
 import com.pjt2.lb.request.UserLoginPostReq;
+import com.pjt2.lb.response.BookGradeListInfoRes;
 import com.pjt2.lb.response.KakaoLoginRes;
 import com.pjt2.lb.response.TokenPostRes;
 import com.pjt2.lb.response.UserLoginPostRes;
@@ -19,6 +22,9 @@ public class AuthServiceImpl implements AuthService {
 
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	BookGradeService bookGradeService;
 
 	@Autowired
 	UserRepository userRepository;
@@ -60,7 +66,7 @@ public class AuthServiceImpl implements AuthService {
 		try {
 
 			User user = userService.getUserByUserEmail(userEmail);
-
+			
 			String accessToken = JwtTokenUtil.getToken(userEmail);
 			String refreshToken = JwtTokenUtil.getRefreshToken();
 
@@ -81,9 +87,11 @@ public class AuthServiceImpl implements AuthService {
 		User user = userService.getUserByUserEmail(userEmail);
 		KakaoLoginRes kakaoLoginRes = new KakaoLoginRes();
 		try {
+			List<BookGradeListInfoRes> bookGradeList = bookGradeService.getBookGradeList(userEmail);
+			int bookGradeListSize = bookGradeList.size();
 			String accessToken = JwtTokenUtil.getToken(userEmail);
 			String refreshToken = JwtTokenUtil.getRefreshToken();
-
+			
 			user.setRefreshToken(refreshToken);
 			userRepository.save(user);
 			

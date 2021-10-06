@@ -1,5 +1,7 @@
 package com.pjt2.lb.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,7 +15,9 @@ import com.pjt2.lb.common.util.JwtTokenUtil;
 import com.pjt2.lb.entity.User;
 import com.pjt2.lb.repository.UserRepository;
 import com.pjt2.lb.request.GoogleLoginPostReq;
+import com.pjt2.lb.response.BookGradeListInfoRes;
 import com.pjt2.lb.response.UserLoginPostRes;
+import com.pjt2.lb.service.BookGradeService;
 import com.pjt2.lb.service.UserService;
 
 @CrossOrigin(
@@ -27,6 +31,9 @@ public class GoogleLoginController {
 	
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	BookGradeService bookGradeService;
 	
 	@Autowired
 	UserRepository userRepository;

@@ -19,6 +19,7 @@ public class UserInfoGetRes {
 	String userProfileUrl;
 	int userJoinType;
 	String refreshToken;
+	int bookGradeListSize;
 	
 	public UserInfoGetRes(int statusCode, String message) {
 		this.statusCode = statusCode;

@@ -12,4 +12,5 @@ public class KakaoLoginRes {
 	private boolean actionCode;
 	private String accessToken;
 	private String refreshToken;
+
 }

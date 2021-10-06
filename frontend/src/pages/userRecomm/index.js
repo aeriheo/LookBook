@@ -1,19 +1,18 @@
 import React from 'react';
 import Header from '../../components/headers';
-import MyInfo from '../../components/mypage';
+import UserRecomm from '../../components/userRecomm';
 import {Grid} from '@mui/material';
 
-const Mypage = props => {
+const userBasedPage = props => {
     return(
         <div style={{height: '100%', display:"flex", flexDirection:"column", justifyContent:"space-between"}}>
             <Header  />
             <Grid>
-                <MyInfo/>
+                <UserRecomm/>
             </Grid>
-            
         </div>
     );
 };
 
 
-export default Mypage;
+export default userBasedPage;

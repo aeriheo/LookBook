@@ -104,7 +104,6 @@ const BookDetail= () =>{
             setmyReview('');
         }catch(err){
             alert('등록에 실패했습니다.');
-            console.log(err);
         }
         setbtnOn(true);
     }
@@ -188,7 +187,7 @@ const BookDetail= () =>{
                         <div id='bookDataMobile'>출판사 {bookPub}</div>
                         <div id='bookPubdateMobile'>발행일자 {bookPubdate}</div>
                         
-                        <Button id='rentMobile'><RoomOutlinedIcon/>내 주변에서 도서 대여하기</Button>
+                        <Button id='rentMobile' onClick={() => {window.location.href=`/library/${bookisbn}`}}><RoomOutlinedIcon/>내 주변에서 도서 대여하기</Button>
                         <div id='myGradeDivMobile'>
                             <div id='myGradeTitleMobile'>이미 읽은 도서인가요?</div>
                             <Rating value={myGrade} size='large' onChange={handleGrade} id='ratingStyle'/>
@@ -264,7 +263,7 @@ const BookDetail= () =>{
                                 <div id='bookContentWeb'>발행일자 {bookPubdate}</div>
                             </div>
                             <div id='columnDiv'>
-                                <Button id='rentWeb'><RoomOutlinedIcon/>내 주변에서 도서 대여하기</Button>
+                                <Button id='rentWeb' onClick={() => {window.location.href=`/library/${bookisbn}`}}><RoomOutlinedIcon/>내 주변에서 도서 대여하기</Button>
                                 <div id='myGradeDivWeb'>
                                     <div id='myGradeTitleWeb'>이미 읽은 도서인가요?</div>
                                     <Rating value={myGrade} size='large' onChange={handleGrade} id='ratingStyle'/>

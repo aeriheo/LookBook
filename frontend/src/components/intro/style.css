@@ -4,7 +4,7 @@
   margin-right: 10px;
 }
 .bookImgDivMobile {
-  width: 18%;
+  width: 16%;
   margin-left: 5px;
   margin-right: 5px;
 }
@@ -17,12 +17,13 @@
 }
 .introDivMobile {
   width: 100%;
-  min-width: 500px;
+  min-width: 375px;
   position: relative;
 }
 .introDivWeb {
   width: 100%;
   position: relative;
+  margin-left: -2vw;
 }
 #bookDiv {
   margin-top: 2vh;
