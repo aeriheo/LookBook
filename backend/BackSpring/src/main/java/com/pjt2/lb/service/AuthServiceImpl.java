@@ -67,22 +67,18 @@ public class AuthServiceImpl implements AuthService {
 
 			User user = userService.getUserByUserEmail(userEmail);
 			
-			List<BookGradeListInfoRes> bookGradeList = bookGradeService.getBookGradeList(userEmail);
-
-			int bookGradeListSize = bookGradeList.size();
-			
 			String accessToken = JwtTokenUtil.getToken(userEmail);
 			String refreshToken = JwtTokenUtil.getRefreshToken();
 
 			if (passwordEncoder.matches(userPassword, user.getUserPassword())) {
 				user.setRefreshToken(refreshToken);
 				userRepository.save(user);
-				return new UserLoginPostRes(200, "로그인에 성공하였습니다.", accessToken, refreshToken, bookGradeListSize);
+				return new UserLoginPostRes(200, "로그인에 성공하였습니다.", accessToken, refreshToken);
 			} else {
-				return new UserLoginPostRes(401, "잘못된 비밀번호 입니다.", null, null, 0);
+				return new UserLoginPostRes(401, "잘못된 비밀번호 입니다.", null, null);
 			}
 		} catch (NullPointerException e) {
-			return new UserLoginPostRes(404, "존재하지 않는 계정입니다.", null, null, 0);
+			return new UserLoginPostRes(404, "존재하지 않는 계정입니다.", null, null);
 		}
 	}
 
@@ -104,7 +100,6 @@ public class AuthServiceImpl implements AuthService {
 			kakaoLoginRes.setAccessToken(accessToken);
 			kakaoLoginRes.setRefreshToken(refreshToken);
 			kakaoLoginRes.setActionCode(false);
-			kakaoLoginRes.setBookGradeListLength(bookGradeListSize);
 			return kakaoLoginRes;
 
 		} catch (Exception e) {

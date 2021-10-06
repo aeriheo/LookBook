@@ -44,20 +44,16 @@ public class GoogleLoginController {
 			User user = userService.getUserByUserEmail(info.getEmail());
 			String userEmail = user.getUserEmail();
 			
-			List<BookGradeListInfoRes> bookGradeList = bookGradeService.getBookGradeList(userEmail);
-			
-			int bookGradeListSize = bookGradeList.size();
-			
 			String accessToken = JwtTokenUtil.getToken(userEmail);
 			String refreshToken = JwtTokenUtil.getRefreshToken();
 			
 			user.setRefreshToken(refreshToken);
 			userRepository.save(user);
 			
-			return ResponseEntity.status(200).body(new UserLoginPostRes(200, "로그인에 성공하였습니다.", accessToken, refreshToken, bookGradeListSize));
+			return ResponseEntity.status(200).body(new UserLoginPostRes(200, "로그인에 성공하였습니다.", accessToken, refreshToken));
 			
 		} catch (NullPointerException e) {
-			return ResponseEntity.status(404).body(new UserLoginPostRes(404, "존재하지 않는 계정입니다.", null, null, 0));
+			return ResponseEntity.status(404).body(new UserLoginPostRes(404, "존재하지 않는 계정입니다.", null, null));
 		}
 	}
 }

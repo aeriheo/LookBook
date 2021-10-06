@@ -18,6 +18,5 @@ public class UserLoginPostRes {
 	String message;
 	String accessToken;
 	String refreshToken;
-	int bookGradeListLength;
 	
 }
