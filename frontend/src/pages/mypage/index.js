@@ -10,6 +10,7 @@ const Mypage = props => {
             <Grid>
                 <MyInfo/>
             </Grid>
+            
         </div>
     );
 };
