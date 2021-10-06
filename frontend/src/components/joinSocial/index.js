@@ -65,18 +65,16 @@ const JoinSocial = (props) =>{
             window.sessionStorage.removeItem('email');
             alert(`회원가입에 성공했습니다!
             서비스 이용을 위해 평가하기를 진행해주세요.`);
-            {isKakao==0?(
+            if(isKakao===0){
                 await userAPI.loginGoogle(id).then(window.location.replace('/score'))
-            ):(
-                await userAPI.loginKakao(new URL(window.location.href).searchParams.get('code'))
-                .then((result)=>{
-                    if(result.data.actionCode===false){
-                        window.sessionStorage.setItem('token', result.data.accessToken);
-                        window.sessionStorage.setItem('refreshToken', result.data.refreshToken);
-                        window.location.replace('/score');
-                    }
-                })
-            )}
+            }else{
+                const result = await userAPI.loginKakao(new URL(window.location.href).searchParams.get('code'));
+                if(result.data.actionCode===false){
+                    window.sessionStorage.setItem('token', result.data.accessToken);
+                    window.sessionStorage.setItem('refreshToken', result.data.refreshToken);
+                    window.location.replace('/score');
+                }
+            }
         }   
     }
 
