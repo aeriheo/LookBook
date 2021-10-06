@@ -1,5 +1,7 @@
 package com.pjt2.lb.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -10,6 +12,7 @@ import com.pjt2.lb.entity.User;
 import com.pjt2.lb.repository.UserRepository;
 import com.pjt2.lb.request.TokenPostReq;
 import com.pjt2.lb.request.UserLoginPostReq;
+import com.pjt2.lb.response.BookGradeListInfoRes;
 import com.pjt2.lb.response.KakaoLoginRes;
 import com.pjt2.lb.response.TokenPostRes;
 import com.pjt2.lb.response.UserLoginPostRes;
@@ -19,6 +22,9 @@ public class AuthServiceImpl implements AuthService {
 
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	BookGradeService bookGradeService;
 
 	@Autowired
 	UserRepository userRepository;
@@ -60,19 +66,23 @@ public class AuthServiceImpl implements AuthService {
 		try {
 
 			User user = userService.getUserByUserEmail(userEmail);
+			
+			List<BookGradeListInfoRes> bookGradeList = bookGradeService.getBookGradeList(userEmail);
 
+			int bookGradeListSize = bookGradeList.size();
+			
 			String accessToken = JwtTokenUtil.getToken(userEmail);
 			String refreshToken = JwtTokenUtil.getRefreshToken();
 
 			if (passwordEncoder.matches(userPassword, user.getUserPassword())) {
 				user.setRefreshToken(refreshToken);
 				userRepository.save(user);
-				return new UserLoginPostRes(200, "로그인에 성공하였습니다.", accessToken, refreshToken);
+				return new UserLoginPostRes(200, "로그인에 성공하였습니다.", accessToken, refreshToken, bookGradeListSize);
 			} else {
-				return new UserLoginPostRes(401, "잘못된 비밀번호 입니다.", null, null);
+				return new UserLoginPostRes(401, "잘못된 비밀번호 입니다.", null, null, 0);
 			}
 		} catch (NullPointerException e) {
-			return new UserLoginPostRes(404, "존재하지 않는 계정입니다.", null, null);
+			return new UserLoginPostRes(404, "존재하지 않는 계정입니다.", null, null, 0);
 		}
 	}
 
@@ -81,9 +91,11 @@ public class AuthServiceImpl implements AuthService {
 		User user = userService.getUserByUserEmail(userEmail);
 		KakaoLoginRes kakaoLoginRes = new KakaoLoginRes();
 		try {
+			List<BookGradeListInfoRes> bookGradeList = bookGradeService.getBookGradeList(userEmail);
+			int bookGradeListSize = bookGradeList.size();
 			String accessToken = JwtTokenUtil.getToken(userEmail);
 			String refreshToken = JwtTokenUtil.getRefreshToken();
-
+			
 			user.setRefreshToken(refreshToken);
 			userRepository.save(user);
 			
@@ -92,6 +104,7 @@ public class AuthServiceImpl implements AuthService {
 			kakaoLoginRes.setAccessToken(accessToken);
 			kakaoLoginRes.setRefreshToken(refreshToken);
 			kakaoLoginRes.setActionCode(false);
+			kakaoLoginRes.setBookGradeListLength(bookGradeListSize);
 			return kakaoLoginRes;
 
 		} catch (Exception e) {

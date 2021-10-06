@@ -1,5 +1,8 @@
 package com.pjt2.lb.response;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,5 +18,6 @@ public class UserLoginPostRes {
 	String message;
 	String accessToken;
 	String refreshToken;
+	int bookGradeListLength;
 	
 }

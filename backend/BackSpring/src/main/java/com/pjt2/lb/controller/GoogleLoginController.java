@@ -1,5 +1,7 @@
 package com.pjt2.lb.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,7 +15,9 @@ import com.pjt2.lb.common.util.JwtTokenUtil;
 import com.pjt2.lb.entity.User;
 import com.pjt2.lb.repository.UserRepository;
 import com.pjt2.lb.request.GoogleLoginPostReq;
+import com.pjt2.lb.response.BookGradeListInfoRes;
 import com.pjt2.lb.response.UserLoginPostRes;
+import com.pjt2.lb.service.BookGradeService;
 import com.pjt2.lb.service.UserService;
 
 @CrossOrigin(
@@ -29,6 +33,9 @@ public class GoogleLoginController {
 	UserService userService;
 	
 	@Autowired
+	BookGradeService bookGradeService;
+	
+	@Autowired
 	UserRepository userRepository;
 	
 	@PostMapping("/google/login")
@@ -37,16 +44,20 @@ public class GoogleLoginController {
 			User user = userService.getUserByUserEmail(info.getEmail());
 			String userEmail = user.getUserEmail();
 			
+			List<BookGradeListInfoRes> bookGradeList = bookGradeService.getBookGradeList(userEmail);
+			
+			int bookGradeListSize = bookGradeList.size();
+			
 			String accessToken = JwtTokenUtil.getToken(userEmail);
 			String refreshToken = JwtTokenUtil.getRefreshToken();
 			
 			user.setRefreshToken(refreshToken);
 			userRepository.save(user);
 			
-			return ResponseEntity.status(200).body(new UserLoginPostRes(200, "로그인에 성공하였습니다.", accessToken, refreshToken));
+			return ResponseEntity.status(200).body(new UserLoginPostRes(200, "로그인에 성공하였습니다.", accessToken, refreshToken, bookGradeListSize));
 			
 		} catch (NullPointerException e) {
-			return ResponseEntity.status(404).body(new UserLoginPostRes(404, "존재하지 않는 계정입니다.", null, null));
+			return ResponseEntity.status(404).body(new UserLoginPostRes(404, "존재하지 않는 계정입니다.", null, null, 0));
 		}
 	}
 }
