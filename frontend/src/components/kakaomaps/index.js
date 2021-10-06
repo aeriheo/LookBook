@@ -49,7 +49,7 @@ const KakaoMaps = () => {
             // MapMarker의 메세지를 나타내는 부분
             let message =  '<div class="customoverlay">' +
                             '  <a>' +
-                            '    <span class="title">'+libGugun+'</span>' +
+                            '    <span class="title">내 위치</span>' +
                             '  </a>' +
                             '</div>';
             // 현재 위치, message를 들고 Map에 Marker를 띄우는 부분.

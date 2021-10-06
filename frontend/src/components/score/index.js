@@ -22,15 +22,6 @@ const Score = () =>{
     }
 
     useLayoutEffect(()=>{
-       if( window.sessionStorage.getItem('newuser')!==true){
-           if( window.sessionStorage.getItem('token')!==null) {
-               alert('잘못된 접근입니다.');
-               window.location.replace('/lookbook');
-           }else{
-               alert('접근 권한이 없습니다.');
-               window.location.replace('/');
-           }
-       }
         async function firstLogin(){
             const result = await recommendAPI.firstRecomm();
             setData(result.firstBookList);
@@ -48,7 +39,6 @@ const Score = () =>{
         if(cnt<5) alert('평가를 5개 이상 진행해주세요 !');
         else{
             alert('사용자 취향 분석 중 입니다.. 잠시만 기다려주세요!');
-            window.sessionStorage.removeItem('newuser')
             await userAPI.updateList().then(alert('환영합니다!'));
             window.location.replace('/lookbook');
         }

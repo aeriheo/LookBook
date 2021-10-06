@@ -88,7 +88,6 @@ const Join = (props) =>{
             await userAPI.join(id, pw, name, nickname)
             .then(alert(`회원가입에 성공했습니다!
             서비스 이용을 위해 평가하기를 진행해주세요.`));
-            window.sessionStorage.setItem('newuser', true);
             await userAPI.login(id, pw).then(window.location.replace('/score'));
         }   
     }
