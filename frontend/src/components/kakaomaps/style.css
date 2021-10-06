@@ -128,6 +128,7 @@
   background-color: #fbfbfb;
   display: flex;
   flex-direction: column;
+  overflow: auto;
 }
 
 #webDivForm {
@@ -155,4 +156,5 @@
   background-color: #fbfbfb;
   display: flex;
   flex-direction: column;
+  overflow: auto;
 }

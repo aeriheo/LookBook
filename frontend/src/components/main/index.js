@@ -27,7 +27,7 @@ const MainSession = () =>{
             const result = await userAPI.userinfo();
             setData(result.data);
             setNumList(result.data.bookGradeListSize);
-            if(numList===0) {
+            if(numList===0 || !result.data.bookGradeListSize) {
                 alert('추천 시스템 이용을 위해 평점 페이지로 이동합니다.');
                 window.location.href='/score';
             }
