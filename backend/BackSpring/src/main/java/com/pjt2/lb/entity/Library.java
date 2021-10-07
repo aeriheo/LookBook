@@ -34,8 +34,8 @@ public class Library {
 	@Column(name="lib_lat")
 	String libLat;
 	
-	@Column(name="lib_lang")
-	String libLang;
+	@Column(name="lib_long")
+	String libLong;
 	
 	@Column(name="lib_sido")
 	String libSido;

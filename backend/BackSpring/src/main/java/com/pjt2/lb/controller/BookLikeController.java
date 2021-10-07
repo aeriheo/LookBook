@@ -26,7 +26,7 @@ import com.pjt2.lb.response.UserInfoGetRes;
 import com.pjt2.lb.service.BookLikeService;
 
 @CrossOrigin(
-        origins = {"http://localhost:3000"},
+        origins = {"http://localhost:3000", "https://j5a502.p.ssafy.io/"},
         allowCredentials = "true", 
         allowedHeaders = "*", 
         methods = {RequestMethod.GET,RequestMethod.POST,RequestMethod.DELETE,RequestMethod.PUT,RequestMethod.OPTIONS}
@@ -73,7 +73,6 @@ public class BookLikeController {
 
 			bookLikeService.deleteLike(user, bookIsbn);
 			
-			// 1이면 삭제 성공, 0이면 삭제할 도서가 존재하지 않는다.
 			return ResponseEntity.status(200).body(BaseResponseBody.of(200, "좋아요 삭제 성공"));
 		} catch(Exception e) {
 			return ResponseEntity.status(500).body(BaseResponseBody.of(500, "Internal Server Error"));

@@ -1,6 +1,7 @@
 package com.pjt2.lb.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -25,22 +26,23 @@ public class KakaoLoginServiceImpl implements KakaoLoginService {
 	@Autowired
 	private ObjectMapper objectMapper;
 
-	private final String kakaoOauth2ClinetId = "a765ac439be73b3505f709a713a0dcd0";
-	private final String frontendRedirectUrl = "http://localhost:3000";
+	@Value("${kakao.oauth2-id}")
+	private String kakaoOauth2ClinetId;
+	
+	private final String frontendRedirectUrl = "https://j5A502.p.ssafy.io";
 
 	@Override
 	public KakaoOAuthToken getKakaoTokenApi(String code) {
 
 		KakaoOAuthToken kakaoOAuthToken = null;
 		
-		// POST 방식으로 token에 대한 key=value 데이터 요청
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
 
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
 		params.add("grant_type", "authorization_code");
 		params.add("client_id", kakaoOauth2ClinetId);
-		params.add("redirect_uri", frontendRedirectUrl + "/callback/kakao");
+		params.add("redirect_uri", frontendRedirectUrl + "/joinsocial");
 		params.add("code", code);
 
 		HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest = new HttpEntity<>(params, headers);

@@ -1,15 +1,19 @@
 package com.pjt2.lb.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.pjt2.lb.dao.BookDao;
 import com.pjt2.lb.dao.ReviewDao;
+import com.pjt2.lb.entity.BestBookTenModel;
 import com.pjt2.lb.entity.Book;
 import com.pjt2.lb.entity.BookLike;
 import com.pjt2.lb.entity.User;
+import com.pjt2.lb.repository.BestBookTenRepository;
 import com.pjt2.lb.repository.BookGradeRepositorySupport;
 import com.pjt2.lb.repository.BookLikeRepository;
 import com.pjt2.lb.repository.BookRepository;
@@ -38,27 +42,32 @@ public class BookServiceImpl implements BookService {
 	BookLikeRepository bookLikeRepository;
 	
 	@Autowired
+	BestBookTenRepository bestBookTenRepository;
+	
+	@Autowired
 	ReviewDao reviewDao;
+	
+	@Autowired
+	BookDao bookDao;
 	
 	@Override
 	public BookInfoGetRes getBookInfo(String bookIsbn, User user) {
 		
 		String userEmail = user.getUserEmail();
 		
-		// 책 기본 정보
 		BookInfoGetRes bookInfo = new BookInfoGetRes();
 		Book book = bookRepository.findByBookIsbn(bookIsbn);
 		BeanUtils.copyProperties(book, bookInfo);
 		
-		// 책 리뷰 리스트
-		List<BookReviewListInfoRes> reviewList = reviewDao.getBookReviewList(bookIsbn, userEmail);
-		bookInfo.setReviewList(reviewList);
+		List<BookReviewListInfoRes> reviewRecentList = reviewDao.getBookRecentReviewList(bookIsbn, userEmail);
+		bookInfo.setRecentReviewList(reviewRecentList);
 		
-		// 책 평균 평점
+		List<BookReviewListInfoRes> reviewRecommList = reviewDao.getBookRecommReviewList(bookIsbn, userEmail);
+		bookInfo.setRecommReviewList(reviewRecommList);
+		
 		Double avgGrade = bookGradeRepositorySupport.getBookGradeAvg(bookIsbn);
 		bookInfo.setAvgGrade(avgGrade);
 		
-		// 나의 평점
 		try {
 			int myGrade = bookGradeRepositorySupport.getBookGrade(bookIsbn, userEmail);
 			bookInfo.setMyGrade(myGrade);
@@ -66,17 +75,33 @@ public class BookServiceImpl implements BookService {
 			bookInfo.setMyGrade(0);
 		}	
 		
-		// 나의 좋아요 여부
 		BookLike bookLike = bookLikeRepository.findByBookBookIsbnAndUserUserEmail(bookIsbn,userEmail);
 		if(bookLike != null) bookInfo.setIsLiked(1);
 		else bookInfo.setIsLiked(0);	
 		
 		return bookInfo;
 	}
-
+	
 	@Override
 	public List<BookListInfoRes> getSearchBookInfo(String searchKey, String searchWord) {
 		return bookRepositorySupport.getSearchBookInfo(searchKey, searchWord);
 	}
 
+	@Override
+	public List<BookListInfoRes> getCategoryList(int categoryId, String userEmail) {
+		return bookDao.getCategoryList(categoryId, userEmail);
+	}
+
+	@Override
+	public List<BookListInfoRes> getBestBookListInfo() {
+		List<BestBookTenModel> bestBookIsbnList = bestBookTenRepository.findTop10ByOrderByIdDesc();
+		List<BookListInfoRes> bestBookInfoList = new ArrayList<>();
+		
+		for(BestBookTenModel bestBook : bestBookIsbnList) {
+			Book book = bookRepository.findByBookIsbn(bestBook.getBook().getBookIsbn());
+			bestBookInfoList.add(new BookListInfoRes(book.getBookIsbn(), book.getBookTitle(), book.getBookImgUrl()));
+		}
+		
+		return bestBookInfoList;
+	}
 }

@@ -10,6 +10,8 @@
 
     <mappers>
     	<mapper resource="mapper/review_query.xml"/>
+    	<mapper resource="mapper/library_query.xml"/>
+    	<mapper resource="mapper/book_query.xml"/>
     </mappers>
    
 

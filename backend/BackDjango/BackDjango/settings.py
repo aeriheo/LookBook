@@ -39,12 +39,16 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    # for test
-    'testAPI',
     # for Book Data - Read Data from LB Database
     'book',
     # for User Data - Read Data from LB Database
     'user',
+    # for BookGrade Data - Read Data from LB Database
+    'book_grade',
+    # for Recommendation
+    'recommendation',
+    # for Crontab
+    'django_crontab'
 ]
 
 MIDDLEWARE = [
@@ -83,6 +87,11 @@ WSGI_APPLICATION = 'BackDjango.wsgi.application'
 
 DATABASES = LB_DATABASES
 
+# Cron Jobs
+# 분, 시, 일, 월, 요일
+CRONJOBS = [
+    ('0 18 * * *', 'recommendation.parse.execute_algorithm')
+]
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

@@ -10,4 +10,5 @@ public class UserRegisterPostReq {
 	String userPassword;
 	String userName;
 	String userNickname;
+	int userJoinType;
 }

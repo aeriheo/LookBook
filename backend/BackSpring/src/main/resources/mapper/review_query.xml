@@ -3,28 +3,43 @@
 
 <mapper namespace="com.pjt2.lb.dao.ReviewDao">
 
-	<select id="getBookReviewList" parameterType="map" resultType="com.pjt2.lb.response.BookReviewListInfoRes">
+	<select id="getBookRecentReviewList" parameterType="map" resultType="com.pjt2.lb.response.BookReviewListInfoRes">
 		SELECT r.review_id, r.review_content, r.review_date, r.review_like_cnt, u.user_nickName, CASE WHEN rl.review_id IS NULL THEN false ELSE true END as "isLiked" 
 		FROM Review as r LEFT JOIN Review_Like as rl ON r.review_id=rl.review_Id AND rl.user_email = #{userEmail}, User as u
 		WHERE book_isbn = #{bookIsbn}
-		and r.user_email = u.user_email;
+		and r.user_email = u.user_email
+		ORDER BY r.review_date DESC
 	</select>
 
     <select id="getUserReviewList" parameterType="String" resultType="com.pjt2.lb.response.UserReviewListInfoRes">
-        SELECT R.*, B.book_title, B.book_img_url, BG.book_grade, 
+		SELECT R.*, B.book_title, B.book_img_url, BG.book_grade, 
 		   CASE 
-		      WHEN Review_Like.review_id IS NULL 
-		      THEN false 
-		      ELSE true 
-		      END as "isLiked"
-		FROM Review R
-		JOIN LookBookDB.Book AS B
+			  WHEN RL.review_id IS NULL 
+			  THEN false 
+			  ELSE true 
+			  END as "isLiked"
+		FROM (
+			SELECT 
+			* FROM 
+			Review 
+			WHERE Review.user_email = #{userEmail}
+			) AS R
+		LEFT JOIN Review_Like RL
+		ON R.review_id = RL.review_Id
+		AND R.user_email = RL.user_email
+		LEFT JOIN Book AS B
 		ON R.book_isbn = B.book_isbn
-		AND R.user_email = #{userEmail}
-		LEFT JOIN LookBookDB.Book_Grade AS BG
-		ON B.book_isbn = BG.book_isbn
-		LEFT JOIN Review_Like 
-		ON R.review_id=Review_Like.review_Id;
+		LEFT JOIN Book_Grade AS BG
+		ON R.book_isbn = BG.book_isbn
+		AND R.user_email = BG.user_email;
     </select>
+    
+    <select id="getBookRecommReviewList" parameterType="map" resultType="com.pjt2.lb.response.BookReviewListInfoRes">
+		SELECT r.review_id, r.review_content, r.review_date, r.review_like_cnt, u.user_nickName, CASE WHEN rl.review_id IS NULL THEN false ELSE true END as "isLiked" 
+		FROM Review as r LEFT JOIN Review_Like as rl ON r.review_id=rl.review_Id AND rl.user_email = #{userEmail}, User as u
+		WHERE book_isbn = #{bookIsbn}
+		and r.user_email = u.user_email
+		ORDER BY r.review_like_cnt DESC
+	</select>
 
 </mapper> 

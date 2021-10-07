@@ -74,4 +74,14 @@ public class User {
 	@JsonManagedReference
 	@OneToMany(mappedBy="user")
 	List<SearchLog> searchLog = new ArrayList<SearchLog>();
+	
+	// user-userBasedCFModel
+	@JsonManagedReference
+	@OneToMany(mappedBy="user")
+	List<UserBasedCFModel> userBasedCF = new ArrayList<UserBasedCFModel>();
+	
+	// user-userPredictedGradeModel
+	@JsonManagedReference
+	@OneToMany(mappedBy="user")
+	List<UserPredictedGradeModel> userPredictedGrade = new ArrayList<UserPredictedGradeModel>();
 }

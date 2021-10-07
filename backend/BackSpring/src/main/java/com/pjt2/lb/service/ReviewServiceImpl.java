@@ -12,6 +12,7 @@ import com.pjt2.lb.repository.BookGradeRepositorySupport;
 import com.pjt2.lb.repository.BookRepository;
 import com.pjt2.lb.repository.ReviewRepository;
 import com.pjt2.lb.repository.UserRepository;
+import com.pjt2.lb.response.BestReviewInfoRes;
 import com.pjt2.lb.response.UserReviewListInfoRes;
 
 @Service("ReviewService")
@@ -40,14 +41,9 @@ public class ReviewServiceImpl implements ReviewService{
 			review.setUser(userRepository.findUserByUserEmail(userEmail));
 			review.setReviewContent(reviewContent);
 			reviewRepository.save(review);
-			
-			Book book = bookRepository.findByBookIsbn(bookIsbn);
-			book.setBookLikeCnt(book.getBookLikeCnt()+1);
-			bookRepository.save(book);
-			
+
 			return 1;
 		} catch(Exception e) {
-			// e.printStackTrace();
 			System.out.println("작성되지 않은 리뷰 혹은 bookIsbn 입니다.");
 			return -1;
 		}
@@ -56,16 +52,10 @@ public class ReviewServiceImpl implements ReviewService{
 	@Override
 	public int deleteReview(int reviewId) {
 		try {
-			Review review = reviewRepository.findById(reviewId);
-			Book book = bookRepository.findByBookIsbn(review.getBook().getBookIsbn());
-			book.setBookLikeCnt(book.getBookLikeCnt()-1);
-			bookRepository.save(book);
-			
 			reviewRepository.deleteById(reviewId);
 			
 			return 1;
 		} catch(Exception e) {
-			// e.printStackTrace();
 			System.out.println("존재하지 않는 reviewId 입니다.");
 			return -1;
 		}
@@ -80,7 +70,6 @@ public class ReviewServiceImpl implements ReviewService{
 			
 			return 1;
 		} catch(Exception e) {
-			// e.printStackTrace();
 			System.out.println("존재하지 않는 reviewId 입니다.");
 			return -1;
 		}
@@ -88,8 +77,16 @@ public class ReviewServiceImpl implements ReviewService{
 
 	@Override
 	public List<UserReviewListInfoRes> getUserReviewList(String userEmail) {
-		// 사용자가 작성한 리뷰가 없으면 빈 리스트 반환 
 		return reviewDao.getUserReviewList(userEmail);
+	}
+	
+	@Override
+	public BestReviewInfoRes getBestReviewInfo() {
+		Review review = reviewRepository.findFirstByOrderByReviewLikeCntDesc();
+		String userNickname = userRepository.findUserByUserEmail(review.getUser().getUserEmail()).getUserNickname();
+		Book book = bookRepository.findByBookIsbn(review.getBook().getBookIsbn());
+		BestReviewInfoRes bestReviewInfo = new BestReviewInfoRes(book.getBookIsbn(), book.getBookTitle(), book.getBookImgUrl(), review.getReviewContent(), userNickname);
+		return bestReviewInfo;
 	}
 
 }

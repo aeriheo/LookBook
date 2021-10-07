@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.pjt2.lb.entity.Book;
 import com.pjt2.lb.entity.BookLike;
 import com.pjt2.lb.entity.User;
 import com.pjt2.lb.repository.BookRepository;
@@ -31,8 +32,14 @@ public class BookLikeServiceImpl implements BookLikeService{
 	
 	@Override
 	public BookLike addLike(User user, String bookIsbn) {
+		Book book = bookRepository.findByBookIsbn(bookIsbn);
+		System.out.println(book.getBookLikeCnt());
+		book.setBookLikeCnt(book.getBookLikeCnt()+1);
+		System.out.println(book.getBookLikeCnt());
+		// bookRepository.save(book);
+		
 		BookLike bookLike = new BookLike();
-		bookLike.setBook(bookRepository.findByBookIsbn(bookIsbn));
+		bookLike.setBook(book);
 		bookLike.setUser(user);
 		return bookLikeRepository.save(bookLike);
 	}
@@ -40,6 +47,10 @@ public class BookLikeServiceImpl implements BookLikeService{
 	@Override
 	@Transactional 
 	public int deleteLike(User user, String bookIsbn) {
+		Book book = bookRepository.findByBookIsbn(bookIsbn);
+		book.setBookLikeCnt(book.getBookLikeCnt()-1);
+		// bookRepository.save(book);
+		
 		String userEmail = user.getUserEmail();
 		int ans = bookLikeRepository.deleteByBookBookIsbnAndUserUserEmail(bookIsbn, userEmail);
 		return ans;

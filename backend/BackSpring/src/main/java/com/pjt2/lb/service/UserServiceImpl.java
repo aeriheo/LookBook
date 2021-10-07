@@ -1,16 +1,18 @@
 package com.pjt2.lb.service;
 
+import java.util.List;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.pjt2.lb.common.response.BaseResponseBody;
 import com.pjt2.lb.entity.User;
 import com.pjt2.lb.repository.UserRepository;
 import com.pjt2.lb.request.UserInfoPutReq;
+import com.pjt2.lb.request.UserProfilePostReq;
 import com.pjt2.lb.request.UserRegisterPostReq;
+import com.pjt2.lb.response.BookGradeListInfoRes;
 import com.pjt2.lb.response.UserInfoGetRes;
 
 @Service("userService")
@@ -18,6 +20,9 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	UserRepository userRepository;
+	
+	@Autowired
+	BookGradeService bookGradeService;
 	
 	@Autowired
 	PasswordEncoder passwordEncoder;
@@ -31,6 +36,7 @@ public class UserServiceImpl implements UserService {
 		user.setUserPassword(passwordEncoder.encode(userRegisterInfo.getUserPassword()));
 		user.setUserName(userRegisterInfo.getUserName());
 		user.setUserNickname(userRegisterInfo.getUserNickname());
+		user.setUserJoinType(userRegisterInfo.getUserJoinType());
 		
 		return userRepository.save(user);
 	}
@@ -50,7 +56,9 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserInfoGetRes getUserInfo(User user) {
 		UserInfoGetRes userInfo = new UserInfoGetRes();
+		List<BookGradeListInfoRes> bookGradeList = bookGradeService.getBookGradeList(user.getUserEmail());
 		BeanUtils.copyProperties(user, userInfo);
+		userInfo.setBookGradeListSize(bookGradeList.size());
 		return userInfo;
 	}
 
@@ -88,8 +96,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public int updateProfile(User user, String userProfileUrl) {
+	public int updateProfile(User user, UserProfilePostReq userProfileInfo) {
 		try {
+			String userProfileUrl = userProfileInfo.getUserProfileUrl();
 			user.setUserProfileUrl(userProfileUrl);
 			userRepository.save(user);
 			return 1;

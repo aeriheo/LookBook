@@ -84,6 +84,7 @@ public class Book {
 	@OneToMany(mappedBy="book")
 	List<SearchLog> searchLog = new ArrayList<SearchLog>();
 	
+	// book-library
 	@ManyToMany
 	@JoinTable(
 			name = "Library_Book",
@@ -91,4 +92,18 @@ public class Book {
 		    inverseJoinColumns = @JoinColumn(name = "lib_code"))
 	List<Library> library = new ArrayList<Library>();
 	
+	// book-userBasedCFModel
+	@JsonManagedReference
+	@OneToMany(mappedBy="book")
+	List<UserBasedCFModel> userBasedCF = new ArrayList<UserBasedCFModel>();
+	
+	// book-userPredictedGradeModel
+	@JsonManagedReference
+	@OneToMany(mappedBy="book")
+	List<UserPredictedGradeModel> userPredictedGrade = new ArrayList<UserPredictedGradeModel>();
+
+	// book-itemBasedCFModel
+	@JsonManagedReference
+	@OneToMany(mappedBy="book")
+	List<ItemBasedCFModel> itemBasedCF = new ArrayList<ItemBasedCFModel>();
 }

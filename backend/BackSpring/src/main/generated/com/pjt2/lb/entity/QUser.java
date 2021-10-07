@@ -32,6 +32,8 @@ public class QUser extends EntityPathBase<User> {
 
     public final ListPath<SearchLog, QSearchLog> searchLog = this.<SearchLog, QSearchLog>createList("searchLog", SearchLog.class, QSearchLog.class, PathInits.DIRECT2);
 
+    public final ListPath<UserBasedCFModel, QUserBasedCFModel> userBasedCF = this.<UserBasedCFModel, QUserBasedCFModel>createList("userBasedCF", UserBasedCFModel.class, QUserBasedCFModel.class, PathInits.DIRECT2);
+
     public final StringPath userEmail = createString("userEmail");
 
     public final NumberPath<Integer> userJoinType = createNumber("userJoinType", Integer.class);
@@ -41,6 +43,8 @@ public class QUser extends EntityPathBase<User> {
     public final StringPath userNickname = createString("userNickname");
 
     public final StringPath userPassword = createString("userPassword");
+
+    public final ListPath<UserPredictedGradeModel, QUserPredictedGradeModel> userPredictedGrade = this.<UserPredictedGradeModel, QUserPredictedGradeModel>createList("userPredictedGrade", UserPredictedGradeModel.class, QUserPredictedGradeModel.class, PathInits.DIRECT2);
 
     public final StringPath userProfileUrl = createString("userProfileUrl");
 
