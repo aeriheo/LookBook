@@ -123,10 +123,10 @@ Social Login (Google & Kakao)
 
 # Recommendation System Structure
 ## Case 1) Crontab – 스케줄러를 활용한 주기적 실행
-<img src="https://i.imgur.com/gMp89Xc.png" width="380">
+<img src="https://i.imgur.com/gMp89Xc.png" width="280">
 
 ## Case 2) MSA(Spring-Django) – 사용자 회원가입
-<img src="https://i.imgur.com/Rqh7vZh.png" width="400">
+<img src="https://i.imgur.com/Rqh7vZh.png" width="300">
 
 
 <br>
