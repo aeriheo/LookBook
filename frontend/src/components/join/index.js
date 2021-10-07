@@ -86,12 +86,10 @@ const Join = (props) =>{
         if(emailChk===false) alert('이메일 중복 확인을 해주세요');
         if(nickChk===false) alert('닉네임 중복확인을 해주세요');
         if(emailChk & nickChk & pw===pwCheck & pw.length >=8){
-            await userAPI.join(id, pw, name, nickname, 1)
-            .then({
-                alert(`회원가입에 성공했습니다!`);
-                alert('로그인을 진행해주세요.');
-                window.location.replace('/');
-            });
+            await userAPI.join(id, pw, name, nickname, 1);
+            alert(`회원가입에 성공했습니다!`);
+            alert('로그인을 진행해주세요.');
+            window.location.replace('/');
         }   
     }
 
