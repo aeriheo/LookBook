@@ -87,7 +87,7 @@ const Review = () =>{
                 result = result.concat(
                     <div id='myLBDivMobile'>
                         <div id='myLBbookInfoDivMobile'>
-                            <div id='myLBbookTitleMobile'>
+                            <div id='myLBbookTitleMobile' onClick={()=>history.push(`/book/${item.bookIsbn}`)}>
                                 {item.bookTitle}
                             </div>
                             <div>
