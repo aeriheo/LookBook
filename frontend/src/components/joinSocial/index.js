@@ -64,13 +64,8 @@ const JoinSocial = (props) => {
             await userAPI.join(id, '', name, nickname, 0);
             window.sessionStorage.removeItem('email');
             alert(`회원가입에 성공했습니다!`);
-            if (isKakao === 0) {
-                alert('서비스 이용을 위해 평가하기를 진행해주세요.');
-                await userAPI.loginGoogle(id).then(window.location.replace('/score'))
-            } else {
-                alert('로그인을 진행해주세요.');
-                window.location.replace('/');
-            }
+            alert('로그인을 진행해주세요.');
+            window.location.replace('/');
         }
     }
 
