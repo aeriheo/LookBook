@@ -3,6 +3,7 @@ import {useMediaQuery} from 'react-responsive';
 import { useHistory } from "react-router-dom";
 import {likeAPI} from '../../utils/axios';
 import './style.css';
+import default_url from '../../images/default_imgurl.png';
 
 const Mylike = () =>{
     let history = useHistory();
@@ -28,7 +29,11 @@ const Mylike = () =>{
             data.map(item=>{
                 result = result.concat(
                     <div id='bookDivWeb' onClick={()=>history.push(`/book/${item.bookIsbn}`)}>
-                        <img src={item.bookImgUrl} id='bookLikeImgWeb' />
+                        {item.bookImgUrl?(
+                            <img src={item.bookImgUrl} id='bookLikeImgWeb'/>
+                        ):(
+                            <img src={default_url} id='bookLikeImgWeb'/>
+                        )}
                         <div id='bookTitlelikeWeb'>
                             <div id='bookTitleFontWeb'>
                                 {item.bookTitle}
