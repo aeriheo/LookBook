@@ -2,6 +2,7 @@ import React, {useState, useLayoutEffect} from 'react';
 import {useMediaQuery} from 'react-responsive';
 import { useHistory } from "react-router-dom";
 import {recommendAPI, userAPI} from '../../utils/axios';
+import default_url from '../../images/default_imgurl.png';
 import Logo from '../logo';
 import './style.css';
 
@@ -34,7 +35,11 @@ const UserRecomm = () =>{
         {data&&data.map(item=>{
             result = result.concat(
                 <div id='bookDivWeb' onClick={()=>history.push(`/book/${item.bookIsbn}`)}>
-                    <img src={item.bookImgUrl} id='bookmyRecImg' />
+                    {item.bookImgUrl?(
+                            <img src={item.bookImgUrl} id='bookmyRecImg'/>
+                        ):(
+                            <img src={default_url} id='bookmyRecImg'/>
+                        )}
                     <div id='bookTitlemyRec'>
                         <div id='bookTitleFontWeb'>
                             {item.bookTitle}

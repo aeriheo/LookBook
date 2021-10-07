@@ -42,7 +42,7 @@ const Review = () =>{
                 result = result.concat(
                     <div id='myLBDivWeb'>
                         <div id='myLBbookWeb' onClick={()=>history.push(`/book/${item.bookIsbn}`)}>
-                            {item.bookImgUrl.length>0?(
+                            {item.bookImgUrl?(
                                 <img src={item.bookImgUrl} id='myLBbookImgWeb'/>
                             ):(
                                 <img src={default_url} id='myLBbookImgWeb'/>
@@ -87,7 +87,7 @@ const Review = () =>{
                 result = result.concat(
                     <div id='myLBDivMobile'>
                         <div id='myLBbookInfoDivMobile'>
-                            <div id='myLBbookTitleMobile'>
+                            <div id='myLBbookTitleMobile' onClick={()=>history.push(`/book/${item.bookIsbn}`)}>
                                 {item.bookTitle}
                             </div>
                             <div>

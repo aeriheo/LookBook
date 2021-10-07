@@ -339,3 +339,7 @@
   cursor: pointer;
   margin-left: 1vw;
 }
+
+.rc-tabs {
+  border: none !important;
+}

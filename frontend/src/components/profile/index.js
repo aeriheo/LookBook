@@ -28,7 +28,7 @@ function S3Upload() {
     const handleFileInput = (e) => {
         const file = e.target.files[0];
         const fileExt = file.name.split('.').pop();
-        if(fileExt !=='jpg' && fileExt !== 'png'){
+        if(fileExt !=='jpg' && fileExt !== 'png' && fileExt !== 'JPG' && fileExt !== 'jpeg' && fileExt !== 'PNG' && fileExt !== 'JPEG'){
             alert('이미지 파일만 Upload 가능합니다.');
             return;
         }
