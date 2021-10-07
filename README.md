@@ -1,277 +1,190 @@
-# Sub II 구현 (UserBasedCF, ItemBasedCF)
-- 유저 기반 , 아이템 기반 추천 구현
-- private-subII / sub1 안에 있습니다.
+# LookBook
+#### 빅데이터기반 도서 추천 웹 서비스
 
-# Sub I 기능 명세 구현
+<img src="https://i.imgur.com/lh5vDHk.jpg" width="800">
 
-## REQ 1 데이터 전처리 (parse.py)
-### 1-1 데이터 로딩 및 Pandas DataFrame 변환
+## 목차
+1. [LookBook](#LookBook-Description)
+2. [Tech Stack](#Tech-Stack)
+3. [Feature Description](#Feature-Description)
+4. [Server Strucutre](#Server-Strucutre)
+5. [Recommendation System Structure](#Recommendation-System-Structure)
+6. [Database Structure](#Database-Structure)
+7. [Getting Started](#Getting-Started)
+8. [Contributor](#Contributor)
 
-![스크린샷_2021-09-02_오후_2.37.36](/uploads/eba26c771adc2ed3a8491bcbe3ba5033/스크린샷_2021-09-02_오후_2.37.36.png)
-![스크린샷_2021-09-02_오후_2.37.47](/uploads/78e8b19a3a0861f9398a2edf9b33aedf/스크린샷_2021-09-02_오후_2.37.47.png)
-![스크린샷_2021-09-02_오후_2.37.58](/uploads/659b05a40987ad36f9b8ee3a40e02441/스크린샷_2021-09-02_오후_2.37.58.png)
+<br>
+<br>
+
+# LookBook Description
+## LookBook
+**책을 보다, 룩북.**
+잡지 속의 룩북처럼 최신 도서 트렌드와 사용자 취향저격 도서를 추천해주는 서비스입니다.
+
+## Editor
+**룩북의 편집자, 에디터.**
+잡지의 한꼭지 한꼭지를 써내려가는 에디터처럼 룩북을 완성해가는 개발자입니다.
+
+<br>
+<br>
+
+# Tech Stack
+## Fronted
+<img style="display: inline;" alt="HTML5" src ="https://img.shields.io/badge/html5-%23E34F26.svg?&style=for-the-badge&logo=HTML5&logoColor=white"/><img style="display: inline;" alt="CSS3" src ="https://img.shields.io/badge/CSS3-%231572B6.svg?&style=for-the-badge&logo=css3&logoColor=white"/><img style="display: inline;" alt="javascript" src ="https://img.shields.io/badge/JavaScript-%23F7DF1E.svg?&style=for-the-badge&logo=javascript&logoColor=white"/><img style="display: inline;" alt="react" src ="https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=React&logoColor=%2361DAFB"/><img style="display: inline;" alt="meterialui" src ="https://img.shields.io/badge/materialui-%230081CB.svg?style=for-the-badge&logo=material-ui&logoColor=white"/><img style="display: inline;" alt="npm" src ="https://img.shields.io/badge/npm-%23CB3837.svg?&style=for-the-badge&logo=npm&logoColor=white"/>
+- HTML5, CSS3, JavaScript
+- [React](https://ko.reactjs.org/)
+- [Material UI](https://mui.com/)
+- npm
+    - [aws-sdk](https://www.npmjs.com/package/aws-sdk)
+    - [react-google-login](https://www.npmjs.com/package/react-google-login)
+    - [react-js-pagination](https://www.npmjs.com/package/react-js-pagination)
+    - [react-responsive](https://www.npmjs.com/package/react-responsive)
+    - [react-slick](https://www.npmjs.com/package/react-slick)
+    - [slick-carousel](https://www.npmjs.com/package/slick-carousel)
+    - [rc-tabs](https://www.npmjs.com/package/rc-tabs)
+- [Geoloaction](https://apis.map.kakao.com/)
+
+## Backend
+<img style="display: inline;" alt="java" src ="https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=java&logoColor=white"/><img style="display: inline;" alt="springboot" src ="https://img.shields.io/badge/spring boot-%236DB33F.svg?&style=for-the-badge&logo=springboot&logoColor=white"/><img style="display: inline;" alt="gradle" src ="https://img.shields.io/badge/gradle-%2302303A.svg?&style=for-the-badge&logo=gradle&logoColor=white"/><img style="display: inline;" alt="jwt" src ="https://img.shields.io/badge/jwt-%23000000.svg?&style=for-the-badge&logo=JSON Web Tokens&logoColor=white"/><img style="display: inline;" alt="python" src ="https://img.shields.io/badge/python-%2314354C.svg?style=for-the-badge&logo=python&logoColor=white"/><img style="display: inline;" alt="django" src ="https://img.shields.io/badge/django-%23092E20.svg?style=for-the-badge&logo=django&logoColor=white"/><img style="display: inline;" alt="mysql" src ="https://img.shields.io/badge/mysql-%234479A1.svg?&style=for-the-badge&logo=mysql&logoColor=white"/>
+- [Java](https://www.java.com/ko/)
+- [SpringBoot](https://spring.io/)
+- [Gradle](https://gradle.org/)
+- [JWT](https://jwt.io/)
+- [Python](https://www.python.org/)
+- [Django](https://www.djangoproject.com/)
+- [MySQL](https://www.mysql.com/)
+
+## Deploy
+<img style="display: inline;" alt="aws" src ="https://img.shields.io/badge/aws-%23232F3E.svg?&style=for-the-badge&logo=amazon aws&logoColor=white"/><img style="display: inline;" alt="nginx" src ="https://img.shields.io/badge/nginx-%23009639.svg?&style=for-the-badge&logo=nginx&logoColor=white"/><img style="display: inline;" alt="docker" src ="https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white"/><img style="display: inline;" alt="s3" src ="https://img.shields.io/badge/s3-%23569A31.svg?&style=for-the-badge&logo=amazon s3&logoColor=white"/>
+- [AWS](https://aws.amazon.com/ko/?nc2=h_lg)
+- [NginX](https://www.nginx.com/)
+- [Docker](https://www.docker.com/)
+- [AWS S3](https://aws.amazon.com/ko/s3/)
+
+<br>
+<br>
+
+# Feature Description
+## Sign Up/In
+Social Login (Google & Kakao)
+
+|Google Login            |  Kakao Login | Normal Login | Sign In|
+|:-------------------------:|:-------------------------: | :----------: | :------:|
+|![](https://i.imgur.com/jmOYyNg.png)  |  ![](https://i.imgur.com/nqfqSSO.png) | ![](https://i.imgur.com/eJFXJxr.png) | ![](https://i.imgur.com/mjDdvOW.png)|
+
+## Best 10
+좋아요 수를 기준으로 사용자들이 선호하는 Best 10 도서  
+
+## Best Review
+가장 많은 좋아요를 받은 리뷰  
+<img src="https://i.imgur.com/8pcJLID.png" width="600">
+
+## Item Based Recommendation
+가장 인기있는 도서와 유사한 도서 추천  
+<img src="https://i.imgur.com/VROJj2X.jpg" width="600">
+
+## User Predicted Grade Recommendation
+사용자 예상 평점 상위 도서 추천  
+<img src="https://i.imgur.com/Ec66u0h.png" width="600">
+
+## User Based Recommendation
+유사한 사용자가 읽은 도서 추천  
+<img src="https://i.imgur.com/U2pMDgT.jpg" width="600">
+
+## Library Location
+현재 위치를 기반으로 해당 도서를 대여할 수 있는 도서관 위치 제공  
+<img src="https://i.imgur.com/nU9TETt.png" width="600">
+
+## Like, Grade, Review
+도서에 좋아요, 평점, 리뷰 작성  
+|MY PAGE         |  GRADE | REVIEW | LIKE|
+|:-------------------------:|:-------------------------: | :----------: |:----:|
+|![](https://i.imgur.com/B1W5nAa.png)  |  ![](https://i.imgur.com/jCTFAM1.png) | ![](https://i.imgur.com/AaOSVIF.png) | ![](https://i.imgur.com/laFGql1.png)|
+
+## Search
+전체, 도서명, 저자명으로 도서 검색  
+<img src="https://i.imgur.com/WnQKZIQ.png" width="600">
+
+## Category
+총 18개의 카테고리로 도서 검색  
+<img src="https://i.imgur.com/n6GIcax.png" width="600">
 
 
-## REQ 2 데이터 통계 값 구하기 (analyze.py)
+<br>
+<br>
 
 
-### 2-1 음식점 평점 순 출력하기
-### 2-2 최소 리뷰 개수 필터링 (2-1에서 일정 개수 이하인 음식점 제외)
+# Server Strucutre
+![](https://i.imgur.com/wYauvfW.png)
 
+
+<br>
+<br>
+
+# Recommendation System Structure
+## Case 1) Crontab – 스케줄러를 활용한 주기적 실행
+<img src="https://i.imgur.com/gMp89Xc.png" width="380">
+
+## Case 2) MSA(Spring-Django) – 사용자 회원가입
+<img src="https://i.imgur.com/Rqh7vZh.png" width="400">
+
+
+<br>
+<br>
+
+
+# Database Structure
+![](https://i.imgur.com/bzwxtR5.png)
+
+
+<br>
+<br>
+
+
+# Getting Started
+## Frontend
 ```
-def sort_stores_by_score(dataframes, n=20, min_reviews=30):
-    """
-    Req. 1-2-1 각 음식점의 평균 평점을 계산하여 높은 평점의 음식점 순으로 `n`개의 음식점을 정렬하여 리턴합니다
-    Req. 1-2-2 리뷰 개수가 `min_reviews` 미만인 음식점은 제외합니다.
-    """
-    stores_reviews = pd.merge(
-        dataframes["stores"], dataframes["reviews"], left_on="id", right_on="store"
-    )
-    scores_group = stores_reviews.groupby(["store", "store_name"])
-    scores = scores_group.mean()
-    test = scores_group.count()
-    reviews_cnt = test.loc[test.score > min_reviews, 'user']
-    result = pd.merge(left=reviews_cnt, right=scores, how="inner", on=["store", "store_name"]).sort_values(by=["score"], ascending=[False])["score"].round(2)
-
-    return result.head(n=n).reset_index()
+./frontend
 ```
-
-![스크린샷_2021-09-02_오후_2.40.29](/uploads/191dd445bacb6cbed68c12f2bba07944/스크린샷_2021-09-02_오후_2.40.29.png)
-
-### 2-3 리뷰 개수 기준 음식점 정렬
-
 ```
-def get_most_reviewed_stores(dataframes, n=20):
-    """
-    Req. 1-2-3 가장 많은 리뷰를 받은 `n`개의 음식점을 정렬하여 리턴합니다
-    """
-    stores_reviews = pd.merge(
-        dataframes["stores"], dataframes["reviews"], left_on="id", right_on="store"
-    )
-    scores_group = stores_reviews.groupby(["store", "store_name"])
-    scores = scores_group.mean()
-    test = scores_group.count().sort_values(by='score', ascending=False)["content"]
-    result = pd.merge(left=test, right=scores, how="inner", on=["store", "store_name"]).sort_values(by='content', ascending=False)
-
-    return result.head(n=n).reset_index()
+npm install
 ```
-
-![스크린샷_2021-09-02_오후_2.41.07](/uploads/9f8dccec79329dab1101f7f1f497d3da/스크린샷_2021-09-02_오후_2.41.07.png)
-
-### 2-4 리뷰 개수 기준 유저 정렬
-
 ```
-def get_most_active_users(dataframes, n=20):
-    """
-    Req. 1-2-4 가장 많은 리뷰를 작성한 `n`명의 유저를 정렬하여 리턴합니다.
-    """
-    users_group = dataframes["users"].groupby(["id"])
-    users_result = users_group.count().sort_values(by='review_id', ascending=False)["review_id"]
-
-    return users_result.head(n=n).reset_index()
+npm start
 ```
-
-![스크린샷_2021-09-02_오후_2.41.59](/uploads/23093928685ddbf46b40fdd4f65a3439/스크린샷_2021-09-02_오후_2.41.59.png)
-
-
-## REQ 3 데이터 시각화 (visualize.py)
-
-### 3-1 음식점 리뷰 수 분포 구하기
-
+## Backend
+### Spring
 ```
-def show_store_review_distribution_graph(dataframes, n=1000):
-    """
-    Req. 1-3-1 전체 음식점의 리뷰 개수 분포를 그래프로 나타냅니다. 
-    """
-
-    stores = dataframes["stores"].head(n)
-    chart = sns.relplot(x="store_name", y="review_cnt", data=stores, hue="review_cnt")
-    plt.title("음식점 리뷰개수 분포")
-    plt.show()
+./backSpring
 ```
-
-![스크린샷_2021-09-02_오후_2.44.31](/uploads/fb01f1aec9d0b694b5582af526fcbb4d/스크린샷_2021-09-02_오후_2.44.31.png)
-
-### 3-2 평균 평점 분포 구하기
-
 ```
-def show_store_average_ratings_graph(dataframes, n=1000):
-    """
-    Req. 1-3-2 각 음식점의 평균 평점을 그래프로 나타냅니다.
-    """
-    stores_reviews = pd.merge(
-        dataframes["stores"], dataframes["reviews"], left_on="id", right_on="store"
-    ).head(n)
-    scores_group = stores_reviews.groupby(["store", "store_name"])
-    scores = scores_group.mean()
-
-    chart = sns.relplot(x="store_name", y="score", data=scores)
-    plt.title("음식점 평균 평점")
-    plt.show()
+./gradlew clean build
 ```
-
-![스크린샷_2021-09-02_오후_2.47.25](/uploads/6b032a2d9178da2a1a69726fe4ffdcb1/스크린샷_2021-09-02_오후_2.47.25.png)
-
-
-### 3-3 유저 리뷰 수 분포 구하기
-
 ```
-def show_user_review_distribution_graph(dataframes):
-    """
-    Req. 1-3-3 전체 유저의 리뷰 개수 분포를 그래프로 나타냅니다.
-    """
-    stores_reviews = pd.merge(
-        dataframes["stores"], dataframes["reviews"], left_on="id", right_on="store"
-    )
-    scores_group = stores_reviews.groupby(["store", "store_name"])
-    scores = scores_group.mean()
-    test = scores_group.count()["content"]
-    result = pd.merge(left=test, right=scores, how="inner", on=["store", "store_name"])
-    result.rename(columns={'id_x': 'store_id'}, inplace=True)
-    chart = sns.relplot(x="store_id", y="review_cnt", data=result, hue="review_cnt")
-    plt.title("유저 리뷰 개수")
-    plt.show()
+cd build/libs
 ```
-
-![스크린샷_2021-09-02_오후_2.52.03](/uploads/9501feaafda39b0e268a6ee65ade84a7/스크린샷_2021-09-02_오후_2.52.03.png)
-
-
-### 3-4 유저 나이대, 성별 분포 구하기
-
 ```
-def show_user_age_gender_distribution_graph(dataframes):
-    """
-    Req. 1-3-4 전체 유저의 성별/나이대 분포를 그래프로 나타냅니다.
-    """
-    user = dataframes["users"]
-    user_result = user[(user["born_year"].astype(int) > 0) & (user["born_year"].astype(int) <= datetime.today().year)].copy()
-    user_result["age"] = user_result.apply(lambda x: datetime.today().year - int(x["born_year"]) + 1, axis=1)
-
-    chart = sns.relplot(x="gender", y="age", data=user_result)
-    plt.title("성별/나이대 분포")
-    plt.show()
+java -jar [생성된 스냅샷파일 이름].jar
 ```
-
-![스크린샷_2021-09-02_오후_2.52.51](/uploads/adcd7e3ecb48cbbcbfd82635f92a10db/스크린샷_2021-09-02_오후_2.52.51.png)
-
-### 3-5 음식점 위치 분포 구하기
-
+### Django
 ```
-def show_stores_distribution_graph(dataframes):
-    """
-    Req. 1-3-5 각 음식점의 위치 분포를 지도에 나타냅니다.
-    """
-    stores = dataframes["stores"].head(1000)
-    lat = stores["latitude"].astype(float).mean()
-    long = stores["longitude"].astype(float).mean()
-    map = folium.Map([lat, long], zoom_start=7)
-    for i in stores.index:
-        lat, long = stores.loc[i, "latitude"], stores.loc[i, "longitude"]
-        title = stores.loc[i, "store_name"]
-        folium.Marker([lat, long], tooltip=title).add_to(map)
-    map.save('example.html')
-    display(map)
-```
-![스크린샷_2021-09-02_오후_2.53.27](/uploads/d7e0d32cb65e54dd7ea91dd137cb6621/스크린샷_2021-09-02_오후_2.53.27.png)
-
-## REQ 4 유저-아이템 행렬 생성(matrix.py)
-
-### 4-1 유저-음식점 행렬 생성
-
-```
-def get_user_store_matrix(dataframes):
-    """
-    Req. 4-1 유저와 음식점을 축으로 하고 평점을 값으로 갖는 행렬을 만들어 저장합니다.
-    """
-    # stores, users를 축 score를 값으로 갖는 행렬
-    users = dataframes["users"]
-    reviews = dataframes["reviews"]
-    df = pd.merge(left=users, right=reviews, left_on="id", right_on="user")
-
-    # pivot_table
-    user_store_matrix = df.pivot_table('score', index="user", columns="store").fillna(0)
-    # sparse csr_matrix
-    csr_matrix = sparse.csr_matrix(user_store_matrix)
-
-    return csr_matrix
-```
-
-![Req4-1행렬](/uploads/f264814a5260844d427dc85855b51a0a/Req4-1행렬.png)
-![Req4-1Sparse](/uploads/1cb0c5bede3f457bc6c2c791cb2e4794/Req4-1Sparse.png)
-![Req4-1Sparse2](/uploads/e0f6c4c2c5d6f71084ab5e62ae653a20/Req4-1Sparse2.png)
-
-(왼쪽 : pivot_table / 오른쪽(두 개) : sparse matrix)
-
-### 4-2 유저-카테고리 행렬 생성
-
-```
-def get_user_category_matrix(dataframes):
-    """
-    Req. 4-2 유저와 음식점 카테고리를 축으로 하고 평점 평균을 값으로 갖는 행렬을 만들어 저장합니다.
-    """
-    stores = dataframes["stores"]
-    reviews = dataframes["reviews"]
-
-    temp = pd.merge(left=stores, right=reviews, left_on="id", right_on="store")
-    stores_score = temp.groupby(["user", "category"])["score"].mean().reset_index()
-
-    # pivot_table
-    user_category = stores_score.pivot_table('score', index="user", columns="category").fillna(0)
-    # sparse csr_matrix
-    csr_matrix = sparse.csr_matrix(user_category)
-
-    return user_category
-```
-
-![Req4-2행렬](/uploads/bc3baeb5bdfc5effe2b1a7c1a2aa8a89/Req4-2행렬.png)
-
-![Req4-2Sparse](/uploads/3b816bfd851628dcdd303b3067455c4a/Req4-2Sparse.png)
-![Req4-2Sparse2](/uploads/2053e31f41d8cda3726c9c35a67adb30/Req4-2Sparse2.png)
-
-(위 : pivot_table / 아래 : sparse matrix)
-
-
-# SSAFY Bigdata project
-
-## How to Run
-
-### Sub1
-
-```sh
-cd sub1
 pip install -r requirements.txt
-python parse.py
-python analyze.py
-python visualize.py
 ```
-
-### Sub 2
-
-**Backend**
-
-```sh
-cd sub2/backend
-pip install -r requirements.txt
+```
 python manage.py makemigrations
 python manage.py migrate
-python manage.py initialize
+```
+```
 python manage.py runserver
 ```
 
-**Frontend**
+<br>
+<br>
 
-```sh
-cd sub2/frontend
-npm install
-npm run serve
-```
 
-### data file
-  - 기본 제공 데이터: 맛집 데이터
-    - 스켈레톤 폴더 내 포함
-    - PW: ssafy2021!@#$ - 확인 후 본 문서에서 PW 삭제 요망
-  - 추가 제공 데이터: 카드사 데이터
-    - 다운로드 링크: https://lab.ssafy.com/s05-bigdata-rec/card-data/-/blob/master/card-data.zip
-    - PW: ssafy2021!@#$ - 확인 후 본 문서에서 PW 삭제
-  - ** SSAFY에서 제공하는 기업 데이터는 다른 목적으로 사용할 수 없으며, 데이터 원본의 외부 반출을 금합니다.**
+# Contributor
 
+|<img src="https://i.imgur.com/TxP2QeJ.png" width="150">|<img src="https://i.imgur.com/nLP3gDK.png" width="150">|<img src="https://i.imgur.com/zeX4Gyr.png" width="150">|<img src="https://i.imgur.com/2CWF5Pc.png" width="150">|
+| :--------: | :--------: | :--------: | :--------: |
+| **서민영** <a href="https://github.com/smy999"><img src="https://i.imgur.com/SBDd7pE.png" width="20"></a> <br> Minyeong Seo | **서요셉** <a href="https://github.com/yoseph0310"><img src="https://i.imgur.com/SBDd7pE.png" width="20"></a> <br> Yosep Seo | **이가빈** <a href="https://github.com/Ariel-G-Lee"><img src="https://i.imgur.com/SBDd7pE.png" width="20"></a> <br> Gavin Lee | **허애리** <a href="https://github.com/aeriheo"><img src="https://i.imgur.com/SBDd7pE.png" width="20"></a> <br> Aeri Heo|
+|Backend<br>Design|Backend<br>Server|Backend<br>Video Director|Frontend<br> Scenario|
